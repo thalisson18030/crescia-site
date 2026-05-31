@@ -3,733 +3,857 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crescia Assist — Gestão inteligente para assistências técnicas</title>
-  <meta name="description" content="Sistema completo para assistências técnicas: OS, estoque, vendas, WhatsApp automático e IA integrada. Tudo em um só lugar.">
+  <title>Crescia Assist — Gestão para assistências técnicas com IA</title>
+  <meta name="description" content="OS, estoque, vendas, WhatsApp e IA no mesmo sistema. Feito para assistências técnicas.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:           #050d1a;
-      --bg2:          #0a1628;
-      --bg3:          #0f1f3d;
-      --accent:       #2563eb;
-      --accent-light: #3b82f6;
-      --accent-glow:  rgba(37, 99, 235, 0.12);
-      --accent-border:rgba(37, 99, 235, 0.3);
-      --text:         #f1f5f9;
-      --muted:        #94a3b8;
-      --border:       rgba(255,255,255,0.07);
-      --green:        #22c55e;
-      --red:          #ef4444;
+      --bg:    #ffffff;
+      --bg2:   #f8fafc;
+      --bg3:   #f1f5f9;
+      --blue:  #2563eb;
+      --blue-h:#1d4ed8;
+      --blue-l:#3b82f6;
+      --blue-xl:#dbeafe;
+      --bglow: rgba(37,99,235,.08);
+      --bbord: rgba(37,99,235,.22);
+      --text:  #0f172a;
+      --text2: #334155;
+      --muted: #64748b;
+      --bord:  rgba(0,0,0,.08);
+      --bord2: rgba(0,0,0,.13);
+      --green: #16a34a;
+      --green-bg: rgba(22,163,74,.08);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
     }
 
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: var(--blue);
+      overflow: hidden;
+      padding: 9px 0;
+      position: relative;
+      z-index: 300;
+    }
+    .ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: scroll-left 28s linear infinite;
+      gap: 0;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 40px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,.95);
+      letter-spacing: .01em;
+      flex-shrink: 0;
+    }
+    .ticker-item::before { content: '⚡'; font-size: 12px; }
+    .ticker-sep { color: rgba(255,255,255,.3); padding: 0 10px; display: inline-block; flex-shrink: 0; }
+    @keyframes scroll-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
     /* ── NAV ── */
     nav {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 100;
+      position: sticky;
+      top: 0;
+      z-index: 200;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 32px;
-      background: rgba(5,13,26,.85);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      height: 66px;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--bord);
     }
-
     .logo {
-      font-size: 20px;
-      font-weight: 700;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.3px;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; flex-shrink: 0;
     }
-    .logo span { color: var(--accent); }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      list-style: none;
+    .logo img { height: 38px; width: auto; display: block; }
+    .logo-text {
+      font-size: 17px; font-weight: 800; color: var(--text);
+      letter-spacing: -.4px; line-height: 1;
     }
+    .logo-text span { color: var(--blue); }
 
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
     .nav-links a {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color .2s;
+      font-size: 14px; font-weight: 500; color: var(--muted);
+      text-decoration: none; padding: 6px 14px; border-radius: 8px;
+      transition: color .15s, background .15s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--text); background: var(--bg2); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
 
-    .nav-cta {
-      background: var(--accent);
-      color: #fff !important;
-      padding: 9px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background .2s, transform .2s;
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      text-decoration: none; font-weight: 600; border-radius: 10px;
+      transition: all .2s; cursor: pointer; border: none; font-family: inherit;
     }
-    .nav-cta:hover { background: var(--accent-light) !important; transform: translateY(-1px); }
+    .btn-sm  { font-size: 14px; padding: 8px 18px; }
+    .btn-md  { font-size: 15px; padding: 11px 22px; }
+    .btn-lg  { font-size: 16px; padding: 14px 30px; }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-h); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,.35); }
+    .btn-ghost-nav { color: var(--text2); background: transparent; font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 8px; }
+    .btn-ghost-nav:hover { color: var(--text); background: var(--bg2); }
+    .btn-outline { background: transparent; color: var(--text2); border: 1.5px solid var(--bord2); }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); background: var(--bglow); }
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      min-height: calc(100vh - 104px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 130px 24px 90px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(37,99,235,.14) 0%, transparent 65%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+      padding: 80px 60px;
+      max-width: 1380px;
+      margin: 0 auto;
     }
 
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent-glow);
-      border: 1px solid var(--accent-border);
-      color: var(--accent-light);
-      padding: 6px 18px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 28px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--bglow); border: 1px solid var(--bbord);
+      color: var(--blue); padding: 5px 14px; border-radius: 100px;
+      font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      margin-bottom: 26px;
     }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px; background: var(--blue);
+      border-radius: 50%; animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
 
     .hero h1 {
-      font-size: clamp(38px, 6.5vw, 68px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -2px;
-      max-width: 820px;
-      margin-bottom: 20px;
+      font-size: clamp(38px, 4.6vw, 64px);
+      font-weight: 900; line-height: 1.04; letter-spacing: -2.5px; margin-bottom: 22px;
     }
-    .hero h1 span { color: var(--accent); }
+    .hero h1 em { color: var(--blue); font-style: normal; }
 
-    .hero p {
-      font-size: clamp(16px, 2vw, 20px);
-      color: var(--muted);
-      max-width: 540px;
-      margin: 0 auto 40px;
+    .hero-sub {
+      font-size: 17px; color: var(--text2); line-height: 1.68;
+      margin-bottom: 36px; max-width: 460px;
     }
+    .hero-ctas { display: flex; gap: 10px; margin-bottom: 52px; flex-wrap: wrap; }
+    .hero-trust { display: flex; gap: 36px; flex-wrap: wrap; }
+    .trust-item { text-align: left; }
+    .trust-val { font-size: 24px; font-weight: 900; letter-spacing: -1px; color: var(--text); }
+    .trust-lbl { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 500; }
 
-    .hero-ctas {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 70px;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: #fff;
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all .2s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-primary:hover {
-      background: var(--accent-light);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(37,99,235,.35);
-    }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--text);
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 500;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: all .2s;
-    }
-    .btn-ghost:hover { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.04); }
-
-    .hero-stats {
-      display: flex;
-      gap: 48px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .stat { text-align: center; }
-    .stat-value { font-size: 30px; font-weight: 800; letter-spacing: -1px; }
-    .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
-    .stat-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; display: inline-block; margin-right: 6px; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.4 } }
-
-    /* ── SECTION BASE ── */
-    .section {
-      padding: 100px 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-tag {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--accent-light);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    h2 {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 700;
-      letter-spacing: -1px;
-      line-height: 1.15;
-      margin-bottom: 14px;
-    }
-
-    .section-sub {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 520px;
-      margin-bottom: 56px;
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--border);
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* ── DIFERENCIAIS ── */
-    .diff-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 30px;
-      transition: all .2s;
-      position: relative;
-    }
-    .card:hover {
-      border-color: var(--accent-border);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(0,0,0,.35);
-    }
-
-    .card-icon {
-      width: 50px; height: 50px;
-      background: var(--accent-glow);
-      border: 1px solid var(--accent-border);
-      border-radius: 13px;
+    /* ── MOCKUP (mantém dark — contraste intencional) ── */
+    .hero-visual {
       display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
-      margin-bottom: 22px;
-    }
-
-    .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
-    .card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-
-    /* ── MÓDULOS ── */
-    .modulos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 10px;
-    }
-
-    .mod {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      transition: all .2s;
-    }
-    .mod:hover { border-color: var(--accent-border); background: var(--bg3); }
-    .mod-icon { font-size: 22px; flex-shrink: 0; }
-    .mod-name { font-size: 14px; font-weight: 500; }
-
-    /* ── COMO FUNCIONA ── */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 24px;
-    }
-
-    .step {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 32px 28px;
-      text-align: center;
-      transition: border-color .2s;
-    }
-    .step:hover { border-color: var(--accent-border); }
-
-    .step-num {
-      width: 48px; height: 48px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; font-weight: 700;
-      margin: 0 auto 20px;
-    }
-
-    .step h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
-    .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
-
-    /* ── TOGGLE PLANOS ── */
-    .toggle-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-bottom: 48px;
-    }
-
-    .toggle-label { font-size: 15px; font-weight: 500; color: var(--muted); transition: color .2s; }
-    .toggle-label.active { color: var(--text); }
-
-    .toggle-track {
-      width: 52px; height: 28px;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      position: relative;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    .toggle-track.anual { background: var(--accent); border-color: var(--accent); }
-
-    .toggle-thumb {
-      position: absolute;
-      width: 20px; height: 20px;
-      background: #fff;
-      border-radius: 50%;
-      top: 3px; left: 4px;
-      transition: transform .2s;
-    }
-    .toggle-track.anual .toggle-thumb { transform: translateX(24px); }
-
-    .economia-badge {
-      background: rgba(34,197,94,.12);
-      border: 1px solid rgba(34,197,94,.3);
-      color: #22c55e;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 100px;
-    }
-
-    /* ── PLANOS ── */
-    .planos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      align-items: start;
-    }
-
-    .plano {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 34px 28px;
       position: relative;
     }
-
-    .plano.destaque {
-      border-color: var(--accent);
-      background: var(--bg3);
-      box-shadow: 0 0 50px rgba(37,99,235,.15);
-    }
-
-    .plano-badge {
-      position: absolute;
-      top: -13px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent);
-      color: #fff;
-      font-size: 12px; font-weight: 700;
-      padding: 4px 18px;
-      border-radius: 100px;
-      white-space: nowrap;
-    }
-
-    .plano-nome { font-size: 21px; font-weight: 700; margin-bottom: 6px; }
-    .plano-desc { font-size: 13px; color: var(--muted); margin-bottom: 26px; }
-
-    .plano-preco { margin-bottom: 28px; line-height: 1; }
-    .plano-preco .pre { font-size: 17px; font-weight: 600; color: var(--muted); vertical-align: top; margin-top: 8px; display: inline-block; }
-    .plano-preco .valor { font-size: 52px; font-weight: 800; letter-spacing: -2px; }
-    .plano-preco .per { font-size: 14px; color: var(--muted); margin-left: 4px; }
-    .plano-preco .consulte { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
-
-    .features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 11px; }
-    .features li { font-size: 14px; display: flex; align-items: flex-start; gap: 10px; }
-    .features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-    .features li.off { color: var(--muted); }
-    .features li.off::before { content: '✕'; color: var(--red); }
-
-    .plano-btn {
-      display: block;
-      text-align: center;
-      padding: 13px;
-      border-radius: 11px;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all .2s;
-    }
-    .plano:not(.destaque) .plano-btn { border: 1px solid var(--border); color: var(--text); }
-    .plano:not(.destaque) .plano-btn:hover { border-color: var(--accent); color: var(--accent-light); }
-    .plano.destaque .plano-btn { background: var(--accent); color: #fff; }
-    .plano.destaque .plano-btn:hover { background: var(--accent-light); }
-
-    /* ── CTA FINAL ── */
-    .cta-wrap { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
-
-    .cta-box {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 90px 40px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-box::before {
-      content: '';
-      position: absolute;
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
+    .hero-glow {
+      position: absolute; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 65%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
       pointer-events: none;
     }
-    .cta-box h2 { max-width: 600px; margin: 0 auto 14px; font-size: clamp(28px,4vw,46px); }
-    .cta-box p { color: var(--muted); font-size: 18px; margin-bottom: 36px; }
+    .mockup-wrap { width: 100%; max-width: 560px; perspective: 1100px; position: relative; z-index: 1; }
+    .mockup {
+      background: #071422;
+      border: 1px solid rgba(37,99,235,.2);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(15,23,42,.18), 0 0 0 1px rgba(0,0,0,.04);
+      transform: rotateY(-7deg) rotateX(2deg);
+      transition: transform .5s ease;
+    }
+    .mockup-wrap:hover .mockup { transform: rotateY(-2deg) rotateX(1deg); }
+
+    .mock-bar {
+      background: #0b1c33; padding: 11px 16px;
+      display: flex; align-items: center; gap: 14px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .mock-dots { display: flex; gap: 6px; }
+    .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .mock-dot.r{background:#ef4444}.mock-dot.y{background:#f59e0b}.mock-dot.g{background:#22c55e}
+    .mock-title { font-size: 11.5px; color: #64748b; font-weight: 500; flex: 1; text-align: center; margin-right: 28px; }
+
+    .mock-tabs {
+      background: #071020; padding: 0 14px;
+      display: flex; border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .mock-tab { font-size: 11px; padding: 7px 14px; color: #64748b; border-bottom: 2px solid transparent; cursor: default; }
+    .mock-tab.on { color: #3b82f6; border-bottom-color: #2563eb; }
+
+    .mock-body { padding: 14px; display: flex; gap: 9px; }
+    .mk-col { flex: 1; min-width: 0; }
+    .mk-head {
+      font-size: 9.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: #64748b; padding: 5px 9px; border-radius: 6px;
+      background: rgba(255,255,255,.03); margin-bottom: 8px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-left: 2px solid;
+    }
+    .mk-head b {
+      background: rgba(255,255,255,.08); width: 17px; height: 17px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 9.5px; font-weight: 700; color: #94a3b8;
+    }
+    .mk-card {
+      background: #0d1f3a; border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px; padding: 9px; margin-bottom: 6px;
+    }
+    .mk-os { font-size: 9px; color: #3b82f6; font-weight: 700; letter-spacing: .05em; display: block; margin-bottom: 3px; }
+    .mk-dev { font-size: 11px; font-weight: 600; color: #cbd5e1; display: block; margin-bottom: 6px; line-height: 1.3; }
+    .mk-foot { display: flex; justify-content: space-between; align-items: center; }
+    .mk-cli { font-size: 10px; color: #64748b; }
+    .mk-price { font-size: 11px; font-weight: 700; color: #22c55e; }
+
+    /* ── STATS ── */
+    .stats-strip {
+      background: var(--bg2); border-top: 1px solid var(--bord); border-bottom: 1px solid var(--bord);
+      padding: 36px 60px; display: grid; grid-template-columns: repeat(4,1fr);
+      max-width: 1380px; margin: 0 auto;
+    }
+    .stat-item { text-align: center; padding: 0 20px; border-right: 1px solid var(--bord); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 40px; font-weight: 900; letter-spacing: -2px; color: var(--text); }
+    .stat-num sup { font-size: 20px; color: var(--blue); font-weight: 800; }
+    .stat-lbl { font-size: 13px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+    .gap100 { padding: 96px 0; }
+    hr.sep { border: none; height: 1px; background: var(--bord); margin: 0 48px; }
+
+    .section-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 16px; display: block;
+    }
+    h2 { font-size: clamp(28px, 3.5vw, 46px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px; }
+    .sub { font-size: 17px; color: var(--text2); line-height: 1.65; max-width: 500px; }
+
+    /* ── FEATURE SPOTLIGHT ── */
+    .fspot { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .fspot.flip .fvis { order: -1; }
+
+    .flist { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .flist li { display: flex; align-items: flex-start; gap: 11px; font-size: 15px; color: var(--text2); }
+    .flist li .ck {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+      background: var(--bglow) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%232563eb' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+      border: 1px solid var(--bbord); border-radius: 5px;
+    }
+
+    .fvis {
+      background: var(--bg2); border: 1px solid var(--bord2);
+      border-radius: 20px; padding: 30px; min-height: 300px;
+      display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden;
+    }
+    .fvis::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 20%, rgba(37,99,235,.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* IA chat */
+    .ia-row { display: flex; flex-direction: column; gap: 10px; }
+    .ia-who { font-size: 9.5px; color: var(--muted); font-weight: 700; letter-spacing: .06em; margin-bottom: 4px; }
+    .ia-bubble { padding: 11px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; max-width: 88%; }
+    .ia-bubble.u { background: var(--blue); color: #fff; align-self: flex-end; border-radius: 12px 12px 4px 12px; }
+    .ia-bubble.a { background: #fff; border: 1px solid var(--bord2); color: var(--text2); align-self: flex-start; border-radius: 12px 12px 12px 4px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+
+    /* WA msgs */
+    .wa-row { display: flex; flex-direction: column; gap: 8px; }
+    .wa-msg {
+      background: var(--green-bg); border: 1px solid rgba(22,163,74,.15);
+      border-radius: 10px; padding: 11px 14px;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .wa-ico { font-size: 18px; flex-shrink: 0; }
+    .wa-title { font-size: 11px; font-weight: 700; color: var(--green); margin-bottom: 3px; }
+    .wa-text { font-size: 12px; color: var(--text2); line-height: 1.45; }
+
+    /* ── 3 CARDS ── */
+    .card3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 60px; }
+    .fc {
+      background: var(--bg); border: 1px solid var(--bord2);
+      border-radius: 16px; padding: 26px 22px;
+      transition: all .25s; position: relative; overflow: hidden;
+    }
+    .fc::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--blue), rgba(37,99,235,.2));
+      opacity: 0; transition: opacity .25s;
+    }
+    .fc:hover { border-color: var(--bbord); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,.08); }
+    .fc:hover::after { opacity: 1; }
+    .fc-ico {
+      width: 42px; height: 42px; border-radius: 11px;
+      background: var(--bglow); border: 1px solid var(--bbord);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px; margin-bottom: 16px;
+    }
+    .fc h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .fc p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── CHIPS ── */
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--bg); border: 1px solid var(--bord2);
+      border-radius: 10px; padding: 9px 15px;
+      font-size: 13px; font-weight: 500; color: var(--text2);
+      transition: all .2s;
+    }
+    .chip:hover { border-color: var(--blue); background: var(--bglow); color: var(--blue); }
+    .chip span { font-size: 15px; }
+
+    /* ── TIMELINE ── */
+    .tl { display: flex; position: relative; margin-top: 64px; }
+    .tl::before {
+      content: ''; position: absolute; top: 27px;
+      left: calc(16.66% + 4px); right: calc(16.66% + 4px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--blue) 45%, rgba(37,99,235,.15) 100%);
+    }
+    .tl-step { flex: 1; text-align: center; padding: 0 20px; }
+    .tl-n {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px; font-weight: 800; color: var(--blue);
+      margin: 0 auto 22px; position: relative; z-index: 2;
+    }
+    .tl-step:first-child .tl-n { background: var(--blue); color: #fff; }
+    .tl-step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .tl-step p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── PLANOS ── */
+    .plans-section { background: var(--bg2); padding: 96px 0; }
+    .toggle-bar { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; }
+    .tog-lbl { font-size: 14px; font-weight: 600; color: var(--muted); transition: color .2s; cursor: pointer; }
+    .tog-lbl.on { color: var(--text); }
+    .tog-pill {
+      width: 46px; height: 25px; background: #e2e8f0; border: 1.5px solid var(--bord2);
+      border-radius: 100px; position: relative; cursor: pointer; transition: background .2s, border-color .2s;
+    }
+    .tog-pill.on { background: var(--blue); border-color: var(--blue); }
+    .tog-pill::after {
+      content: ''; position: absolute; width: 17px; height: 17px;
+      background: #fff; border-radius: 50%; top: 2px; left: 2px;
+      transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tog-pill.on::after { transform: translateX(21px); }
+    .save-pill {
+      background: rgba(22,163,74,.1); border: 1px solid rgba(22,163,74,.2);
+      color: var(--green); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px;
+    }
+
+    .plans { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; align-items: start; }
+    .plan {
+      background: var(--bg); border: 1px solid var(--bord2);
+      border-radius: 20px; padding: 30px 24px; position: relative; transition: transform .2s, box-shadow .2s;
+    }
+    .plan:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(15,23,42,.08); }
+    .plan.hi {
+      background: linear-gradient(170deg, #1e3a8a 0%, #0f172a 100%);
+      border-color: var(--blue);
+      box-shadow: 0 0 60px rgba(37,99,235,.18), inset 0 1px 0 rgba(255,255,255,.06);
+      color: #f1f5f9;
+    }
+    .plan.hi .plan-desc { color: #94a3b8; }
+    .plan.hi .p-cur, .plan.hi .p-per { color: #94a3b8; }
+    .plan.hi .plan-feats li { color: #cbd5e1; }
+    .plan.hi .plan-feats li.off { color: #475569; }
+
+    .plan-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--blue); color: #fff; font-size: 11px; font-weight: 700;
+      padding: 4px 16px; border-radius: 100px; white-space: nowrap;
+    }
+    .plan-name { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .plan-desc { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+    .plan-price { display: flex; align-items: flex-start; gap: 2px; line-height: 1; margin-bottom: 26px; }
+    .p-cur { font-size: 16px; font-weight: 600; color: var(--muted); margin-top: 9px; }
+    .p-val { font-size: 46px; font-weight: 900; letter-spacing: -2px; }
+    .p-per { font-size: 13px; color: var(--muted); align-self: flex-end; margin-bottom: 5px; margin-left: 3px; }
+    .plan-feats { list-style: none; margin-bottom: 24px; display: flex; flex-direction: column; gap: 9px; }
+    .plan-feats li { font-size: 13px; display: flex; align-items: flex-start; gap: 8px; color: var(--text2); line-height: 1.4; }
+    .plan-feats li.off { color: var(--muted); }
+    .ck-yes { color: var(--green); font-weight: 800; flex-shrink: 0; }
+    .ck-no  { color: #cbd5e1; flex-shrink: 0; font-weight: 600; }
+    .plan:not(.hi) .ck-no { color: #94a3b8; }
+    .plan-btn {
+      display: block; text-align: center; padding: 12px; border-radius: 10px;
+      font-size: 14px; font-weight: 700; text-decoration: none; transition: all .2s;
+    }
+    .plan:not(.hi) .plan-btn { border: 1.5px solid var(--bord2); color: var(--text2); }
+    .plan:not(.hi) .plan-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--bglow); }
+    .plan.hi .plan-btn { background: var(--blue); color: #fff; }
+    .plan.hi .plan-btn:hover { background: var(--blue-h); }
+
+    /* ── CTA ── */
+    .cta-section { padding: 0; }
+    .cta-box {
+      background: linear-gradient(140deg, #1e3a8a 0%, #0f172a 70%);
+      padding: 96px 60px; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: ''; position: absolute; width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(37,99,235,.2) 0%, transparent 65%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none;
+    }
+    .cta-box h2 { color: #f1f5f9; margin: 12px auto 16px; max-width: 640px; }
+    .cta-box .sub { color: #94a3b8; margin: 0 auto 36px; text-align: center; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { background: #fff; color: var(--blue); }
+    .btn-white:hover { background: #f1f5f9; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    .btn-outline-white { background: transparent; color: rgba(255,255,255,.85); border: 1.5px solid rgba(255,255,255,.25); }
+    .btn-outline-white:hover { border-color: rgba(255,255,255,.5); color: #fff; background: rgba(255,255,255,.06); }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 24px;
-      text-align: center;
+      border-top: 1px solid var(--bord); padding: 36px 60px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+      background: var(--bg);
     }
-    footer p { color: var(--muted); font-size: 14px; }
-    footer a { color: var(--accent-light); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-    .footer-logo { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 12px; }
-    .footer-logo span { color: var(--accent); }
+    .ft-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .ft-logo img { height: 30px; width: auto; }
+    .ft-logo-text { font-size: 15px; font-weight: 800; color: var(--text); }
+    .ft-logo-text span { color: var(--blue); }
+    .ft-links { display: flex; gap: 24px; }
+    .ft-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .ft-links a:hover { color: var(--text); }
+    .ft-copy { font-size: 13px; color: var(--muted); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 14px 16px; }
-      .nav-links { display: none; }
-      .section { padding: 64px 16px; }
-      .hero { padding: 110px 16px 70px; }
-      .hero-stats { gap: 28px; }
-      .cta-box { padding: 56px 24px; }
+    @media (max-width: 960px) {
+      nav { padding: 0 20px; }
+      .nav-links, .btn-ghost-nav { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 60px 24px; gap: 0; text-align: center; }
+      .hero-sub, .sub { max-width: 100%; }
+      .hero-ctas, .hero-trust { justify-content: center; }
+      .hero-visual { display: none; }
+      .stats-strip { grid-template-columns: repeat(2,1fr); padding: 32px 24px; }
+      .stat-item { border-right: none; }
+      .wrap { padding: 0 24px; }
+      hr.sep { margin: 0 24px; }
+      .fspot { grid-template-columns: 1fr; gap: 36px; }
+      .fspot.flip .fvis { order: 0; }
+      .card3 { grid-template-columns: 1fr; }
+      .tl { flex-direction: column; gap: 36px; }
+      .tl::before { display: none; }
+      .plans { grid-template-columns: 1fr; }
+      .cta-box { padding: 60px 24px; }
+      footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+      .ft-links { flex-wrap: wrap; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">O único sistema desenvolvido exclusivamente para assistências técnicas do Brasil</span>
+    <span class="ticker-sep">·</span>
+    <span class="ticker-item">O único sistema desenvolvido exclusivamente para assistências técnicas do Brasil</span>
+    <span class="ticker-sep">·</span>
+    <span class="ticker-item">O único sistema desenvolvido exclusivamente para assistências técnicas do Brasil</span>
+    <span class="ticker-sep">·</span>
+    <span class="ticker-item">O único sistema desenvolvido exclusivamente para assistências técnicas do Brasil</span>
+    <span class="ticker-sep">·</span>
+    <!-- Duplicado para loop infinito -->
+    <span class="ticker-item">O único sistema desenvolvido exclusivamente para assistências técnicas do Brasil</span>
+    <span class="ticker-sep">·</span>
+    <span class="ticker-item">O único sistema desenvolvido exclusivamente para assistências técnicas do Brasil</span>
+    <span class="ticker-sep">·</span>
+    <span class="ticker-item">O único sistema desenvolvido exclusivamente para assistências técnicas do Brasil</span>
+    <span class="ticker-sep">·</span>
+    <span class="ticker-item">O único sistema desenvolvido exclusivamente para assistências técnicas do Brasil</span>
+    <span class="ticker-sep">·</span>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">Crescia<span>Assist</span></a>
+  <a href="#" class="logo">
+    <img src="logo.png" alt="Crescia Assist" onerror="this.style.display='none'">
+    <span class="logo-text">Crescia<span>Assist</span></span>
+  </a>
   <ul class="nav-links">
-    <li><a href="#diferenciais">Por que usar</a></li>
-    <li><a href="#modulos">Funcionalidades</a></li>
+    <li><a href="#recursos">Recursos</a></li>
+    <li><a href="#modulos">Módulos</a></li>
     <li><a href="#planos">Planos</a></li>
-    <li><a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Crescia%20Assist!" class="nav-cta" target="_blank">Começar grátis</a></li>
   </ul>
-  <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Crescia%20Assist!" class="nav-cta" style="display:none" id="mob-cta" target="_blank">Começar</a>
+  <div class="nav-right">
+    <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20Crescia%20Assist!" class="btn btn-ghost-nav" target="_blank">Falar com vendas</a>
+    <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20testar%20o%20Crescia%20Assist%20gr%C3%A1tis!" class="btn btn-primary btn-sm" target="_blank">Começar grátis →</a>
+  </div>
 </nav>
-
-<script>
-  // show mobile CTA
-  if(window.innerWidth <= 768) document.getElementById('mob-cta').style.display='block';
-</script>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">✦ Feito para assistências técnicas</div>
-  <h1>Gerencie sua assistência com <span>inteligência real</span></h1>
-  <p>OS, estoque, vendas, WhatsApp automático e IA integrada — tudo em um único sistema, na nuvem, sem complicação.</p>
-  <div class="hero-ctas">
-    <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Crescia%20Assist!" class="btn-primary" target="_blank">Começar grátis →</a>
-    <a href="#modulos" class="btn-ghost">Ver funcionalidades</a>
-  </div>
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-value">12+</div>
-      <div class="stat-label">Módulos integrados</div>
+  <div>
+    <div class="hero-badge">Sistema para assistências técnicas</div>
+    <h1>Sua assistência<br>com <em>IA e WhatsApp</em><br>integrados</h1>
+    <p class="hero-sub">OS, estoque, vendas, garantias e financeiro — tudo em uma plataforma. Sem planilha, sem caderno, sem bagunça.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20testar%20o%20Crescia%20Assist%20gr%C3%A1tis!" class="btn btn-primary btn-lg" target="_blank">Testar grátis por 14 dias</a>
+      <a href="#recursos" class="btn btn-outline btn-lg">Como funciona</a>
     </div>
-    <div class="stat">
-      <div class="stat-value">
-        <span class="stat-dot"></span>IA
+    <div class="hero-trust">
+      <div class="trust-item"><div class="trust-val">14d</div><div class="trust-lbl">Trial sem cartão</div></div>
+      <div class="trust-item"><div class="trust-val">12+</div><div class="trust-lbl">Módulos incluídos</div></div>
+      <div class="trust-item"><div class="trust-val">100%</div><div class="trust-lbl">Na nuvem</div></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-glow"></div>
+    <div class="mockup-wrap">
+      <div class="mockup">
+        <div class="mock-bar">
+          <div class="mock-dots">
+            <span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span>
+          </div>
+          <div class="mock-title">Crescia Assist — Ordens de Serviço</div>
+        </div>
+        <div class="mock-tabs">
+          <div class="mock-tab on">Kanban</div>
+          <div class="mock-tab">Lista</div>
+          <div class="mock-tab">Relatório</div>
+        </div>
+        <div class="mock-body">
+          <div class="mk-col">
+            <div class="mk-head" style="border-left-color:#3b82f6">Recebido<b>2</b></div>
+            <div class="mk-card">
+              <span class="mk-os">OS-0143</span><span class="mk-dev">iPhone 14 Pro — Tela</span>
+              <div class="mk-foot"><span class="mk-cli">Maria F.</span><span class="mk-price">R$320</span></div>
+            </div>
+            <div class="mk-card">
+              <span class="mk-os">OS-0142</span><span class="mk-dev">Samsung S23 — Bateria</span>
+              <div class="mk-foot"><span class="mk-cli">Carlos R.</span><span class="mk-price">R$180</span></div>
+            </div>
+          </div>
+          <div class="mk-col">
+            <div class="mk-head" style="border-left-color:#f59e0b">Em Reparo<b>2</b></div>
+            <div class="mk-card">
+              <span class="mk-os">OS-0140</span><span class="mk-dev">Motorola G84 — Placa</span>
+              <div class="mk-foot"><span class="mk-cli">Pedro S.</span><span class="mk-price">R$480</span></div>
+            </div>
+            <div class="mk-card">
+              <span class="mk-os">OS-0139</span><span class="mk-dev">Xiaomi 13 — Display</span>
+              <div class="mk-foot"><span class="mk-cli">Luana K.</span><span class="mk-price">R$260</span></div>
+            </div>
+          </div>
+          <div class="mk-col">
+            <div class="mk-head" style="border-left-color:#22c55e">Pronto<b>1</b></div>
+            <div class="mk-card">
+              <span class="mk-os">OS-0138</span><span class="mk-dev">iPhone 12 — Conector</span>
+              <div class="mk-foot"><span class="mk-cli">Ana L.</span><span class="mk-price">R$150</span></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="stat-label">Assistente em tempo real</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value">100%</div>
-      <div class="stat-label">Na nuvem, sempre</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value">14d</div>
-      <div class="stat-label">Teste grátis</div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-num">12<sup>+</sup></div><div class="stat-lbl">Módulos nativos integrados</div></div>
+  <div class="stat-item"><div class="stat-num">6</div><div class="stat-lbl">Status no Kanban de OS</div></div>
+  <div class="stat-item"><div class="stat-num">0</div><div class="stat-lbl">Extensões pagas extras</div></div>
+  <div class="stat-item"><div class="stat-num">14<sup>d</sup></div><div class="stat-lbl">Trial grátis sem cartão</div></div>
+</div>
 
-<!-- DIFERENCIAIS -->
-<section class="section" id="diferenciais">
-  <span class="section-tag">Por que Crescia Assist</span>
-  <h2>O único sistema com IA e WhatsApp<br>nativos para assistências técnicas</h2>
-  <p class="section-sub">Não é uma adaptação de ERP genérico. É um sistema construído do zero para o dia a dia do seu negócio.</p>
+<!-- RECURSOS -->
+<section class="gap100" id="recursos">
+  <div class="wrap">
 
-  <div class="diff-grid">
-    <div class="card">
-      <div class="card-icon">🤖</div>
-      <h3>IA que entende seu negócio</h3>
-      <p>Pergunte em linguagem natural: "Qual técnico fechou mais OS esse mês?", "Quais peças estão acabando?", "Cria uma OS para o cliente João com troca de tela". A IA age diretamente no sistema.</p>
+    <!-- IA -->
+    <div class="fspot">
+      <div>
+        <span class="section-tag">Inteligência Artificial</span>
+        <h2>Uma IA que age,<br>não só responde</h2>
+        <p class="sub">Pergunte em linguagem natural e o sistema executa — sem navegar por menus, sem preencher formulários na mão.</p>
+        <ul class="flist">
+          <li><span class="ck"></span>Abre OS pela conversa com a IA automaticamente</li>
+          <li><span class="ck"></span>Consulta clientes, técnicos e estoque em tempo real</li>
+          <li><span class="ck"></span>Gera orçamentos e preenche campos por você</li>
+          <li><span class="ck"></span>Responde "qual técnico fechou mais esse mês?"</li>
+          <li><span class="ck"></span>Importa estoque de planilhas via IA (planos Pro+)</li>
+        </ul>
+      </div>
+      <div class="fvis">
+        <div class="ia-row">
+          <div>
+            <div class="ia-who">VOCÊ</div>
+            <div class="ia-bubble u">Abre uma OS para o João com troca de tela do iPhone 14</div>
+          </div>
+          <div>
+            <div class="ia-who">CRESCIA IA</div>
+            <div class="ia-bubble a">✅ OS-0144 criada para <strong>João Silva</strong> — Troca de tela · iPhone 14 Pro · R$320,00. Confirmo?</div>
+          </div>
+          <div>
+            <div class="ia-who">VOCÊ</div>
+            <div class="ia-bubble u">Quais peças estão abaixo do estoque mínimo?</div>
+          </div>
+          <div>
+            <div class="ia-who">CRESCIA IA</div>
+            <div class="ia-bubble a">⚠️ 3 peças críticas: Tela iPhone 12 (2un), Bateria Samsung A54 (1un), Flex Power Moto G82 (0un). Gero pedido?</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <div class="card-icon">💬</div>
-      <h3>WhatsApp automático</h3>
-      <p>O cliente recebe notificação em cada etapa — diagnóstico, aguardando peça, em reparo, pronto para retirada. Tudo automático, sem você precisar enviar nada.</p>
+
+    <!-- WhatsApp -->
+    <div class="fspot flip" style="margin-top:80px">
+      <div>
+        <span class="section-tag">WhatsApp automático</span>
+        <h2>O cliente acompanha<br>sem você ligar</h2>
+        <p class="sub">Cada mudança de status na OS dispara uma mensagem automática pelo WhatsApp da sua assistência — sem tocar em nada.</p>
+        <ul class="flist">
+          <li><span class="ck"></span>Notificação automática em cada etapa da OS</li>
+          <li><span class="ck"></span>Aviso de orçamento aprovado ou reprovado</li>
+          <li><span class="ck"></span>"Pronto para retirada" com endereço da loja</li>
+          <li><span class="ck"></span>Mensagens no nome e na voz da sua marca</li>
+          <li><span class="ck"></span>Conexão via QR code, sem token pago externo</li>
+        </ul>
+      </div>
+      <div class="fvis">
+        <div class="wa-row">
+          <div class="wa-msg">
+            <span class="wa-ico">💬</span>
+            <div>
+              <div class="wa-title">Em Diagnóstico</div>
+              <div class="wa-text">Olá, <strong>Maria</strong>! Seu aparelho (OS-0143) está sendo analisado. Em breve enviamos o orçamento. — Tech+</div>
+            </div>
+          </div>
+          <div class="wa-msg">
+            <span class="wa-ico">💬</span>
+            <div>
+              <div class="wa-title">Pronto para Retirada ✅</div>
+              <div class="wa-text">Boa notícia! Seu iPhone 14 Pro está pronto. Estamos na Rua das Flores, 120. — Tech+</div>
+            </div>
+          </div>
+          <div class="wa-msg">
+            <span class="wa-ico">💬</span>
+            <div>
+              <div class="wa-title">Garantia Ativada 🛡️</div>
+              <div class="wa-text">Serviço concluído com <strong>90 dias de garantia</strong>. Guarde: OS-0143. — Tech+</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <div class="card-icon">🛒</div>
-      <h3>PDV completo para revenda</h3>
-      <p>Venda celulares e acessórios direto no balcão. Comprovante A4 ou térmica 72mm, controle de garantia por item vendido e formas de pagamento em segundos.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">🛡️</div>
-      <h3>Garantias com alerta visual</h3>
-      <p>Prazo configurável por assistência, contador em dias com cor dinâmica — verde, amarelo, vermelho. Nunca mais perca o vencimento de uma garantia.</p>
+
+    <!-- 3 cards -->
+    <div class="card3">
+      <div class="fc">
+        <div class="fc-ico">🛒</div>
+        <h3>PDV e Vendas</h3>
+        <p>Venda celulares e acessórios no balcão. Emita comprovante A4 ou 72mm, registre formas de pagamento e controle garantia por item.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico">🛡️</div>
+        <h3>Garantias automáticas</h3>
+        <p>Prazo configurável por assistência. Contador com cor dinâmica — verde, amarelo, vermelho. Alerta visual antes do vencimento.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico">💰</div>
+        <h3>Financeiro integrado</h3>
+        <p>Receita de OS e vendas em um painel. Gráfico semestral, CMV automático e margem de lucro por produto — sem planilha extra.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<hr class="sep">
 
 <!-- MÓDULOS -->
-<section class="section" id="modulos">
-  <span class="section-tag">Funcionalidades</span>
-  <h2>Tudo que sua assistência<br>precisa, pronto para usar</h2>
-  <p class="section-sub">Módulos completos e integrados entre si. Sem extensões pagas, sem configuração complexa.</p>
-
-  <div class="modulos-grid">
-    <div class="mod"><span class="mod-icon">📊</span><span class="mod-name">Dashboard em tempo real</span></div>
-    <div class="mod"><span class="mod-icon">📋</span><span class="mod-name">Ordens de Serviço (Kanban)</span></div>
-    <div class="mod"><span class="mod-icon">👥</span><span class="mod-name">Clientes com histórico</span></div>
-    <div class="mod"><span class="mod-icon">🔧</span><span class="mod-name">Estoque de Peças</span></div>
-    <div class="mod"><span class="mod-icon">📱</span><span class="mod-name">Celulares & Acessórios</span></div>
-    <div class="mod"><span class="mod-icon">🛒</span><span class="mod-name">Vendas / PDV</span></div>
-    <div class="mod"><span class="mod-icon">🛡️</span><span class="mod-name">Garantias</span></div>
-    <div class="mod"><span class="mod-icon">💰</span><span class="mod-name">Financeiro</span></div>
-    <div class="mod"><span class="mod-icon">📈</span><span class="mod-name">Relatórios</span></div>
-    <div class="mod"><span class="mod-icon">🤖</span><span class="mod-name">IA Assistente</span></div>
-    <div class="mod"><span class="mod-icon">💬</span><span class="mod-name">WhatsApp Automático</span></div>
-    <div class="mod"><span class="mod-icon">⚙️</span><span class="mod-name">Perfis (Admin / Técnico / Vendedor)</span></div>
+<section class="gap100" id="modulos">
+  <div class="wrap">
+    <span class="section-tag">Módulos</span>
+    <h2>Tudo que sua assistência precisa,<br>sem extensão paga</h2>
+    <p class="sub">Cada módulo conversa com os outros. Nada isolado, nada cobrado à parte.</p>
+    <div class="chips">
+      <div class="chip"><span>📊</span> Dashboard em tempo real</div>
+      <div class="chip"><span>📋</span> Ordens de Serviço (Kanban)</div>
+      <div class="chip"><span>👥</span> Clientes com histórico</div>
+      <div class="chip"><span>🔧</span> Estoque de Peças</div>
+      <div class="chip"><span>📱</span> Celulares &amp; Acessórios</div>
+      <div class="chip"><span>🛒</span> PDV e Vendas</div>
+      <div class="chip"><span>🛡️</span> Garantias</div>
+      <div class="chip"><span>💰</span> Financeiro</div>
+      <div class="chip"><span>📈</span> Relatórios</div>
+      <div class="chip"><span>🤖</span> IA Assistente</div>
+      <div class="chip"><span>💬</span> WhatsApp automático</div>
+      <div class="chip"><span>⚙️</span> Admin / Técnico / Vendedor</div>
+    </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<hr class="sep">
 
 <!-- COMO FUNCIONA -->
-<section class="section">
-  <span class="section-tag">Como funciona</span>
-  <h2>Pronto em minutos</h2>
-  <p class="section-sub">Sem instalação, sem servidor, sem TI. Você começa a usar no mesmo dia.</p>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Crie sua conta</h3>
-      <p>Preencha os dados da empresa e escolha o plano. Acesso imediato, sem burocracia e sem cartão de crédito no trial.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>Configure em minutos</h3>
-      <p>Adicione seus técnicos, cadastre peças e celulares no estoque. Conecte o WhatsApp da assistência via QR code.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>Use e cresça</h3>
-      <p>Abra ordens, registre vendas e deixe a IA responder perguntas e executar tarefas por você. Foco no cliente, não no sistema.</p>
+<section class="gap100">
+  <div class="wrap">
+    <span class="section-tag">Como funciona</span>
+    <h2>Pronto para usar no mesmo dia</h2>
+    <p class="sub">Sem instalação, sem servidor, sem chamado de TI. Você acessa pelo navegador.</p>
+    <div class="tl">
+      <div class="tl-step">
+        <div class="tl-n">1</div>
+        <h3>Fale com a gente</h3>
+        <p>Mande uma mensagem pelo WhatsApp. Nossa equipe ativa sua conta em minutos, sem burocracia.</p>
+      </div>
+      <div class="tl-step">
+        <div class="tl-n">2</div>
+        <h3>Configure em minutos</h3>
+        <p>Adicione técnicos, cadastre estoque ou importe via planilha com IA. Conecte o WhatsApp via QR code.</p>
+      </div>
+      <div class="tl-step">
+        <div class="tl-n">3</div>
+        <h3>Use e cresça</h3>
+        <p>Abra ordens, venda no balcão e deixe a IA executar tarefas enquanto você foca no cliente.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- PLANOS -->
-<section class="section" id="planos">
-  <span class="section-tag">Planos</span>
-  <h2>Escolha o plano ideal</h2>
-  <p class="section-sub">Sem fidelidade. Cancele quando quiser. Suporte incluso em todos os planos.</p>
+<section class="plans-section" id="planos">
+  <div class="wrap">
+    <span class="section-tag">Planos</span>
+    <h2>Transparência total</h2>
+    <p class="sub" style="margin-bottom:40px">Sem taxa de ativação. Sem fidelidade. Cancele quando quiser. Suporte incluso em todos os planos.</p>
 
-  <!-- Toggle mensal / anual -->
-  <div class="toggle-wrap">
-    <span class="toggle-label active" id="lbl-mensal">Mensal</span>
-    <div class="toggle-track" id="toggle" onclick="togglePlano()">
-      <div class="toggle-thumb"></div>
+    <div class="toggle-bar">
+      <span class="tog-lbl on" id="lbl-m" onclick="setModo(false)">Mensal</span>
+      <div class="tog-pill" id="tpill" onclick="setModo()"></div>
+      <span class="tog-lbl" id="lbl-a" onclick="setModo(true)">Anual</span>
+      <span class="save-pill">Economize até 20%</span>
     </div>
-    <span class="toggle-label" id="lbl-anual">Anual</span>
-    <span class="economia-badge">Economize até 20%</span>
-  </div>
 
-  <div class="planos-grid">
-
-    <!-- BÁSICO -->
-    <div class="plano">
-      <div class="plano-nome">Básico</div>
-      <div class="plano-desc">Para assistências em crescimento</div>
-      <div class="plano-preco">
-        <span class="pre">R$</span><span class="valor" id="preco-basico">97,90</span><span class="per">/mês</span>
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-name">Básico</div>
+        <div class="plan-desc">Para assistências em crescimento</div>
+        <div class="plan-price">
+          <span class="p-cur">R$</span><span class="p-val" id="p-b">97,90</span><span class="p-per">/mês</span>
+        </div>
+        <ul class="plan-feats">
+          <li><span class="ck-yes">✓</span>Até 2 técnicos</li>
+          <li><span class="ck-yes">✓</span>OS, Clientes e Garantias</li>
+          <li><span class="ck-yes">✓</span>Estoque de peças e produtos</li>
+          <li><span class="ck-yes">✓</span>Financeiro e relatórios</li>
+          <li><span class="ck-yes">✓</span>Importação de estoque via IA</li>
+          <li class="off"><span class="ck-no">—</span>PDV e Vendas</li>
+          <li class="off"><span class="ck-no">—</span>WhatsApp automático</li>
+          <li class="off"><span class="ck-no">—</span>IA avançada com analytics</li>
+        </ul>
+        <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20plano%20B%C3%A1sico%20do%20Crescia%20Assist!" class="plan-btn" target="_blank">Falar com vendas</a>
       </div>
-      <ul class="features">
-        <li>Até 2 técnicos</li>
-        <li>OS, Estoque, Clientes, Garantias</li>
-        <li>PDV e Vendas</li>
-        <li>Financeiro e Relatórios</li>
-        <li>IA (OS, estoque e garantias)</li>
-        <li class="off">WhatsApp automático</li>
-        <li class="off">IA analytics avançado</li>
-      </ul>
-      <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20plano%20B%C3%A1sico%20do%20Crescia%20Assist!" class="plano-btn" target="_blank">Falar com vendas</a>
-    </div>
 
-    <!-- PROFISSIONAL -->
-    <div class="plano destaque">
-      <div class="plano-badge">Mais escolhido</div>
-      <div class="plano-nome">Profissional</div>
-      <div class="plano-desc">Para quem quer escalar com IA e WhatsApp</div>
-      <div class="plano-preco">
-        <span class="pre">R$</span><span class="valor" id="preco-prof">157,90</span><span class="per">/mês</span>
+      <div class="plan hi">
+        <div class="plan-badge">Mais escolhido</div>
+        <div class="plan-name">Profissional</div>
+        <div class="plan-desc">Para quem quer escalar com IA e WhatsApp</div>
+        <div class="plan-price">
+          <span class="p-cur">R$</span><span class="p-val" id="p-p">157,90</span><span class="p-per">/mês</span>
+        </div>
+        <ul class="plan-feats">
+          <li><span class="ck-yes">✓</span>Até 5 técnicos</li>
+          <li><span class="ck-yes">✓</span>Tudo do Básico</li>
+          <li><span class="ck-yes">✓</span>PDV e Vendas</li>
+          <li><span class="ck-yes">✓</span>WhatsApp automático por status</li>
+          <li><span class="ck-yes">✓</span>IA completa com analytics</li>
+          <li><span class="ck-yes">✓</span>Importação de planilhas via IA</li>
+          <li><span class="ck-yes">✓</span>Comprovante A4 e térmica 72mm</li>
+          <li><span class="ck-yes">✓</span>Perfil Vendedor separado</li>
+        </ul>
+        <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20testar%20o%20plano%20Profissional%20do%20Crescia%20Assist!" class="plan-btn" target="_blank">Começar grátis 14 dias</a>
       </div>
-      <ul class="features">
-        <li>Até 5 técnicos</li>
-        <li>Tudo do Básico</li>
-        <li>WhatsApp automático por status</li>
-        <li>IA completa com analytics</li>
-        <li>Importação de planilhas via IA</li>
-        <li>Comprovante A4 e térmica 72mm</li>
-        <li>Perfil Vendedor separado</li>
-      </ul>
-      <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20testar%20o%20plano%20Profissional%20do%20Crescia%20Assist!" class="plano-btn" target="_blank">Começar grátis 14 dias</a>
-    </div>
 
-    <!-- ENTERPRISE -->
-    <div class="plano">
-      <div class="plano-nome">Enterprise</div>
-      <div class="plano-desc">Para redes e múltiplas unidades</div>
-      <div class="plano-preco">
-        <span class="pre">R$</span><span class="valor" id="preco-ent">397,90</span><span class="per">/mês</span>
+      <div class="plan">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-desc">Para redes e múltiplas unidades</div>
+        <div class="plan-price">
+          <span class="p-cur">R$</span><span class="p-val" id="p-e">397,90</span><span class="p-per">/mês</span>
+        </div>
+        <ul class="plan-feats">
+          <li><span class="ck-yes">✓</span>Técnicos ilimitados</li>
+          <li><span class="ck-yes">✓</span>Tudo do Profissional</li>
+          <li><span class="ck-yes">✓</span>Multi-lojas com painel central</li>
+          <li><span class="ck-yes">✓</span>Onboarding dedicado</li>
+          <li><span class="ck-yes">✓</span>Suporte prioritário</li>
+          <li><span class="ck-yes">✓</span>White-label (logo, cores, nome)</li>
+        </ul>
+        <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20plano%20Enterprise%20do%20Crescia%20Assist!" class="plan-btn" target="_blank">Falar com vendas</a>
       </div>
-      <ul class="features">
-        <li>Técnicos ilimitados</li>
-        <li>Tudo do Profissional</li>
-        <li>Multi-lojas com painel central</li>
-        <li>Onboarding dedicado</li>
-        <li>Suporte prioritário</li>
-        <li>White-label (logo, cores, nome)</li>
-      </ul>
-      <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20plano%20Enterprise%20do%20Crescia%20Assist!" class="plano-btn" target="_blank">Falar com vendas</a>
     </div>
-
   </div>
 </section>
 
 <script>
-  const precos = {
-    mensal:  { basico: '97,90',  prof: '157,90', ent: '397,90' },
-    anual:   { basico: '77,90',  prof: '127,90', ent: '327,90' }
-  };
-
-  let isAnual = false;
-
-  function togglePlano() {
-    isAnual = !isAnual;
-    const modo = isAnual ? 'anual' : 'mensal';
-    document.getElementById('toggle').classList.toggle('anual', isAnual);
-    document.getElementById('lbl-mensal').classList.toggle('active', !isAnual);
-    document.getElementById('lbl-anual').classList.toggle('active', isAnual);
-    document.getElementById('preco-basico').textContent = precos[modo].basico;
-    document.getElementById('preco-prof').textContent   = precos[modo].prof;
-    document.getElementById('preco-ent').textContent    = precos[modo].ent;
+  const P = { m:{b:'97,90',p:'157,90',e:'397,90'}, a:{b:'77,90',p:'127,90',e:'327,90'} };
+  let anual = false;
+  function setModo(v) {
+    if (v !== undefined) anual = v; else anual = !anual;
+    const k = anual ? 'a' : 'm';
+    document.getElementById('tpill').classList.toggle('on', anual);
+    document.getElementById('lbl-m').classList.toggle('on', !anual);
+    document.getElementById('lbl-a').classList.toggle('on', anual);
+    document.getElementById('p-b').textContent = P[k].b;
+    document.getElementById('p-p').textContent = P[k].p;
+    document.getElementById('p-e').textContent = P[k].e;
   }
 </script>
 
-<div class="divider"></div>
-
 <!-- CTA FINAL -->
-<div class="cta-wrap">
+<div class="cta-section">
   <div class="cta-box">
-    <span class="section-tag">Comece agora</span>
-    <h2>Sua assistência merece um sistema que cresce com ela</h2>
-    <p>14 dias grátis. Sem cartão de crédito. Suporte real desde o primeiro dia.</p>
-    <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20testar%20o%20Crescia%20Assist%20gratis!" class="btn-primary" style="font-size:17px; padding:16px 36px;" target="_blank">Criar conta grátis →</a>
+    <span class="section-tag" style="color:rgba(255,255,255,.6)">Comece agora</span>
+    <h2>Sua assistência merece um sistema<br>que cresce com ela</h2>
+    <p class="sub">14 dias grátis. Sem cartão de crédito. Suporte real desde o primeiro dia.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20testar%20o%20Crescia%20Assist%20gr%C3%A1tis!" class="btn btn-white btn-lg" target="_blank">Criar conta grátis →</a>
+      <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20Crescia%20Assist!" class="btn btn-outline-white btn-lg" target="_blank">Solicitar demonstração</a>
+    </div>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <p class="footer-logo">Crescia<span>Assist</span></p>
-  <p>Sistema de gestão para assistências técnicas de celulares e eletrônicos.</p>
-  <p style="margin-top: 10px;">
-    <a href="#">Termos de uso</a> &nbsp;·&nbsp;
-    <a href="#">Privacidade</a> &nbsp;·&nbsp;
-    <a href="#">Suporte</a>
-  </p>
-  <p style="margin-top: 16px; font-size: 13px;">© 2026 Crescia IA. Todos os direitos reservados.</p>
+  <a href="#" class="ft-logo">
+    <img src="logo.png" alt="Crescia Assist" onerror="this.style.display='none'">
+    <span class="ft-logo-text">Crescia<span>Assist</span></span>
+  </a>
+  <div class="ft-links">
+    <a href="#">Termos de uso</a>
+    <a href="#">Privacidade</a>
+    <a href="https://wa.me/5586988634957" target="_blank">Suporte</a>
+  </div>
+  <p class="ft-copy">© 2026 Crescia IA. Todos os direitos reservados.</p>
 </footer>
 
 </body>
