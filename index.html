@@ -41,34 +41,35 @@
 
     /* ── TICKER ── */
     .ticker-wrap {
-      background: var(--blue);
+      background: #07112b;
       overflow: hidden;
-      padding: 9px 0;
+      padding: 10px 0;
       position: relative;
       z-index: 300;
+      border-bottom: 1px solid rgba(37,99,235,.2);
     }
     .ticker-track {
       display: flex;
       white-space: nowrap;
-      animation: scroll-left 28s linear infinite;
+      animation: scroll-left 34s linear infinite;
       gap: 0;
     }
     .ticker-track:hover { animation-play-state: paused; }
     .ticker-item {
       display: inline-flex;
       align-items: center;
-      gap: 14px;
-      padding: 0 36px;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: .08em;
+      gap: 12px;
+      padding: 0 40px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,.82);
+      letter-spacing: .1em;
       text-transform: uppercase;
       flex-shrink: 0;
     }
-    .ticker-item .t-icon { font-size: 14px; opacity: .85; }
-    .ticker-item .t-hl { color: #93c5fd; }
-    .ticker-sep { color: rgba(255,255,255,.25); padding: 0 8px; display: inline-block; flex-shrink: 0; font-size: 18px; line-height: 1; }
+    .t-logo { height: 22px; width: auto; mix-blend-mode: screen; flex-shrink: 0; opacity: .95; }
+    .ticker-item .t-hl { color: #60a5fa; font-weight: 700; }
+    .ticker-sep { color: rgba(37,99,235,.45); padding: 0 6px; display: inline-block; flex-shrink: 0; font-size: 16px; line-height: 1; }
     @keyframes scroll-left {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -89,10 +90,15 @@
       border-bottom: 1px solid var(--bord);
     }
     .logo {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 11px;
       text-decoration: none; flex-shrink: 0;
     }
-    .logo img { height: 56px; width: auto; display: block; }
+    .logo img { height: 42px; width: auto; display: block; border-radius: 10px; }
+    .logo-name {
+      font-size: 17px; font-weight: 800; color: var(--text);
+      letter-spacing: -.3px; line-height: 1;
+    }
+    .logo-name span { color: var(--blue); }
     .logo-text { display: none; }
 
     .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
@@ -432,9 +438,10 @@
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
       background: var(--bg);
     }
-    .ft-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .ft-logo img { height: 48px; width: auto; }
-    .ft-logo-text { display: none; }
+    .ft-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .ft-logo img { height: 38px; width: auto; border-radius: 9px; }
+    .ft-logo-text { font-size: 16px; font-weight: 800; color: var(--text); letter-spacing: -.3px; }
+    .ft-logo-text span { color: var(--blue); }
     .ft-links { display: flex; gap: 24px; }
     .ft-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
     .ft-links a:hover { color: var(--text); }
@@ -554,39 +561,39 @@
 <!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-track">
-    <span class="ticker-item"><span class="t-icon">⚡</span>O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas do Brasil</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">🧠</span>Sistema baseado nas <span class="t-hl">necessidades reais</span> dos usuários</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">⚡</span>O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas do Brasil</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">🧠</span>Sistema baseado nas <span class="t-hl">necessidades reais</span> dos usuários</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">⚡</span>O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas do Brasil</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">🧠</span>Sistema baseado nas <span class="t-hl">necessidades reais</span> dos usuários</span>
-    <span class="ticker-sep">◆</span>
-    <!-- Duplicado para loop infinito -->
-    <span class="ticker-item"><span class="t-icon">⚡</span>O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas do Brasil</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">🧠</span>Sistema baseado nas <span class="t-hl">necessidades reais</span> dos usuários</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">⚡</span>O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas do Brasil</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">🧠</span>Sistema baseado nas <span class="t-hl">necessidades reais</span> dos usuários</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">⚡</span>O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas do Brasil</span>
-    <span class="ticker-sep">◆</span>
-    <span class="ticker-item"><span class="t-icon">🧠</span>Sistema baseado nas <span class="t-hl">necessidades reais</span> dos usuários</span>
-    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">Sistema criado com base nas <span class="t-hl">necessidades reais</span> dos técnicos</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">OS, estoque, vendas, WhatsApp e <span class="t-hl">IA integrada</span> em um único lugar</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">Sistema criado com base nas <span class="t-hl">necessidades reais</span> dos técnicos</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">OS, estoque, vendas, WhatsApp e <span class="t-hl">IA integrada</span> em um único lugar</span>
+    <span class="ticker-sep">|</span>
+    <!-- loop -->
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">Sistema criado com base nas <span class="t-hl">necessidades reais</span> dos técnicos</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">OS, estoque, vendas, WhatsApp e <span class="t-hl">IA integrada</span> em um único lugar</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">Sistema criado com base nas <span class="t-hl">necessidades reais</span> dos técnicos</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">OS, estoque, vendas, WhatsApp e <span class="t-hl">IA integrada</span> em um único lugar</span>
+    <span class="ticker-sep">|</span>
   </div>
 </div>
 
 <!-- NAV -->
 <nav>
   <a href="#" class="logo">
-    <img src="logo.png" alt="Crescia Assist" onerror="this.style.display='none'">
-    <span class="logo-text">Crescia<span>Assist</span></span>
+    <img src="icon.jpeg" alt="Crescia Assist" onerror="this.style.display='none'">
+    <span class="logo-name">Crescia<span>Assist</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="#recursos">Recursos</a></li>
@@ -700,8 +707,8 @@
           <span class="sd r"></span><span class="sd y"></span><span class="sd g"></span>
           <span class="sbar-title">Crescia Assist — Kanban de OS</span>
         </div>
-        <img src="screen-kanban.jpg" alt="Kanban de OS" style="width:100%;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="screen-ph" style="display:none">Suba <strong>screen-kanban.jpg</strong> no GitHub para exibir o print aqui</div>
+        <img src="screen-kanban.png" alt="Kanban de OS" style="width:100%;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="screen-ph" style="display:none">Suba <strong>screen-kanban.png</strong> no GitHub para exibir o print aqui</div>
       </div>
     </div>
 
@@ -726,8 +733,8 @@
           <span class="sd r"></span><span class="sd y"></span><span class="sd g"></span>
           <span class="sbar-title">Crescia Assist — Dashboard</span>
         </div>
-        <img src="screen-dashboard.jpg" alt="Dashboard" style="width:100%;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="screen-ph" style="display:none">Suba <strong>screen-dashboard.jpg</strong> no GitHub para exibir o print aqui</div>
+        <img src="screen-dashboard.png" alt="Dashboard" style="width:100%;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="screen-ph" style="display:none">Suba <strong>screen-dashboard.png</strong> no GitHub para exibir o print aqui</div>
       </div>
     </div>
 
@@ -1089,7 +1096,7 @@
 <!-- FOOTER -->
 <footer>
   <a href="#" class="ft-logo">
-    <img src="logo.png" alt="Crescia Assist" onerror="this.style.display='none'">
+    <img src="icon.jpeg" alt="Crescia Assist" onerror="this.style.display='none'">
     <span class="ft-logo-text">Crescia<span>Assist</span></span>
   </a>
   <div class="ft-links">
