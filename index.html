@@ -3,216 +3,475 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crescia Assist — Sistema de Gestão para Assistências Técnicas</title>
-  <meta name="description" content="Gerencie sua assistência técnica com IA integrada. Ordens de serviço, estoque, vendas, WhatsApp automático e muito mais.">
+  <title>Crescia Assist — Gestão inteligente para assistências técnicas</title>
+  <meta name="description" content="Sistema completo para assistências técnicas: OS, estoque, vendas, WhatsApp automático e IA integrada. Tudo em um só lugar.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --blue: #3b82f6;
-      --blue-glow: #60a5fa;
-      --dark: #030712;
-      --dark2: #0a0f1e;
-      --card: #0d1526;
-      --border: rgba(59,130,246,0.15);
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --dim: #475569;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--dark); color: var(--text);
-      font-family: 'Barlow', sans-serif; line-height: 1.6; overflow-x: hidden;
-    }
-    h1,h2,h3,h4 { font-family: 'Rajdhani', sans-serif; font-weight: 700; line-height: 1.2; }
-    a { text-decoration: none; color: inherit; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    .tag {
-      display: inline-block; background: rgba(59,130,246,0.1);
-      border: 1px solid rgba(59,130,246,0.3); color: var(--blue-glow);
-      padding: 4px 14px; border-radius: 20px; font-size: 12px;
-      font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;
+      --bg:           #050d1a;
+      --bg2:          #0a1628;
+      --bg3:          #0f1f3d;
+      --accent:       #2563eb;
+      --accent-light: #3b82f6;
+      --accent-glow:  rgba(37, 99, 235, 0.12);
+      --accent-border:rgba(37, 99, 235, 0.3);
+      --text:         #f1f5f9;
+      --muted:        #94a3b8;
+      --border:       rgba(255,255,255,0.07);
+      --green:        #22c55e;
+      --red:          #ef4444;
     }
 
-    /* NAV */
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(3,7,18,0.88); backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border); padding: 12px 0;
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(5,13,26,.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
     }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo img { height: 38px; width: auto; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; transition: color .2s; }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
     .nav-links a:hover { color: var(--text); }
-    .btn-wa {
-      background: #25d366; color: #fff; padding: 10px 22px; border-radius: 8px;
-      font-weight: 700; font-size: 14px; display: inline-flex; align-items: center;
-      gap: 8px; transition: background .2s, transform .1s;
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
     }
-    .btn-wa:hover { background: #1db954; transform: translateY(-1px); }
-    .btn-outline {
-      border: 1px solid rgba(59,130,246,0.4); color: var(--blue-glow);
-      padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: 14px;
-      background: transparent; display: inline-flex; align-items: center; gap: 8px;
+    .nav-cta:hover { background: var(--accent-light) !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 130px 24px 90px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(37,99,235,.14) 0%, transparent 65%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-border);
+      color: var(--accent-light);
+      padding: 6px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6.5vw, 68px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      max-width: 820px;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 40px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 70px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(37,99,235,.35);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--border);
       transition: all .2s;
     }
-    .btn-outline:hover { background: rgba(59,130,246,0.1); border-color: var(--blue); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.04); }
 
-    /* HERO */
-    #hero { padding: 140px 0 100px; position: relative; overflow: hidden; }
-    .hero-glow {
-      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
-      width: 800px; height: 800px;
-      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-content { text-align: center; position: relative; z-index: 1; }
-    .hero-title { font-size: clamp(40px,6vw,70px); margin-bottom: 20px; }
-    .hero-title span { color: var(--blue-glow); }
-    .hero-sub { font-size: 18px; color: var(--muted); max-width: 560px; margin: 0 auto 36px; }
-    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
     .hero-stats {
-      display: flex; justify-content: center; gap: 48px; margin-top: 64px; flex-wrap: wrap;
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
+
     .stat { text-align: center; }
-    .stat-num { font-family: 'Rajdhani',sans-serif; font-size: 36px; font-weight: 700; color: var(--blue-glow); }
-    .stat-label { color: var(--muted); font-size: 13px; margin-top: 2px; }
-    .stat-div { width: 1px; background: var(--border); align-self: stretch; }
+    .stat-value { font-size: 30px; font-weight: 800; letter-spacing: -1px; }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .stat-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; display: inline-block; margin-right: 6px; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.4 } }
 
-    /* SECTIONS */
-    section { padding: 90px 0; }
-    .section-header { text-align: center; margin-bottom: 56px; }
-    .section-title { font-size: clamp(28px,4vw,42px); margin-bottom: 12px; }
-    .section-sub { color: var(--muted); font-size: 16px; max-width: 520px; margin: 0 auto; }
-
-    /* PROBLEMA */
-    #problema { background: var(--dark2); }
-    .problema-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 24px; }
-    .problema-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 28px;
+    /* ── SECTION BASE ── */
+    .section {
+      padding: 100px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .problema-icon { font-size: 32px; margin-bottom: 14px; }
-    .problema-card h3 { font-size: 18px; margin-bottom: 8px; }
-    .problema-card p { color: var(--muted); font-size: 14px; line-height: 1.6; }
 
-    /* FEATURES */
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 20px; }
-    .feature-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 28px;
-      transition: border-color .2s, transform .2s;
+    .section-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-light);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
     }
-    .feature-card:hover { border-color: rgba(59,130,246,.4); transform: translateY(-3px); }
-    .feature-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      background: rgba(59,130,246,.12);
+
+    h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 56px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── DIFERENCIAIS ── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      transition: all .2s;
+      position: relative;
+    }
+    .card:hover {
+      border-color: var(--accent-border);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+
+    .card-icon {
+      width: 50px; height: 50px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-border);
+      border-radius: 13px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px; margin-bottom: 16px;
+      font-size: 24px;
+      margin-bottom: 22px;
     }
-    .feature-card h3 { font-size: 18px; margin-bottom: 8px; }
-    .feature-card p { color: var(--muted); font-size: 14px; }
 
-    /* PLANOS */
-    #planos { background: var(--dark2); }
+    .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ── MÓDULOS ── */
+    .modulos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
+    }
+
+    .mod {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all .2s;
+    }
+    .mod:hover { border-color: var(--accent-border); background: var(--bg3); }
+    .mod-icon { font-size: 22px; flex-shrink: 0; }
+    .mod-name { font-size: 14px; font-weight: 500; }
+
+    /* ── COMO FUNCIONA ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 24px;
+    }
+
+    .step {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px;
+      text-align: center;
+      transition: border-color .2s;
+    }
+    .step:hover { border-color: var(--accent-border); }
+
+    .step-num {
+      width: 48px; height: 48px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700;
+      margin: 0 auto 20px;
+    }
+
+    .step h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+    .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ── TOGGLE PLANOS ── */
     .toggle-wrap {
-      display: flex; justify-content: center; align-items: center;
-      gap: 14px; margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 48px;
     }
-    .toggle-label { color: var(--muted); font-size: 14px; font-weight: 500; }
+
+    .toggle-label { font-size: 15px; font-weight: 500; color: var(--muted); transition: color .2s; }
     .toggle-label.active { color: var(--text); }
-    .toggle {
-      width: 52px; height: 28px; background: var(--blue);
-      border-radius: 14px; position: relative; cursor: pointer; border: none;
+
+    .toggle-track {
+      width: 52px; height: 28px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      position: relative;
+      cursor: pointer;
+      transition: background .2s;
     }
-    .toggle::after {
-      content: ''; position: absolute; top: 3px; left: 3px;
-      width: 22px; height: 22px; background: #fff; border-radius: 50%;
+    .toggle-track.anual { background: var(--accent); border-color: var(--accent); }
+
+    .toggle-thumb {
+      position: absolute;
+      width: 20px; height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px; left: 4px;
       transition: transform .2s;
     }
-    .toggle.anual::after { transform: translateX(24px); }
-    .economy-badge {
-      background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.3);
-      color: #4ade80; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    .toggle-track.anual .toggle-thumb { transform: translateX(24px); }
+
+    .economia-badge {
+      background: rgba(34,197,94,.12);
+      border: 1px solid rgba(34,197,94,.3);
+      color: #22c55e;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
     }
-    .planos-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 24px; align-items: start; }
-    .plano-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 32px; position: relative;
+
+    /* ── PLANOS ── */
+    .planos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      align-items: start;
     }
-    .plano-card.destaque {
-      border-color: var(--blue);
-      background: linear-gradient(180deg,rgba(59,130,246,.06) 0%,var(--card) 100%);
+
+    .plano {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 34px 28px;
+      position: relative;
     }
-    .destaque-badge {
-      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
-      background: var(--blue); color: #fff; padding: 4px 18px; border-radius: 20px;
-      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+
+    .plano.destaque {
+      border-color: var(--accent);
+      background: var(--bg3);
+      box-shadow: 0 0 50px rgba(37,99,235,.15);
     }
-    .plano-nome { font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
-    .plano-preco { font-family: 'Rajdhani',sans-serif; font-size: 46px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
-    .plano-preco span { font-size: 17px; color: var(--muted); font-weight: 400; }
-    .plano-desde { color: var(--muted); font-size: 12px; margin-bottom: 24px; min-height: 18px; }
-    .plano-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
-    .plano-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-    .plano-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--muted); }
-    .check { color: #4ade80; flex-shrink: 0; font-size: 15px; margin-top: 1px; }
-    .x { color: var(--dim); flex-shrink: 0; font-size: 15px; margin-top: 1px; }
+
+    .plano-badge {
+      position: absolute;
+      top: -13px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px; font-weight: 700;
+      padding: 4px 18px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .plano-nome { font-size: 21px; font-weight: 700; margin-bottom: 6px; }
+    .plano-desc { font-size: 13px; color: var(--muted); margin-bottom: 26px; }
+
+    .plano-preco { margin-bottom: 28px; line-height: 1; }
+    .plano-preco .pre { font-size: 17px; font-weight: 600; color: var(--muted); vertical-align: top; margin-top: 8px; display: inline-block; }
+    .plano-preco .valor { font-size: 52px; font-weight: 800; letter-spacing: -2px; }
+    .plano-preco .per { font-size: 14px; color: var(--muted); margin-left: 4px; }
+    .plano-preco .consulte { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+
+    .features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 11px; }
+    .features li { font-size: 14px; display: flex; align-items: flex-start; gap: 10px; }
+    .features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .features li.off { color: var(--muted); }
+    .features li.off::before { content: '✕'; color: var(--red); }
+
     .plano-btn {
-      width: 100%; padding: 13px; border-radius: 10px; font-weight: 700; font-size: 15px;
-      cursor: pointer; border: 1px solid rgba(59,130,246,.4);
-      background: transparent; color: var(--blue-glow); transition: all .2s;
+      display: block;
+      text-align: center;
+      padding: 13px;
+      border-radius: 11px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .2s;
     }
-    .plano-btn:hover { background: rgba(59,130,246,.1); }
-    .plano-card.destaque .plano-btn { background: var(--blue); color: #fff; border-color: var(--blue); }
-    .plano-card.destaque .plano-btn:hover { background: #2563eb; }
+    .plano:not(.destaque) .plano-btn { border: 1px solid var(--border); color: var(--text); }
+    .plano:not(.destaque) .plano-btn:hover { border-color: var(--accent); color: var(--accent-light); }
+    .plano.destaque .plano-btn { background: var(--accent); color: #fff; }
+    .plano.destaque .plano-btn:hover { background: var(--accent-light); }
 
-    /* DEPOIMENTOS */
-    .dep-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 20px; }
-    .dep-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
-    .dep-stars { color: #fbbf24; font-size: 14px; margin-bottom: 14px; }
-    .dep-text { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
-    .dep-author { display: flex; align-items: center; gap: 12px; }
-    .dep-avatar {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(59,130,246,.15); display: flex; align-items: center; justify-content: center;
-      color: var(--blue-glow); font-weight: 700; font-size: 14px; flex-shrink: 0;
-    }
-    .dep-name { font-weight: 600; font-size: 14px; }
-    .dep-role { color: var(--dim); font-size: 12px; }
+    /* ── CTA FINAL ── */
+    .cta-wrap { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
 
-    /* CTA */
-    #cta {
-      background: linear-gradient(135deg,var(--dark2) 0%,#0a0f2e 100%);
-      border-top: 1px solid var(--border); text-align: center; padding: 100px 0;
-      position: relative; overflow: hidden;
+    .cta-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 90px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .cta-glow {
-      position: absolute; bottom: -200px; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle,rgba(59,130,246,.1) 0%,transparent 70%);
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
       pointer-events: none;
     }
-    #cta h2 { font-size: clamp(28px,4vw,48px); margin-bottom: 16px; position: relative; }
-    #cta p { color: var(--muted); font-size: 16px; margin-bottom: 36px; position: relative; }
+    .cta-box h2 { max-width: 600px; margin: 0 auto 14px; font-size: clamp(28px,4vw,46px); }
+    .cta-box p { color: var(--muted); font-size: 18px; margin-bottom: 36px; }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer {
-      background: var(--dark); border-top: 1px solid var(--border);
-      padding: 32px 0; text-align: center;
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
     }
-    footer p { color: var(--dim); font-size: 13px; }
+    footer p { color: var(--muted); font-size: 14px; }
+    footer a { color: var(--accent-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-logo { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .footer-logo span { color: var(--accent); }
 
-    /* FADE */
-    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
-    .fade-up.visible { opacity: 1; transform: none; }
-
-    @media(max-width:768px){
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 16px; }
       .nav-links { display: none; }
-      .hero-stats { gap: 24px; }
-      .stat-div { display: none; }
+      .section { padding: 64px 16px; }
+      .hero { padding: 110px 16px 70px; }
+      .hero-stats { gap: 28px; }
+      .cta-box { padding: 56px 24px; }
     }
   </style>
 </head>
@@ -220,307 +479,258 @@
 
 <!-- NAV -->
 <nav>
-  <div class="container">
-    <div class="nav-inner">
-      <img src="logo.png" alt="Crescia Assist" style="height:38px">
-      <ul class="nav-links">
-        <li><a href="#features">Recursos</a></li>
-        <li><a href="#planos">Planos</a></li>
-        <li><a href="#depoimentos">Clientes</a></li>
-      </ul>
-      <a href="https://wa.me/5586988634957?text=Olá!%20Quero%20conhecer%20o%20Crescia%20Assist" class="btn-wa" target="_blank">
-        📲 WhatsApp
-      </a>
-    </div>
-  </div>
+  <a href="#" class="logo">Crescia<span>Assist</span></a>
+  <ul class="nav-links">
+    <li><a href="#diferenciais">Por que usar</a></li>
+    <li><a href="#modulos">Funcionalidades</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Crescia%20Assist!" class="nav-cta" target="_blank">Começar grátis</a></li>
+  </ul>
+  <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Crescia%20Assist!" class="nav-cta" style="display:none" id="mob-cta" target="_blank">Começar</a>
 </nav>
 
+<script>
+  // show mobile CTA
+  if(window.innerWidth <= 768) document.getElementById('mob-cta').style.display='block';
+</script>
+
 <!-- HERO -->
-<section id="hero">
-  <div class="hero-glow"></div>
-  <div class="container">
-    <div class="hero-content">
-      <div class="tag">🚀 Sistema de Gestão com IA</div>
-      <h1 class="hero-title">
-        Sua assistência técnica<br><span>organizada e lucrativa</span>
-      </h1>
-      <p class="hero-sub">
-        Gerencie ordens de serviço, estoque, clientes, vendas e técnicos em um só lugar — com inteligência artificial integrada.
-      </p>
-      <div class="hero-btns">
-        <a href="https://wa.me/5586988634957?text=Quero%20uma%20demonstração%20do%20Crescia%20Assist" class="btn-wa" target="_blank">
-          📲 Quero uma demonstração
-        </a>
-        <a href="#planos" class="btn-outline">Ver planos →</a>
+<section class="hero">
+  <div class="hero-badge">✦ Feito para assistências técnicas</div>
+  <h1>Gerencie sua assistência com <span>inteligência real</span></h1>
+  <p>OS, estoque, vendas, WhatsApp automático e IA integrada — tudo em um único sistema, na nuvem, sem complicação.</p>
+  <div class="hero-ctas">
+    <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Crescia%20Assist!" class="btn-primary" target="_blank">Começar grátis →</a>
+    <a href="#modulos" class="btn-ghost">Ver funcionalidades</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-value">12+</div>
+      <div class="stat-label">Módulos integrados</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">
+        <span class="stat-dot"></span>IA
       </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-num">12+</div>
-          <div class="stat-label">Assistências ativas</div>
-        </div>
-        <div class="stat-div"></div>
-        <div class="stat">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Web — acesse de qualquer lugar</div>
-        </div>
-        <div class="stat-div"></div>
-        <div class="stat">
-          <div class="stat-num">IA</div>
-          <div class="stat-label">Integrada e pronta para usar</div>
-        </div>
-      </div>
+      <div class="stat-label">Assistente em tempo real</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">Na nuvem, sempre</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">14d</div>
+      <div class="stat-label">Teste grátis</div>
     </div>
   </div>
 </section>
 
-<!-- PROBLEMA -->
-<section id="problema">
-  <div class="container">
-    <div class="section-header fade-up">
-      <div class="tag">O problema</div>
-      <h2 class="section-title">Você reconhece essas dores?</h2>
-      <p class="section-sub">A maioria das assistências perde dinheiro por falta de controle.</p>
+<div class="divider"></div>
+
+<!-- DIFERENCIAIS -->
+<section class="section" id="diferenciais">
+  <span class="section-tag">Por que Crescia Assist</span>
+  <h2>O único sistema com IA e WhatsApp<br>nativos para assistências técnicas</h2>
+  <p class="section-sub">Não é uma adaptação de ERP genérico. É um sistema construído do zero para o dia a dia do seu negócio.</p>
+
+  <div class="diff-grid">
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>IA que entende seu negócio</h3>
+      <p>Pergunte em linguagem natural: "Qual técnico fechou mais OS esse mês?", "Quais peças estão acabando?", "Cria uma OS para o cliente João com troca de tela". A IA age diretamente no sistema.</p>
     </div>
-    <div class="problema-grid">
-      <div class="problema-card fade-up">
-        <div class="problema-icon">📋</div>
-        <h3>OS no papel</h3>
-        <p>Anotações perdidas, cliente sem resposta, técnico sem histórico. Caos todo dia.</p>
-      </div>
-      <div class="problema-card fade-up">
-        <div class="problema-icon">📦</div>
-        <h3>Estoque no chute</h3>
-        <p>Compra peça duplicada, vende o que não tem, perde venda por não saber o que está no estoque.</p>
-      </div>
-      <div class="problema-card fade-up">
-        <div class="problema-icon">💸</div>
-        <h3>Financeiro invisível</h3>
-        <p>Não sabe quanto entrou, quanto saiu, quanto está devendo. Sem número, sem controle.</p>
-      </div>
+    <div class="card">
+      <div class="card-icon">💬</div>
+      <h3>WhatsApp automático</h3>
+      <p>O cliente recebe notificação em cada etapa — diagnóstico, aguardando peça, em reparo, pronto para retirada. Tudo automático, sem você precisar enviar nada.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛒</div>
+      <h3>PDV completo para revenda</h3>
+      <p>Venda celulares e acessórios direto no balcão. Comprovante A4 ou térmica 72mm, controle de garantia por item vendido e formas de pagamento em segundos.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <h3>Garantias com alerta visual</h3>
+      <p>Prazo configurável por assistência, contador em dias com cor dinâmica — verde, amarelo, vermelho. Nunca mais perca o vencimento de uma garantia.</p>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section id="features">
-  <div class="container">
-    <div class="section-header fade-up">
-      <div class="tag">Recursos</div>
-      <h2 class="section-title">Tudo que sua assistência precisa</h2>
-      <p class="section-sub">Um sistema completo, pensado para quem vive a rotina da assistência técnica.</p>
+<div class="divider"></div>
+
+<!-- MÓDULOS -->
+<section class="section" id="modulos">
+  <span class="section-tag">Funcionalidades</span>
+  <h2>Tudo que sua assistência<br>precisa, pronto para usar</h2>
+  <p class="section-sub">Módulos completos e integrados entre si. Sem extensões pagas, sem configuração complexa.</p>
+
+  <div class="modulos-grid">
+    <div class="mod"><span class="mod-icon">📊</span><span class="mod-name">Dashboard em tempo real</span></div>
+    <div class="mod"><span class="mod-icon">📋</span><span class="mod-name">Ordens de Serviço (Kanban)</span></div>
+    <div class="mod"><span class="mod-icon">👥</span><span class="mod-name">Clientes com histórico</span></div>
+    <div class="mod"><span class="mod-icon">🔧</span><span class="mod-name">Estoque de Peças</span></div>
+    <div class="mod"><span class="mod-icon">📱</span><span class="mod-name">Celulares & Acessórios</span></div>
+    <div class="mod"><span class="mod-icon">🛒</span><span class="mod-name">Vendas / PDV</span></div>
+    <div class="mod"><span class="mod-icon">🛡️</span><span class="mod-name">Garantias</span></div>
+    <div class="mod"><span class="mod-icon">💰</span><span class="mod-name">Financeiro</span></div>
+    <div class="mod"><span class="mod-icon">📈</span><span class="mod-name">Relatórios</span></div>
+    <div class="mod"><span class="mod-icon">🤖</span><span class="mod-name">IA Assistente</span></div>
+    <div class="mod"><span class="mod-icon">💬</span><span class="mod-name">WhatsApp Automático</span></div>
+    <div class="mod"><span class="mod-icon">⚙️</span><span class="mod-name">Perfis (Admin / Técnico / Vendedor)</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMO FUNCIONA -->
+<section class="section">
+  <span class="section-tag">Como funciona</span>
+  <h2>Pronto em minutos</h2>
+  <p class="section-sub">Sem instalação, sem servidor, sem TI. Você começa a usar no mesmo dia.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Crie sua conta</h3>
+      <p>Preencha os dados da empresa e escolha o plano. Acesso imediato, sem burocracia e sem cartão de crédito no trial.</p>
     </div>
-    <div class="features-grid">
-      <div class="feature-card fade-up">
-        <div class="feature-icon">🔧</div>
-        <h3>Ordens de Serviço</h3>
-        <p>Abertura, acompanhamento e fechamento com histórico completo, status em tempo real e notificação automática ao cliente.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">📊</div>
-        <h3>Controle de Estoque</h3>
-        <p>Gerencie peças, acessórios e aparelhos. Alertas de estoque baixo, histórico de movimentações e relatórios.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">🛒</div>
-        <h3>PDV e Vendas</h3>
-        <p>Ponto de venda completo com carrinho, formas de pagamento, varejo e atacado — tudo integrado ao estoque.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">🤖</div>
-        <h3>IA Integrada</h3>
-        <p>Crescia AI analisa seu negócio, sugere ações, responde dúvidas e automatiza tarefas repetitivas do dia a dia.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">💬</div>
-        <h3>WhatsApp Automático</h3>
-        <p>Aviso de OS pronta, orçamento aprovado e lembrete de buscar o aparelho — tudo automático via WhatsApp.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">📈</div>
-        <h3>Relatórios e Financeiro</h3>
-        <p>Dashboard com faturamento, ticket médio, ranking de técnicos e visão completa do negócio em tempo real.</p>
-      </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Configure em minutos</h3>
+      <p>Adicione seus técnicos, cadastre peças e celulares no estoque. Conecte o WhatsApp da assistência via QR code.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Use e cresça</h3>
+      <p>Abra ordens, registre vendas e deixe a IA responder perguntas e executar tarefas por você. Foco no cliente, não no sistema.</p>
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
 
 <!-- PLANOS -->
-<section id="planos">
-  <div class="container">
-    <div class="section-header fade-up">
-      <div class="tag">Planos</div>
-      <h2 class="section-title">Escolha o plano ideal</h2>
-      <p class="section-sub">Sem contrato de fidelidade. Cancele quando quiser.</p>
+<section class="section" id="planos">
+  <span class="section-tag">Planos</span>
+  <h2>Escolha o plano ideal</h2>
+  <p class="section-sub">Sem fidelidade. Cancele quando quiser. Suporte incluso em todos os planos.</p>
+
+  <!-- Toggle mensal / anual -->
+  <div class="toggle-wrap">
+    <span class="toggle-label active" id="lbl-mensal">Mensal</span>
+    <div class="toggle-track" id="toggle" onclick="togglePlano()">
+      <div class="toggle-thumb"></div>
     </div>
-    <div class="toggle-wrap fade-up">
-      <span class="toggle-label active" id="lbl-m">Mensal</span>
-      <button class="toggle" id="togBtn" onclick="togglePeriodo()"></button>
-      <span class="toggle-label" id="lbl-a">Anual</span>
-      <span class="economy-badge">Economize até 20%</span>
+    <span class="toggle-label" id="lbl-anual">Anual</span>
+    <span class="economia-badge">Economize até 20%</span>
+  </div>
+
+  <div class="planos-grid">
+
+    <!-- BÁSICO -->
+    <div class="plano">
+      <div class="plano-nome">Básico</div>
+      <div class="plano-desc">Para assistências em crescimento</div>
+      <div class="plano-preco">
+        <span class="pre">R$</span><span class="valor" id="preco-basico">97,90</span><span class="per">/mês</span>
+      </div>
+      <ul class="features">
+        <li>Até 2 técnicos</li>
+        <li>OS, Estoque, Clientes, Garantias</li>
+        <li>PDV e Vendas</li>
+        <li>Financeiro e Relatórios</li>
+        <li>IA (OS, estoque e garantias)</li>
+        <li class="off">WhatsApp automático</li>
+        <li class="off">IA analytics avançado</li>
+      </ul>
+      <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20plano%20B%C3%A1sico%20do%20Crescia%20Assist!" class="plano-btn" target="_blank">Falar com vendas</a>
     </div>
-    <div class="planos-grid">
-      <div class="plano-card fade-up">
-        <div class="plano-nome">Básico</div>
-        <div class="plano-preco" id="p-basic">R$ 97<span>/mês</span></div>
-        <div class="plano-desde" id="d-basic">&nbsp;</div>
-        <hr class="plano-divider">
-        <ul class="plano-features">
-          <li><span class="check">✓</span> Até 2 técnicos</li>
-          <li><span class="check">✓</span> Ordens de Serviço ilimitadas</li>
-          <li><span class="check">✓</span> Controle de Estoque</li>
-          <li><span class="check">✓</span> Financeiro básico</li>
-          <li><span class="check">✓</span> IA básica</li>
-          <li><span class="x">✗</span> Módulo de Vendas / PDV</li>
-          <li><span class="x">✗</span> WhatsApp automático</li>
-          <li><span class="x">✗</span> Multilojas</li>
-        </ul>
-        <a href="https://wa.me/5586988634957?text=Quero%20o%20plano%20Básico%20do%20Crescia%20Assist" target="_blank">
-          <button class="plano-btn">Começar agora</button>
-        </a>
+
+    <!-- PROFISSIONAL -->
+    <div class="plano destaque">
+      <div class="plano-badge">Mais escolhido</div>
+      <div class="plano-nome">Profissional</div>
+      <div class="plano-desc">Para quem quer escalar com IA e WhatsApp</div>
+      <div class="plano-preco">
+        <span class="pre">R$</span><span class="valor" id="preco-prof">157,90</span><span class="per">/mês</span>
       </div>
-      <div class="plano-card destaque fade-up">
-        <div class="destaque-badge">⭐ Mais popular</div>
-        <div class="plano-nome">Profissional</div>
-        <div class="plano-preco" id="p-pro">R$ 147<span>/mês</span></div>
-        <div class="plano-desde" id="d-pro">a partir de</div>
-        <hr class="plano-divider">
-        <ul class="plano-features">
-          <li><span class="check">✓</span> Até 5 técnicos</li>
-          <li><span class="check">✓</span> Ordens de Serviço ilimitadas</li>
-          <li><span class="check">✓</span> Controle de Estoque</li>
-          <li><span class="check">✓</span> Financeiro completo</li>
-          <li><span class="check">✓</span> IA completa</li>
-          <li><span class="check">✓</span> Módulo de Vendas / PDV</li>
-          <li><span class="check">✓</span> WhatsApp automático</li>
-          <li><span class="x">✗</span> Multilojas</li>
-        </ul>
-        <a href="https://wa.me/5586988634957?text=Quero%20o%20plano%20Profissional%20do%20Crescia%20Assist" target="_blank">
-          <button class="plano-btn">Começar agora</button>
-        </a>
-      </div>
-      <div class="plano-card fade-up">
-        <div class="plano-nome">Enterprise</div>
-        <div class="plano-preco" id="p-ent">R$ 397<span>/mês</span></div>
-        <div class="plano-desde" id="d-ent">a partir de</div>
-        <hr class="plano-divider">
-        <ul class="plano-features">
-          <li><span class="check">✓</span> Técnicos ilimitados</li>
-          <li><span class="check">✓</span> Tudo do plano Pro</li>
-          <li><span class="check">✓</span> IA completa + prioridade</li>
-          <li><span class="check">✓</span> Módulo de Vendas / PDV</li>
-          <li><span class="check">✓</span> WhatsApp automático</li>
-          <li><span class="check">✓</span> Multilojas</li>
-          <li><span class="check">✓</span> Suporte prioritário</li>
-          <li><span class="check">✓</span> Onboarding dedicado</li>
-        </ul>
-        <a href="https://wa.me/5586988634957?text=Quero%20o%20plano%20Enterprise%20do%20Crescia%20Assist" target="_blank">
-          <button class="plano-btn">Falar com consultor</button>
-        </a>
-      </div>
+      <ul class="features">
+        <li>Até 5 técnicos</li>
+        <li>Tudo do Básico</li>
+        <li>WhatsApp automático por status</li>
+        <li>IA completa com analytics</li>
+        <li>Importação de planilhas via IA</li>
+        <li>Comprovante A4 e térmica 72mm</li>
+        <li>Perfil Vendedor separado</li>
+      </ul>
+      <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20testar%20o%20plano%20Profissional%20do%20Crescia%20Assist!" class="plano-btn" target="_blank">Começar grátis 14 dias</a>
     </div>
+
+    <!-- ENTERPRISE -->
+    <div class="plano">
+      <div class="plano-nome">Enterprise</div>
+      <div class="plano-desc">Para redes e múltiplas unidades</div>
+      <div class="plano-preco">
+        <span class="pre">R$</span><span class="valor" id="preco-ent">397,90</span><span class="per">/mês</span>
+      </div>
+      <ul class="features">
+        <li>Técnicos ilimitados</li>
+        <li>Tudo do Profissional</li>
+        <li>Multi-lojas com painel central</li>
+        <li>Onboarding dedicado</li>
+        <li>Suporte prioritário</li>
+        <li>White-label (logo, cores, nome)</li>
+      </ul>
+      <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20plano%20Enterprise%20do%20Crescia%20Assist!" class="plano-btn" target="_blank">Falar com vendas</a>
+    </div>
+
   </div>
 </section>
 
-<!-- DEPOIMENTOS -->
-<section id="depoimentos">
-  <div class="container">
-    <div class="section-header fade-up">
-      <div class="tag">Clientes</div>
-      <h2 class="section-title">Quem usa, recomenda</h2>
-      <p class="section-sub">+12 assistências técnicas já transformaram sua gestão com o Crescia Assist.</p>
-    </div>
-    <div class="dep-grid">
-      <div class="dep-card fade-up">
-        <div class="dep-stars">★★★★★</div>
-        <p class="dep-text">"Antes eu controlava tudo no caderno. Hoje tenho tudo no sistema, sei exatamente o que tenho em estoque e quanto entrou no mês. Mudou completamente minha assistência."</p>
-        <div class="dep-author">
-          <div class="dep-avatar">RS</div>
-          <div>
-            <div class="dep-name">Rafael S.</div>
-            <div class="dep-role">TechFix Teresina</div>
-          </div>
-        </div>
-      </div>
-      <div class="dep-card fade-up">
-        <div class="dep-stars">★★★★★</div>
-        <p class="dep-text">"A IA me avisou que estava vendendo abaixo do custo em algumas peças. Já recuperei o valor do plano só com isso. Impressionante."</p>
-        <div class="dep-author">
-          <div class="dep-avatar">MC</div>
-          <div>
-            <div class="dep-name">Marcos C.</div>
-            <div class="dep-role">CelularPro</div>
-          </div>
-        </div>
-      </div>
-      <div class="dep-card fade-up">
-        <div class="dep-stars">★★★★★</div>
-        <p class="dep-text">"O WhatsApp automático acabou com as ligações de 'meu celular ficou pronto?'. O cliente recebe a notificação e já vem buscar. Perfeito."</p>
-        <div class="dep-author">
-          <div class="dep-avatar">AP</div>
-          <div>
-            <div class="dep-name">Ana P.</div>
-            <div class="dep-role">Assistência Rápida</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<script>
+  const precos = {
+    mensal:  { basico: '97,90',  prof: '157,90', ent: '397,90' },
+    anual:   { basico: '77,90',  prof: '127,90', ent: '327,90' }
+  };
 
-<!-- CTA -->
-<section id="cta">
-  <div class="cta-glow"></div>
-  <div class="container" style="position:relative">
-    <div class="tag">Comece hoje</div>
-    <h2>Pronto para organizar sua assistência?</h2>
-    <p>Fale agora e receba uma demonstração personalizada.</p>
-    <a href="https://wa.me/5586988634957?text=Olá!%20Quero%20conhecer%20o%20Crescia%20Assist" class="btn-wa" target="_blank" style="font-size:16px;padding:14px 32px">
-      📲 Falar no WhatsApp agora
-    </a>
+  let isAnual = false;
+
+  function togglePlano() {
+    isAnual = !isAnual;
+    const modo = isAnual ? 'anual' : 'mensal';
+    document.getElementById('toggle').classList.toggle('anual', isAnual);
+    document.getElementById('lbl-mensal').classList.toggle('active', !isAnual);
+    document.getElementById('lbl-anual').classList.toggle('active', isAnual);
+    document.getElementById('preco-basico').textContent = precos[modo].basico;
+    document.getElementById('preco-prof').textContent   = precos[modo].prof;
+    document.getElementById('preco-ent').textContent    = precos[modo].ent;
+  }
+</script>
+
+<div class="divider"></div>
+
+<!-- CTA FINAL -->
+<div class="cta-wrap">
+  <div class="cta-box">
+    <span class="section-tag">Comece agora</span>
+    <h2>Sua assistência merece um sistema que cresce com ela</h2>
+    <p>14 dias grátis. Sem cartão de crédito. Suporte real desde o primeiro dia.</p>
+    <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20testar%20o%20Crescia%20Assist%20gratis!" class="btn-primary" style="font-size:17px; padding:16px 36px;" target="_blank">Criar conta grátis →</a>
   </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="container">
-    <p>© 2025 Crescia Assist · Todos os direitos reservados</p>
-  </div>
+  <p class="footer-logo">Crescia<span>Assist</span></p>
+  <p>Sistema de gestão para assistências técnicas de celulares e eletrônicos.</p>
+  <p style="margin-top: 10px;">
+    <a href="#">Termos de uso</a> &nbsp;·&nbsp;
+    <a href="#">Privacidade</a> &nbsp;·&nbsp;
+    <a href="#">Suporte</a>
+  </p>
+  <p style="margin-top: 16px; font-size: 13px;">© 2026 Crescia IA. Todos os direitos reservados.</p>
 </footer>
 
-<script>
-let anual = false;
-const precos = {
-  basic: {m:97, a:77},
-  pro:   {m:147,a:127},
-  ent:   {m:397,a:327}
-};
-
-function togglePeriodo() {
-  anual = !anual;
-  document.getElementById('togBtn').classList.toggle('anual', anual);
-  document.getElementById('lbl-m').classList.toggle('active', !anual);
-  document.getElementById('lbl-a').classList.toggle('active', anual);
-  const k = anual ? 'a' : 'm';
-  document.getElementById('p-basic').innerHTML = `R$ ${precos.basic[k]}<span>/mês</span>`;
-  document.getElementById('p-pro').innerHTML   = `R$ ${precos.pro[k]}<span>/mês</span>`;
-  document.getElementById('p-ent').innerHTML   = `R$ ${precos.ent[k]}<span>/mês</span>`;
-  document.getElementById('d-basic').innerHTML = anual ? 'cobrado anualmente' : '&nbsp;';
-  document.getElementById('d-pro').innerHTML   = anual ? 'a partir de · cobrado anualmente' : 'a partir de';
-  document.getElementById('d-ent').innerHTML   = anual ? 'a partir de · cobrado anualmente' : 'a partir de';
-}
-
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      e.target.querySelectorAll('.fade-up').forEach((k,i) =>
-        setTimeout(() => k.classList.add('visible'), i * 80)
-      );
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-</script>
 </body>
 </html>
