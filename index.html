@@ -12,21 +12,21 @@
 
     :root {
       --bg:    #ffffff;
-      --bg2:   #f8fafc;
-      --bg3:   #f1f5f9;
-      --blue:  #2563eb;
-      --blue-h:#1d4ed8;
+      --bg2:   #f6f7f9;
+      --bg3:   #eceef2;
+      --blue:  #1d4ed8;
+      --blue-h:#1e40af;
       --blue-l:#3b82f6;
       --blue-xl:#dbeafe;
-      --bglow: rgba(37,99,235,.08);
-      --bbord: rgba(37,99,235,.22);
-      --text:  #0f172a;
-      --text2: #334155;
-      --muted: #64748b;
-      --bord:  rgba(0,0,0,.08);
-      --bord2: rgba(0,0,0,.13);
-      --green: #16a34a;
-      --green-bg: rgba(22,163,74,.08);
+      --bglow: rgba(29,78,216,.07);
+      --bbord: rgba(29,78,216,.18);
+      --text:  #0d1520;
+      --text2: #374151;
+      --muted: #6b7280;
+      --bord:  rgba(0,0,0,.07);
+      --bord2: rgba(0,0,0,.11);
+      --green: #15803d;
+      --green-bg: rgba(21,128,61,.07);
     }
 
     html { scroll-behavior: smooth; }
@@ -46,13 +46,12 @@
       padding: 10px 0;
       position: relative;
       z-index: 300;
-      border-bottom: 1px solid rgba(37,99,235,.2);
+      border-bottom: 1px solid rgba(29,78,216,.2);
     }
     .ticker-track {
       display: flex;
       white-space: nowrap;
       animation: scroll-left 34s linear infinite;
-      gap: 0;
     }
     .ticker-track:hover { animation-play-state: paused; }
     .ticker-item {
@@ -60,16 +59,24 @@
       align-items: center;
       gap: 12px;
       padding: 0 40px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
-      color: rgba(255,255,255,.82);
+      color: rgba(255,255,255,.75);
       letter-spacing: .1em;
       text-transform: uppercase;
       flex-shrink: 0;
     }
-    .t-logo { height: 22px; width: auto; mix-blend-mode: screen; flex-shrink: 0; opacity: .95; }
+    .t-logo { height: 20px; width: auto; mix-blend-mode: screen; flex-shrink: 0; opacity: .9; }
     .ticker-item .t-hl { color: #60a5fa; font-weight: 700; }
-    .ticker-sep { color: rgba(37,99,235,.45); padding: 0 6px; display: inline-block; flex-shrink: 0; font-size: 16px; line-height: 1; }
+    .ticker-sep {
+      display: inline-block; flex-shrink: 0;
+      width: 1px; height: 14px;
+      background: rgba(96,165,250,.22);
+      box-shadow: 0 0 6px rgba(96,165,250,.45);
+      margin: 0 28px;
+      vertical-align: middle;
+      border-radius: 1px;
+    }
     @keyframes scroll-left {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -83,28 +90,28 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 48px;
-      height: 66px;
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(18px);
+      padding: 0 52px;
+      height: 64px;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--bord);
     }
     .logo {
-      display: flex; align-items: center; gap: 11px;
+      display: flex; align-items: center; gap: 10px;
       text-decoration: none; flex-shrink: 0;
     }
-    .logo img { height: 42px; width: auto; display: block; border-radius: 10px; }
+    .logo img { height: 38px; width: auto; display: block; border-radius: 9px; }
     .logo-name {
-      font-size: 17px; font-weight: 800; color: var(--text);
-      letter-spacing: -.3px; line-height: 1;
+      font-size: 16px; font-weight: 800; color: var(--text);
+      letter-spacing: -.4px; line-height: 1;
     }
     .logo-name span { color: var(--blue); }
     .logo-text { display: none; }
 
-    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
     .nav-links a {
-      font-size: 14px; font-weight: 500; color: var(--muted);
-      text-decoration: none; padding: 6px 14px; border-radius: 8px;
+      font-size: 13.5px; font-weight: 500; color: var(--muted);
+      text-decoration: none; padding: 6px 14px; border-radius: 7px;
       transition: color .15s, background .15s;
     }
     .nav-links a:hover { color: var(--text); background: var(--bg2); }
@@ -112,22 +119,22 @@
 
     .btn {
       display: inline-flex; align-items: center; gap: 6px;
-      text-decoration: none; font-weight: 600; border-radius: 10px;
+      text-decoration: none; font-weight: 600; border-radius: 9px;
       transition: all .2s; cursor: pointer; border: none; font-family: inherit;
     }
-    .btn-sm  { font-size: 14px; padding: 8px 18px; }
+    .btn-sm  { font-size: 13.5px; padding: 8px 18px; }
     .btn-md  { font-size: 15px; padding: 11px 22px; }
-    .btn-lg  { font-size: 16px; padding: 14px 30px; }
+    .btn-lg  { font-size: 15.5px; padding: 13px 28px; }
     .btn-primary { background: var(--blue); color: #fff; }
-    .btn-primary:hover { background: var(--blue-h); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,.35); }
-    .btn-ghost-nav { color: var(--text2); background: transparent; font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 8px; }
+    .btn-primary:hover { background: var(--blue-h); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(29,78,216,.32); }
+    .btn-ghost-nav { color: var(--text2); background: transparent; font-size: 13.5px; font-weight: 500; padding: 7px 14px; border-radius: 7px; }
     .btn-ghost-nav:hover { color: var(--text); background: var(--bg2); }
     .btn-outline { background: transparent; color: var(--text2); border: 1.5px solid var(--bord2); }
     .btn-outline:hover { border-color: var(--blue); color: var(--blue); background: var(--bglow); }
 
     /* ── HERO ── */
     .hero {
-      min-height: calc(100vh - 104px);
+      min-height: calc(100vh - 102px);
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
@@ -137,52 +144,49 @@
       margin: 0 auto;
     }
 
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--bglow); border: 1px solid var(--bbord);
-      color: var(--blue); padding: 5px 14px; border-radius: 100px;
-      font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      margin-bottom: 26px;
+    .hero-label {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 28px;
+      padding-left: 14px;
+      border-left: 2px solid var(--blue);
+      line-height: 1.2;
     }
-    .hero-badge::before {
-      content: ''; width: 6px; height: 6px; background: var(--blue);
-      border-radius: 50%; animation: blink 2s infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
 
     .hero h1 {
-      font-size: clamp(38px, 4.6vw, 64px);
+      font-size: clamp(36px, 4.4vw, 62px);
       font-weight: 900; line-height: 1.04; letter-spacing: -2.5px; margin-bottom: 22px;
     }
     .hero h1 em { color: var(--blue); font-style: normal; }
 
     .hero-sub {
-      font-size: 17px; color: var(--text2); line-height: 1.68;
-      margin-bottom: 36px; max-width: 460px;
+      font-size: 17px; color: var(--text2); line-height: 1.7;
+      margin-bottom: 38px; max-width: 450px;
     }
-    .hero-ctas { display: flex; gap: 10px; margin-bottom: 52px; flex-wrap: wrap; }
-    .hero-trust { display: flex; gap: 36px; flex-wrap: wrap; }
-    .trust-item { text-align: left; }
-    .trust-val { font-size: 24px; font-weight: 900; letter-spacing: -1px; color: var(--text); }
-    .trust-lbl { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 500; }
+    .hero-ctas { display: flex; gap: 10px; margin-bottom: 56px; flex-wrap: wrap; }
 
-    /* ── MOCKUP (mantém dark — contraste intencional) ── */
+    .hero-trust { display: flex; gap: 40px; flex-wrap: wrap; }
+    .trust-item { }
+    .trust-val { font-size: 22px; font-weight: 900; letter-spacing: -1px; color: var(--text); line-height: 1; }
+    .trust-lbl { font-size: 11.5px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+
+    /* ── MOCKUP ── */
     .hero-visual {
       display: flex; align-items: center; justify-content: center;
       position: relative;
     }
     .hero-glow {
       position: absolute; width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(29,78,216,.1) 0%, transparent 65%);
       top: 50%; left: 50%; transform: translate(-50%,-50%);
       pointer-events: none;
     }
     .mockup-wrap { width: 100%; max-width: 560px; perspective: 1100px; position: relative; z-index: 1; }
     .mockup {
       background: #071422;
-      border: 1px solid rgba(37,99,235,.2);
+      border: 1px solid rgba(29,78,216,.18);
       border-radius: 14px; overflow: hidden;
-      box-shadow: 0 32px 80px rgba(15,23,42,.18), 0 0 0 1px rgba(0,0,0,.04);
+      box-shadow: 0 32px 80px rgba(13,21,32,.2), 0 0 0 1px rgba(0,0,0,.04);
       transform: rotateY(-7deg) rotateX(2deg);
       transition: transform .5s ease;
     }
@@ -196,14 +200,14 @@
     .mock-dots { display: flex; gap: 6px; }
     .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
     .mock-dot.r{background:#ef4444}.mock-dot.y{background:#f59e0b}.mock-dot.g{background:#22c55e}
-    .mock-title { font-size: 11.5px; color: #64748b; font-weight: 500; flex: 1; text-align: center; margin-right: 28px; }
+    .mock-title { font-size: 11px; color: #475569; font-weight: 500; flex: 1; text-align: center; margin-right: 28px; }
 
     .mock-tabs {
       background: #071020; padding: 0 14px;
       display: flex; border-bottom: 1px solid rgba(255,255,255,.04);
     }
     .mock-tab { font-size: 11px; padding: 7px 14px; color: #64748b; border-bottom: 2px solid transparent; cursor: default; }
-    .mock-tab.on { color: #3b82f6; border-bottom-color: #2563eb; }
+    .mock-tab.on { color: #3b82f6; border-bottom-color: #1d4ed8; }
 
     .mock-body { padding: 14px; display: flex; gap: 9px; }
     .mk-col { flex: 1; min-width: 0; }
@@ -231,155 +235,181 @@
 
     /* ── STATS ── */
     .stats-strip {
-      background: var(--bg2); border-top: 1px solid var(--bord); border-bottom: 1px solid var(--bord);
-      padding: 36px 60px; display: grid; grid-template-columns: repeat(4,1fr);
-      max-width: 1380px; margin: 0 auto;
+      background: var(--bg2);
+      border-top: 1px solid var(--bord);
+      border-bottom: 1px solid var(--bord);
+      padding: 0 60px;
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      max-width: 1380px;
+      margin: 0 auto;
     }
-    .stat-item { text-align: center; padding: 0 20px; border-right: 1px solid var(--bord); }
+    .stat-item {
+      padding: 40px 24px;
+      border-right: 1px solid var(--bord);
+    }
     .stat-item:last-child { border-right: none; }
-    .stat-num { font-size: 40px; font-weight: 900; letter-spacing: -2px; color: var(--text); }
-    .stat-num sup { font-size: 20px; color: var(--blue); font-weight: 800; }
-    .stat-lbl { font-size: 13px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+    .stat-num {
+      font-size: 44px; font-weight: 900; letter-spacing: -2.5px;
+      color: var(--text); line-height: 1;
+    }
+    .stat-num sup { font-size: 22px; color: var(--blue); font-weight: 800; vertical-align: top; margin-top: 6px; display: inline-block; }
+    .stat-lbl { font-size: 13px; color: var(--muted); margin-top: 6px; font-weight: 500; line-height: 1.4; }
 
     /* ── LAYOUT ── */
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
-    .gap100 { padding: 96px 0; }
-    hr.sep { border: none; height: 1px; background: var(--bord); margin: 0 48px; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 52px; }
+    .gap100 { padding: 100px 0; }
+    hr.sep { border: none; height: 1px; background: var(--bord); margin: 0 52px; }
 
     .section-tag {
-      font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--blue); margin-bottom: 16px; display: block;
+      font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
     }
-    h2 { font-size: clamp(28px, 3.5vw, 46px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px; }
-    .sub { font-size: 17px; color: var(--text2); line-height: 1.65; max-width: 500px; }
+    .section-tag::before {
+      content: ''; display: inline-block; width: 20px; height: 2px;
+      background: var(--blue); flex-shrink: 0;
+    }
+
+    h2 {
+      font-size: clamp(28px, 3.2vw, 44px); font-weight: 800;
+      letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 18px;
+    }
+    .sub { font-size: 16.5px; color: var(--text2); line-height: 1.68; max-width: 500px; }
 
     /* ── FEATURE SPOTLIGHT ── */
     .fspot { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .fspot.flip .fvis { order: -1; }
 
-    .flist { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
-    .flist li { display: flex; align-items: flex-start; gap: 11px; font-size: 15px; color: var(--text2); }
+    .flist { list-style: none; margin-top: 30px; display: flex; flex-direction: column; gap: 0; }
+    .flist li {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 14.5px; color: var(--text2);
+      padding: 11px 0; border-bottom: 1px solid var(--bord);
+    }
+    .flist li:last-child { border-bottom: none; }
     .flist li .ck {
-      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
-      background: var(--bglow) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%232563eb' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
-      border: 1px solid var(--bbord); border-radius: 5px;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--blue);
+      flex-shrink: 0; margin-top: 8px;
     }
 
     .fvis {
       background: var(--bg2); border: 1px solid var(--bord2);
-      border-radius: 20px; padding: 30px; min-height: 300px;
+      border-radius: 18px; padding: 28px; min-height: 300px;
       display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden;
     }
     .fvis::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 70% 20%, rgba(37,99,235,.05) 0%, transparent 65%);
+      background: radial-gradient(ellipse at 70% 20%, rgba(29,78,216,.04) 0%, transparent 65%);
       pointer-events: none;
     }
 
     /* IA chat */
     .ia-row { display: flex; flex-direction: column; gap: 10px; }
-    .ia-who { font-size: 9.5px; color: var(--muted); font-weight: 700; letter-spacing: .06em; margin-bottom: 4px; }
-    .ia-bubble { padding: 11px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; max-width: 88%; }
+    .ia-who { font-size: 9px; color: var(--muted); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 5px; }
+    .ia-bubble { padding: 11px 14px; border-radius: 12px; font-size: 13px; line-height: 1.55; max-width: 88%; }
     .ia-bubble.u { background: var(--blue); color: #fff; align-self: flex-end; border-radius: 12px 12px 4px 12px; }
-    .ia-bubble.a { background: #fff; border: 1px solid var(--bord2); color: var(--text2); align-self: flex-start; border-radius: 12px 12px 12px 4px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+    .ia-bubble.a { background: #fff; border: 1px solid var(--bord2); color: var(--text2); align-self: flex-start; border-radius: 12px 12px 12px 4px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
 
     /* WA msgs */
-    .wa-row { display: flex; flex-direction: column; gap: 8px; }
+    .wa-row { display: flex; flex-direction: column; gap: 10px; }
     .wa-msg {
-      background: var(--green-bg); border: 1px solid rgba(22,163,74,.15);
-      border-radius: 10px; padding: 11px 14px;
-      display: flex; align-items: flex-start; gap: 10px;
+      background: var(--bg); border: 1px solid var(--bord2);
+      border-radius: 10px; padding: 14px 16px;
+      display: flex; align-items: flex-start; gap: 12px;
     }
-    .wa-ico { font-size: 18px; flex-shrink: 0; }
-    .wa-title { font-size: 11px; font-weight: 700; color: var(--green); margin-bottom: 3px; }
-    .wa-text { font-size: 12px; color: var(--text2); line-height: 1.45; }
+    .wa-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #22c55e; flex-shrink: 0; margin-top: 4px;
+      box-shadow: 0 0 0 3px rgba(34,197,94,.15);
+    }
+    .wa-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .wa-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
 
     /* ── 3 CARDS ── */
     .card3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 60px; }
     .fc {
       background: var(--bg); border: 1px solid var(--bord2);
-      border-radius: 16px; padding: 26px 22px;
+      border-radius: 14px; padding: 28px 24px;
       transition: all .25s; position: relative; overflow: hidden;
     }
     .fc::after {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--blue), rgba(37,99,235,.2));
+      background: linear-gradient(90deg, var(--blue), rgba(29,78,216,.15));
       opacity: 0; transition: opacity .25s;
     }
-    .fc:hover { border-color: var(--bbord); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,.08); }
+    .fc:hover { border-color: var(--bbord); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(29,78,216,.07); }
     .fc:hover::after { opacity: 1; }
     .fc-ico {
-      width: 42px; height: 42px; border-radius: 11px;
+      width: 40px; height: 40px; border-radius: 10px;
       background: var(--bglow); border: 1px solid var(--bbord);
       display: flex; align-items: center; justify-content: center;
-      font-size: 19px; margin-bottom: 16px;
+      font-size: 18px; margin-bottom: 16px;
     }
-    .fc h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-    .fc p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .fc h3 { font-size: 15.5px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .fc p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
 
     /* ── CHIPS ── */
-    .chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
     .chip {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: var(--bg); border: 1px solid var(--bord2);
-      border-radius: 10px; padding: 9px 15px;
+      display: inline-flex; align-items: center;
+      background: var(--bg2); border: 1px solid var(--bord2);
+      border-radius: 8px; padding: 9px 16px;
       font-size: 13px; font-weight: 500; color: var(--text2);
       transition: all .2s;
     }
     .chip:hover { border-color: var(--blue); background: var(--bglow); color: var(--blue); }
-    .chip span { font-size: 15px; }
 
     /* ── TIMELINE ── */
     .tl { display: flex; position: relative; margin-top: 64px; }
     .tl::before {
-      content: ''; position: absolute; top: 27px;
+      content: ''; position: absolute; top: 24px;
       left: calc(16.66% + 4px); right: calc(16.66% + 4px);
-      height: 2px;
-      background: linear-gradient(90deg, var(--blue) 0%, var(--blue) 45%, rgba(37,99,235,.15) 100%);
+      height: 1px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--blue) 45%, rgba(29,78,216,.15) 100%);
     }
     .tl-step { flex: 1; text-align: center; padding: 0 20px; }
     .tl-n {
-      width: 54px; height: 54px; border-radius: 50%;
-      background: var(--bg); border: 2px solid var(--blue);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--bg); border: 1.5px solid var(--blue);
       display: flex; align-items: center; justify-content: center;
-      font-size: 19px; font-weight: 800; color: var(--blue);
-      margin: 0 auto 22px; position: relative; z-index: 2;
+      font-size: 14px; font-weight: 800; color: var(--blue);
+      margin: 0 auto 24px; position: relative; z-index: 2;
     }
-    .tl-step:first-child .tl-n { background: var(--blue); color: #fff; }
-    .tl-step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-    .tl-step p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .tl-step:first-child .tl-n { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .tl-step h3 { font-size: 15.5px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .tl-step p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
 
     /* ── PLANOS ── */
-    .plans-section { background: var(--bg2); padding: 96px 0; }
-    .toggle-bar { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; }
-    .tog-lbl { font-size: 14px; font-weight: 600; color: var(--muted); transition: color .2s; cursor: pointer; }
+    .plans-section { background: var(--bg2); padding: 100px 0; }
+    .toggle-bar { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 52px; }
+    .tog-lbl { font-size: 13.5px; font-weight: 600; color: var(--muted); transition: color .2s; cursor: pointer; }
     .tog-lbl.on { color: var(--text); }
     .tog-pill {
-      width: 46px; height: 25px; background: #e2e8f0; border: 1.5px solid var(--bord2);
+      width: 44px; height: 24px; background: #e2e8f0; border: 1.5px solid var(--bord2);
       border-radius: 100px; position: relative; cursor: pointer; transition: background .2s, border-color .2s;
     }
     .tog-pill.on { background: var(--blue); border-color: var(--blue); }
     .tog-pill::after {
-      content: ''; position: absolute; width: 17px; height: 17px;
+      content: ''; position: absolute; width: 16px; height: 16px;
       background: #fff; border-radius: 50%; top: 2px; left: 2px;
       transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.15);
     }
-    .tog-pill.on::after { transform: translateX(21px); }
+    .tog-pill.on::after { transform: translateX(20px); }
     .save-pill {
-      background: rgba(22,163,74,.1); border: 1px solid rgba(22,163,74,.2);
+      background: rgba(21,128,61,.1); border: 1px solid rgba(21,128,61,.2);
       color: var(--green); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px;
     }
 
-    .plans { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; align-items: start; }
+    .plans { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; align-items: start; }
     .plan {
       background: var(--bg); border: 1px solid var(--bord2);
-      border-radius: 20px; padding: 30px 24px; position: relative; transition: transform .2s, box-shadow .2s;
+      border-radius: 18px; padding: 32px 26px; position: relative; transition: transform .2s, box-shadow .2s;
     }
-    .plan:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(15,23,42,.08); }
+    .plan:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(13,21,32,.07); }
     .plan.hi {
-      background: linear-gradient(170deg, #1e3a8a 0%, #0f172a 100%);
-      border-color: var(--blue);
-      box-shadow: 0 0 60px rgba(37,99,235,.18), inset 0 1px 0 rgba(255,255,255,.06);
+      background: linear-gradient(165deg, #1e3a8a 0%, #0f172a 100%);
+      border-color: rgba(29,78,216,.5);
+      box-shadow: 0 0 60px rgba(29,78,216,.16), inset 0 1px 0 rgba(255,255,255,.06);
       color: #f1f5f9;
     }
     .plan.hi .plan-desc { color: #94a3b8; }
@@ -389,48 +419,51 @@
 
     .plan-badge {
       position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-      background: var(--blue); color: #fff; font-size: 11px; font-weight: 700;
-      padding: 4px 16px; border-radius: 100px; white-space: nowrap;
+      background: var(--blue); color: #fff; font-size: 10.5px; font-weight: 700;
+      padding: 4px 16px; border-radius: 100px; white-space: nowrap; letter-spacing: .04em;
     }
     .plan-name { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
-    .plan-desc { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
-    .plan-price { display: flex; align-items: flex-start; gap: 2px; line-height: 1; margin-bottom: 26px; }
-    .p-cur { font-size: 16px; font-weight: 600; color: var(--muted); margin-top: 9px; }
+    .plan-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.45; }
+    .plan-price { display: flex; align-items: flex-start; gap: 2px; line-height: 1; margin-bottom: 28px; }
+    .p-cur { font-size: 15px; font-weight: 600; color: var(--muted); margin-top: 8px; }
     .p-val { font-size: 46px; font-weight: 900; letter-spacing: -2px; }
     .p-per { font-size: 13px; color: var(--muted); align-self: flex-end; margin-bottom: 5px; margin-left: 3px; }
-    .plan-feats { list-style: none; margin-bottom: 24px; display: flex; flex-direction: column; gap: 9px; }
-    .plan-feats li { font-size: 13px; display: flex; align-items: flex-start; gap: 8px; color: var(--text2); line-height: 1.4; }
+    .plan-feats { list-style: none; margin-bottom: 26px; display: flex; flex-direction: column; gap: 10px; }
+    .plan-feats li {
+      font-size: 13.5px; display: flex; align-items: flex-start; gap: 10px;
+      color: var(--text2); line-height: 1.45;
+    }
     .plan-feats li.off { color: var(--muted); }
-    .ck-yes { color: var(--green); font-weight: 800; flex-shrink: 0; }
-    .ck-no  { color: #cbd5e1; flex-shrink: 0; font-weight: 600; }
-    .plan:not(.hi) .ck-no { color: #94a3b8; }
+    .ck-yes { color: var(--green); font-weight: 800; flex-shrink: 0; font-size: 12px; margin-top: 1px; }
+    .ck-no  { color: #d1d5db; flex-shrink: 0; font-weight: 600; font-size: 12px; }
+    .plan:not(.hi) .ck-no { color: #9ca3af; }
     .plan-btn {
-      display: block; text-align: center; padding: 12px; border-radius: 10px;
+      display: block; text-align: center; padding: 12px; border-radius: 9px;
       font-size: 14px; font-weight: 700; text-decoration: none; transition: all .2s;
     }
     .plan:not(.hi) .plan-btn { border: 1.5px solid var(--bord2); color: var(--text2); }
     .plan:not(.hi) .plan-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--bglow); }
     .plan.hi .plan-btn { background: var(--blue); color: #fff; }
-    .plan.hi .plan-btn:hover { background: var(--blue-h); }
+    .plan.hi .plan-btn:hover { background: #1e40af; }
 
     /* ── CTA ── */
     .cta-section { padding: 0; }
     .cta-box {
-      background: linear-gradient(140deg, #1e3a8a 0%, #0f172a 70%);
-      padding: 96px 60px; text-align: center; position: relative; overflow: hidden;
+      background: linear-gradient(140deg, #1e3a8a 0%, #0d1520 70%);
+      padding: 100px 60px; text-align: center; position: relative; overflow: hidden;
     }
     .cta-box::before {
       content: ''; position: absolute; width: 700px; height: 400px;
-      background: radial-gradient(ellipse, rgba(37,99,235,.2) 0%, transparent 65%);
+      background: radial-gradient(ellipse, rgba(29,78,216,.18) 0%, transparent 65%);
       top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none;
     }
-    .cta-box h2 { color: #f1f5f9; margin: 12px auto 16px; max-width: 640px; }
-    .cta-box .sub { color: #94a3b8; margin: 0 auto 36px; text-align: center; }
+    .cta-box h2 { color: #f1f5f9; margin: 14px auto 18px; max-width: 600px; }
+    .cta-box .sub { color: #94a3b8; margin: 0 auto 40px; text-align: center; }
     .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
     .btn-white { background: #fff; color: var(--blue); }
-    .btn-white:hover { background: #f1f5f9; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
-    .btn-outline-white { background: transparent; color: rgba(255,255,255,.85); border: 1.5px solid rgba(255,255,255,.25); }
-    .btn-outline-white:hover { border-color: rgba(255,255,255,.5); color: #fff; background: rgba(255,255,255,.06); }
+    .btn-white:hover { background: #f1f5f9; transform: translateY(-1px); box-shadow: 0 8px 28px rgba(0,0,0,.2); }
+    .btn-outline-white { background: transparent; color: rgba(255,255,255,.8); border: 1.5px solid rgba(255,255,255,.22); }
+    .btn-outline-white:hover { border-color: rgba(255,255,255,.45); color: #fff; background: rgba(255,255,255,.06); }
 
     /* ── FOOTER ── */
     footer {
@@ -438,24 +471,100 @@
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
       background: var(--bg);
     }
-    .ft-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-    .ft-logo img { height: 38px; width: auto; border-radius: 9px; }
-    .ft-logo-text { font-size: 16px; font-weight: 800; color: var(--text); letter-spacing: -.3px; }
+    .ft-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .ft-logo img { height: 34px; width: auto; border-radius: 8px; }
+    .ft-logo-text { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -.3px; }
     .ft-logo-text span { color: var(--blue); }
     .ft-links { display: flex; gap: 24px; }
     .ft-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
     .ft-links a:hover { color: var(--text); }
-    .ft-copy { font-size: 13px; color: var(--muted); }
+    .ft-copy { font-size: 12.5px; color: var(--muted); }
+
+    /* ── SCREEN FRAME ── */
+    .screen-frame {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,.12), 0 0 0 1px rgba(29,78,216,.15);
+      background: #0f172a;
+    }
+    .sbar {
+      background: #1e293b; padding: 10px 14px;
+      display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .sbar-title { font-size: 11px; color: #475569; font-weight: 500; flex: 1; text-align: center; margin-right: 28px; }
+    .sd { width: 9px; height: 9px; border-radius: 50%; }
+    .sd.r{background:#ef4444}.sd.y{background:#f59e0b}.sd.g{background:#22c55e}
+    .screen-frame img { width: 100%; display: block; }
+    .screen-ph {
+      height: 280px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 10px; color: #475569; font-size: 13px; text-align: center; padding: 24px;
+    }
+
+    /* ── 6 FEATURE CARDS ── */
+    .feat6 {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 80px;
+    }
+    .feat-card {
+      background: var(--bg); border: 1px solid var(--bord2);
+      border-radius: 14px; padding: 26px 24px;
+      transition: all .25s; position: relative; overflow: hidden;
+    }
+    .feat-card:hover { border-color: var(--bbord); box-shadow: 0 6px 20px rgba(29,78,216,.06); }
+    .feat-num {
+      font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue); opacity: .55; margin-bottom: 18px;
+    }
+    .feat-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    .feat-card ul { list-style: none; padding: 0; margin: 0; }
+    .feat-card ul li {
+      font-size: 13px; color: var(--text2); padding: 8px 0;
+      border-bottom: 1px solid var(--bord);
+      line-height: 1.45;
+    }
+    .feat-card ul li:last-child { border-bottom: none; }
+
+    /* ── PROFILES ── */
+    .profiles {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; margin-top: 52px;
+    }
+    .profile {
+      background: var(--bg2); border: 1px solid var(--bord2);
+      border-radius: 14px; padding: 32px 28px; transition: all .25s;
+    }
+    .profile:hover { border-color: var(--bbord); }
+    .profile:first-child { border-color: rgba(29,78,216,.25); background: var(--bglow); }
+    .role-badge {
+      display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue); background: rgba(29,78,216,.08);
+      border: 1px solid rgba(29,78,216,.15); padding: 3px 10px; border-radius: 4px; margin-bottom: 16px;
+    }
+    .profile h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .profile-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 18px; font-weight: 500; }
+    .profile ul { list-style: none; padding: 0; margin: 0; }
+    .profile ul li {
+      font-size: 13.5px; color: var(--text2); padding: 8px 0;
+      border-bottom: 1px solid var(--bord);
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .profile ul li:last-child { border-bottom: none; }
+    .profile ul li::before {
+      content: ''; width: 4px; height: 4px; border-radius: 50%;
+      background: var(--blue); flex-shrink: 0; margin-top: 8px;
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       nav { padding: 0 20px; }
       .nav-links, .btn-ghost-nav { display: none; }
       .hero { grid-template-columns: 1fr; padding: 60px 24px; gap: 0; text-align: center; }
+      .hero-label { border-left: none; padding-left: 0; }
       .hero-sub, .sub { max-width: 100%; }
       .hero-ctas, .hero-trust { justify-content: center; }
       .hero-visual { display: none; }
-      .stats-strip { grid-template-columns: repeat(2,1fr); padding: 32px 24px; }
+      .stats-strip { grid-template-columns: repeat(2,1fr); padding: 0 24px; }
       .stat-item { border-right: none; }
       .wrap { padding: 0 24px; }
       hr.sep { margin: 0 24px; }
@@ -475,86 +584,6 @@
       .feat6 { grid-template-columns: 1fr; }
     }
   </style>
-
-  <style>
-    /* ── SCREEN FRAME ── */
-    .screen-frame {
-      border-radius: 14px; overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0,0,0,.13), 0 0 0 1px rgba(37,99,235,.18);
-      background: #0f172a;
-    }
-    .sbar {
-      background: #1e293b; padding: 11px 14px;
-      display: flex; align-items: center; gap: 6px;
-      border-bottom: 1px solid rgba(255,255,255,.05);
-    }
-    .sbar-title { font-size: 11px; color: #475569; font-weight: 500; flex: 1; text-align: center; margin-right: 28px; }
-    .sd { width: 10px; height: 10px; border-radius: 50%; }
-    .sd.r{background:#ef4444}.sd.y{background:#f59e0b}.sd.g{background:#22c55e}
-    .screen-frame img { width: 100%; display: block; }
-    .screen-ph {
-      height: 280px; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 10px; color: #475569; font-size: 13px; text-align: center; padding: 24px;
-    }
-    .screen-ph::before { content: '🖥️'; font-size: 36px; }
-
-    /* ── 6 FEATURE CARDS ── */
-    .feat6 {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 18px; margin-top: 72px;
-    }
-    .feat-card {
-      background: var(--bg); border: 1px solid var(--bord2);
-      border-radius: 16px; padding: 24px 22px;
-      transition: all .25s; position: relative; overflow: hidden;
-    }
-    .feat-card::after {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--blue), rgba(37,99,235,.2));
-      opacity: 0; transition: opacity .25s;
-    }
-    .feat-card:hover { border-color: var(--bbord); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,.08); }
-    .feat-card:hover::after { opacity: 1; }
-    .feat-ico {
-      width: 42px; height: 42px; border-radius: 11px;
-      background: var(--bglow); border: 1px solid var(--bbord);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; margin-bottom: 16px;
-    }
-    .feat-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
-    .feat-card ul { list-style: none; padding: 0; margin: 0; }
-    .feat-card ul li {
-      font-size: 13px; color: var(--text2); padding: 7px 0;
-      border-bottom: 1px solid var(--bord);
-      display: flex; gap: 8px; align-items: flex-start; line-height: 1.45;
-    }
-    .feat-card ul li:last-child { border-bottom: none; }
-    .feat-card ul li::before { content: '→'; color: var(--blue); font-size: 11px; margin-top: 1px; flex-shrink: 0; }
-
-    /* ── PROFILES ── */
-    .profiles {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 20px; margin-top: 48px;
-    }
-    .profile {
-      background: var(--bg2); border: 1px solid var(--bord2);
-      border-radius: 16px; padding: 30px 26px; transition: all .25s;
-    }
-    .profile:hover { border-color: var(--bbord); }
-    .profile:first-child { border-color: rgba(37,99,235,.3); background: var(--bglow); }
-    .profile-ico { font-size: 30px; margin-bottom: 14px; }
-    .profile h3 { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
-    .profile-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; font-weight: 500; }
-    .profile ul { list-style: none; padding: 0; margin: 0; }
-    .profile ul li {
-      font-size: 13px; color: var(--text2); padding: 7px 0;
-      border-bottom: 1px solid var(--bord);
-      display: flex; gap: 8px;
-    }
-    .profile ul li:last-child { border-bottom: none; }
-    .profile ul li::before { content: '✓'; color: var(--blue); font-weight: 800; flex-shrink: 0; }
-  </style>
 </head>
 <body>
 
@@ -562,30 +591,30 @@
 <div class="ticker-wrap">
   <div class="ticker-track">
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">Sistema criado com base nas <span class="t-hl">necessidades reais</span> dos técnicos</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">OS, estoque, vendas, WhatsApp e <span class="t-hl">IA integrada</span> em um único lugar</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">Sistema criado com base nas <span class="t-hl">necessidades reais</span> dos técnicos</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">OS, estoque, vendas, WhatsApp e <span class="t-hl">IA integrada</span> em um único lugar</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <!-- loop -->
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">Sistema criado com base nas <span class="t-hl">necessidades reais</span> dos técnicos</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">OS, estoque, vendas, WhatsApp e <span class="t-hl">IA integrada</span> em um único lugar</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">O <span class="t-hl">único sistema</span> desenvolvido exclusivamente para assistências técnicas</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">Sistema criado com base nas <span class="t-hl">necessidades reais</span> dos técnicos</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
     <span class="ticker-item"><img class="t-logo" src="icon.jpeg" alt="">OS, estoque, vendas, WhatsApp e <span class="t-hl">IA integrada</span> em um único lugar</span>
-    <span class="ticker-sep">|</span>
+    <span class="ticker-sep"></span>
   </div>
 </div>
 
@@ -609,7 +638,7 @@
 <!-- HERO -->
 <section class="hero">
   <div>
-    <div class="hero-badge">Sistema para assistências técnicas</div>
+    <div class="hero-label">Sistema para assistências técnicas</div>
     <h1>Sua assistência<br>com <em>IA e WhatsApp</em><br>integrados</h1>
     <p class="hero-sub">OS, estoque, vendas, garantias e financeiro — tudo em uma plataforma. Sem planilha, sem caderno, sem bagunça.</p>
     <div class="hero-ctas">
@@ -676,10 +705,10 @@
 
 <!-- STATS -->
 <div class="stats-strip">
-  <div class="stat-item"><div class="stat-num">12<sup>+</sup></div><div class="stat-lbl">Módulos nativos integrados</div></div>
-  <div class="stat-item"><div class="stat-num">6</div><div class="stat-lbl">Status no Kanban de OS</div></div>
-  <div class="stat-item"><div class="stat-num">0</div><div class="stat-lbl">Extensões pagas extras</div></div>
-  <div class="stat-item"><div class="stat-num">14<sup>d</sup></div><div class="stat-lbl">Trial grátis sem cartão</div></div>
+  <div class="stat-item"><div class="stat-num">12<sup>+</sup></div><div class="stat-lbl">Módulos nativos<br>integrados</div></div>
+  <div class="stat-item"><div class="stat-num">6</div><div class="stat-lbl">Status no Kanban<br>de OS</div></div>
+  <div class="stat-item"><div class="stat-num">0</div><div class="stat-lbl">Extensões pagas<br>extras</div></div>
+  <div class="stat-item"><div class="stat-num">14<sup>d</sup></div><div class="stat-lbl">Trial grátis<br>sem cartão</div></div>
 </div>
 
 <!-- RECURSOS -->
@@ -694,15 +723,15 @@
         <p class="sub">Cada aparelho percorre 6 etapas rastreadas em tempo real, com histórico completo e garantia automática ao concluir.</p>
         <ul class="flist">
           <li><span class="ck"></span>6 status: Recebido → Diagnóstico → Aguard. Peça → Em Reparo → Pronto → Concluído</li>
-          <li><span class="ck"></span>Numeração automática sequencial (OS-0001, OS-0002...)</li>
+          <li><span class="ck"></span>Numeração automática sequencial — OS-0001, OS-0002...</li>
           <li><span class="ck"></span>Busca por número da OS, nome do cliente ou dispositivo</li>
-          <li><span class="ck"></span>Filtros por status, prioridade e período (Hoje / Semana / Mês)</li>
-          <li><span class="ck"></span>Cadastro completo: dispositivo, defeito relatado, técnico e valor</li>
+          <li><span class="ck"></span>Filtros por status, prioridade e período</li>
+          <li><span class="ck"></span>Cadastro completo: dispositivo, defeito, técnico e valor</li>
           <li><span class="ck"></span>Avançar status com um clique — histórico registrado automaticamente</li>
           <li><span class="ck"></span>Garantia ativada automaticamente ao marcar OS como Concluída</li>
         </ul>
       </div>
-      <div class="fvis" style="padding:0;background:#0f172a;border-color:rgba(37,99,235,.22)">
+      <div class="fvis" style="padding:0;background:#0f172a;border-color:rgba(29,78,216,.2)">
         <div class="sbar">
           <span class="sd r"></span><span class="sd y"></span><span class="sd g"></span>
           <span class="sbar-title">Crescia Assist — Kanban de OS</span>
@@ -713,14 +742,14 @@
     </div>
 
     <!-- DASHBOARD -->
-    <div class="fspot flip" style="margin-top:80px">
+    <div class="fspot flip" style="margin-top:88px">
       <div>
         <span class="section-tag">Dashboard</span>
         <h2>Tudo que importa.<br>Na primeira tela.</h2>
         <p class="sub">Ao abrir o sistema, você já sabe o estado exato da sua assistência — sem navegar por menus, sem esperar relatório.</p>
         <ul class="flist">
-          <li><span class="ck"></span>Faturamento do mês em destaque com gráfico dos últimos 7 dias</li>
-          <li><span class="ck"></span>OS abertas hoje, em reparo e concluídas no mês — em tempo real</li>
+          <li><span class="ck"></span>Faturamento do mês com gráfico dos últimos 7 dias</li>
+          <li><span class="ck"></span>OS abertas, em reparo e concluídas no mês em tempo real</li>
           <li><span class="ck"></span>"Seu potencial hoje" — OS prontas para entregar com valor acumulado</li>
           <li><span class="ck"></span>Alerta de OS paradas há mais de 48h sem movimentação</li>
           <li><span class="ck"></span>Peças zeradas e críticas com aviso de reposição urgente</li>
@@ -728,7 +757,7 @@
           <li><span class="ck"></span>Pagamentos aguardando recebimento com valores discriminados</li>
         </ul>
       </div>
-      <div class="fvis" style="padding:0;background:#0f172a;border-color:rgba(37,99,235,.22)">
+      <div class="fvis" style="padding:0;background:#0f172a;border-color:rgba(29,78,216,.2)">
         <div class="sbar">
           <span class="sd r"></span><span class="sd y"></span><span class="sd g"></span>
           <span class="sbar-title">Crescia Assist — Dashboard</span>
@@ -739,7 +768,7 @@
     </div>
 
     <!-- IA -->
-    <div class="fspot" style="margin-top:80px">
+    <div class="fspot" style="margin-top:88px">
       <div>
         <span class="section-tag">Inteligência Artificial</span>
         <h2>Uma IA que age,<br>não só responde</h2>
@@ -757,27 +786,27 @@
       <div class="fvis">
         <div class="ia-row">
           <div>
-            <div class="ia-who">VOCÊ</div>
+            <div class="ia-who">Você</div>
             <div class="ia-bubble u">Abre uma OS para o João com troca de tela do iPhone 14</div>
           </div>
           <div>
-            <div class="ia-who">CRESCIA IA</div>
-            <div class="ia-bubble a">✅ OS-0144 criada para <strong>João Silva</strong> — Troca de tela · iPhone 14 Pro · R$320,00. Confirmo?</div>
+            <div class="ia-who">Crescia IA</div>
+            <div class="ia-bubble a">OS-0144 criada para <strong>João Silva</strong> — Troca de tela · iPhone 14 Pro · R$320,00. Confirmo?</div>
           </div>
           <div>
-            <div class="ia-who">VOCÊ</div>
+            <div class="ia-who">Você</div>
             <div class="ia-bubble u">Quais peças estão abaixo do estoque mínimo?</div>
           </div>
           <div>
-            <div class="ia-who">CRESCIA IA</div>
-            <div class="ia-bubble a">⚠️ 3 peças críticas: Tela iPhone 12 (2un), Bateria Samsung A54 (1un), Flex Power Moto G82 (0un). Gero pedido?</div>
+            <div class="ia-who">Crescia IA</div>
+            <div class="ia-bubble a">3 peças críticas: Tela iPhone 12 (2un), Bateria Samsung A54 (1un), Flex Power Moto G82 (0un). Gero pedido?</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- WhatsApp -->
-    <div class="fspot flip" style="margin-top:80px">
+    <div class="fspot flip" style="margin-top:88px">
       <div>
         <span class="section-tag">WhatsApp automático</span>
         <h2>O cliente acompanha<br>sem você ligar</h2>
@@ -794,23 +823,23 @@
       <div class="fvis">
         <div class="wa-row">
           <div class="wa-msg">
-            <span class="wa-ico">💬</span>
+            <span class="wa-dot"></span>
             <div>
               <div class="wa-title">Em Diagnóstico</div>
               <div class="wa-text">Olá, <strong>Maria</strong>! Seu aparelho (OS-0143) está sendo analisado. Em breve enviamos o orçamento. — Tech+</div>
             </div>
           </div>
           <div class="wa-msg">
-            <span class="wa-ico">💬</span>
+            <span class="wa-dot"></span>
             <div>
-              <div class="wa-title">Pronto para Retirada ✅</div>
+              <div class="wa-title">Pronto para Retirada</div>
               <div class="wa-text">Boa notícia! Seu iPhone 14 Pro está pronto. Estamos na Rua das Flores, 120. — Tech+</div>
             </div>
           </div>
           <div class="wa-msg">
-            <span class="wa-ico">💬</span>
+            <span class="wa-dot"></span>
             <div>
-              <div class="wa-title">Garantia Ativada 🛡️</div>
+              <div class="wa-title">Garantia Ativada</div>
               <div class="wa-text">Serviço concluído com <strong>90 dias de garantia</strong>. Guarde: OS-0143. — Tech+</div>
             </div>
           </div>
@@ -821,63 +850,63 @@
     <!-- 6 FEATURE CARDS -->
     <div class="feat6">
       <div class="feat-card">
-        <div class="feat-ico">🔧</div>
-        <h3>Estoque de Peças</h3>
+        <div class="feat-num">01 — Estoque</div>
+        <h3>Peças para Reparo</h3>
         <ul>
           <li>Estoque mínimo por peça com alerta automático</li>
           <li>Custo, preço varejo e atacado com margem calculada</li>
-          <li>Alertas: esgotado (vermelho) e crítico (laranja)</li>
+          <li>Alertas: esgotado e crítico com cores distintas</li>
           <li>Baixa automática ao usar em OS ou venda</li>
           <li>CMV calculado nas vendas automaticamente</li>
         </ul>
       </div>
       <div class="feat-card">
-        <div class="feat-ico">📱</div>
+        <div class="feat-num">02 — Produtos</div>
         <h3>Celulares &amp; Acessórios</h3>
         <ul>
-          <li>Tabs separadas: Celulares e Acessórios</li>
+          <li>Abas separadas: Celulares e Acessórios</li>
           <li>Campos: marca, modelo, armazenamento e cor</li>
           <li>Condição por aparelho: novo ou seminovo</li>
-          <li>IMEI / código de identificação por item</li>
+          <li>IMEI e código de identificação por item</li>
           <li>Preço de custo, varejo e atacado independentes</li>
         </ul>
       </div>
       <div class="feat-card">
-        <div class="feat-ico">🛒</div>
-        <h3>PDV e Vendas</h3>
+        <div class="feat-num">03 — Vendas</div>
+        <h3>PDV no Balcão</h3>
         <ul>
           <li>Venda de celulares, acessórios e peças do estoque</li>
           <li>Múltiplas formas de pagamento por venda</li>
-          <li>Comprovante impresso em A4 ou térmica 72mm</li>
+          <li>Comprovante em A4 ou térmica 72mm</li>
           <li>Garantia registrada automaticamente por item</li>
           <li>Perfil Vendedor exclusivo para o balcão</li>
         </ul>
       </div>
       <div class="feat-card">
-        <div class="feat-ico">👥</div>
-        <h3>Clientes</h3>
+        <div class="feat-num">04 — Clientes</div>
+        <h3>Cadastro e Histórico</h3>
         <ul>
           <li>Cadastro: nome, CPF, telefone, e-mail e endereço</li>
           <li>Histórico completo de todas as OS por cliente</li>
           <li>Busca rápida por nome, telefone ou CPF</li>
           <li>Total gasto e data da última visita</li>
-          <li>Cadastro rápido diretamente ao abrir nova OS</li>
+          <li>Cadastro rápido direto ao abrir nova OS</li>
         </ul>
       </div>
       <div class="feat-card">
-        <div class="feat-ico">🛡️</div>
-        <h3>Garantias</h3>
+        <div class="feat-num">05 — Garantias</div>
+        <h3>Controle de Prazo</h3>
         <ul>
           <li>Prazo em dias configurável pela assistência</li>
           <li>Ativada automaticamente ao concluir a OS</li>
-          <li>Contador visual: verde → amarelo → vermelho</li>
+          <li>Contador visual: verde, amarelo, vermelho</li>
           <li>Alerta antes do vencimento para contato proativo</li>
           <li>Histórico de garantias por cliente e por OS</li>
         </ul>
       </div>
       <div class="feat-card">
-        <div class="feat-ico">💰</div>
-        <h3>Financeiro</h3>
+        <div class="feat-num">06 — Financeiro</div>
+        <h3>Receita e Lucro</h3>
         <ul>
           <li>Receita de OS e vendas em painel único</li>
           <li>Gráfico semestral e comparativo anual de faturamento</li>
@@ -901,9 +930,9 @@
     <p class="sub">Três perfis com permissões distintas. Nenhum funcionário acessa o que não deve — sem configuração complexa.</p>
     <div class="profiles">
       <div class="profile">
-        <div class="profile-ico">👑</div>
-        <h3>Administrador</h3>
-        <div class="profile-sub">Controle total da operação</div>
+        <div class="role-badge">Administrador</div>
+        <h3>Controle total</h3>
+        <div class="profile-sub">Visibilidade completa da operação</div>
         <ul>
           <li>Dashboard, financeiro e relatórios completos</li>
           <li>Abertura e gerenciamento de todas as OS</li>
@@ -913,9 +942,9 @@
         </ul>
       </div>
       <div class="profile">
-        <div class="profile-ico">🔧</div>
-        <h3>Técnico</h3>
-        <div class="profile-sub">Foco no reparo, sem distração</div>
+        <div class="role-badge">Técnico</div>
+        <h3>Foco no reparo</h3>
+        <div class="profile-sub">Sem acesso ao que não é seu</div>
         <ul>
           <li>Visualiza e avança o status das suas OS</li>
           <li>Consulta estoque de peças para reparo</li>
@@ -924,9 +953,9 @@
         </ul>
       </div>
       <div class="profile">
-        <div class="profile-ico">🛒</div>
-        <h3>Vendedor</h3>
-        <div class="profile-sub">PDV ágil no balcão</div>
+        <div class="role-badge">Vendedor</div>
+        <h3>PDV no balcão</h3>
+        <div class="profile-sub">Ágil e sem distração</div>
         <ul>
           <li>PDV, vendas e consulta de estoque</li>
           <li>Celulares, acessórios e peças disponíveis</li>
@@ -947,18 +976,18 @@
     <h2>Tudo que sua assistência precisa,<br>sem extensão paga</h2>
     <p class="sub">Cada módulo conversa com os outros. Nada isolado, nada cobrado à parte.</p>
     <div class="chips">
-      <div class="chip"><span>📊</span> Dashboard em tempo real</div>
-      <div class="chip"><span>📋</span> Ordens de Serviço (Kanban)</div>
-      <div class="chip"><span>👥</span> Clientes com histórico</div>
-      <div class="chip"><span>🔧</span> Estoque de Peças</div>
-      <div class="chip"><span>📱</span> Celulares &amp; Acessórios</div>
-      <div class="chip"><span>🛒</span> PDV e Vendas</div>
-      <div class="chip"><span>🛡️</span> Garantias</div>
-      <div class="chip"><span>💰</span> Financeiro</div>
-      <div class="chip"><span>📈</span> Relatórios</div>
-      <div class="chip"><span>🤖</span> IA Assistente</div>
-      <div class="chip"><span>💬</span> WhatsApp automático</div>
-      <div class="chip"><span>⚙️</span> Admin / Técnico / Vendedor</div>
+      <div class="chip">Dashboard em tempo real</div>
+      <div class="chip">Ordens de Serviço (Kanban)</div>
+      <div class="chip">Clientes com histórico</div>
+      <div class="chip">Estoque de Peças</div>
+      <div class="chip">Celulares &amp; Acessórios</div>
+      <div class="chip">PDV e Vendas</div>
+      <div class="chip">Garantias</div>
+      <div class="chip">Financeiro</div>
+      <div class="chip">Relatórios</div>
+      <div class="chip">IA Assistente</div>
+      <div class="chip">WhatsApp automático</div>
+      <div class="chip">Admin / Técnico / Vendedor</div>
     </div>
   </div>
 </section>
@@ -996,7 +1025,7 @@
   <div class="wrap">
     <span class="section-tag">Planos</span>
     <h2>Transparência total</h2>
-    <p class="sub" style="margin-bottom:40px">Sem taxa de ativação. Sem fidelidade. Cancele quando quiser. Suporte incluso em todos os planos.</p>
+    <p class="sub" style="margin-bottom:44px">Sem taxa de ativação. Sem fidelidade. Cancele quando quiser. Suporte incluso em todos os planos.</p>
 
     <div class="toggle-bar">
       <span class="tog-lbl on" id="lbl-m" onclick="setModo(false)">Mensal</span>
@@ -1083,7 +1112,10 @@
 <!-- CTA FINAL -->
 <div class="cta-section">
   <div class="cta-box">
-    <span class="section-tag" style="color:rgba(255,255,255,.6)">Comece agora</span>
+    <span class="section-tag" style="color:rgba(255,255,255,.5);justify-content:center">
+      <span style="background:rgba(255,255,255,.2);width:20px;height:1px;display:inline-block"></span>
+      Comece agora
+    </span>
     <h2>Sua assistência merece um sistema<br>que cresce com ela</h2>
     <p class="sub">14 dias grátis. Sem cartão de crédito. Suporte real desde o primeiro dia.</p>
     <div class="cta-btns">
