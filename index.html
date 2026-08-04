@@ -531,20 +531,17 @@
 
     /* ── PLANOS ── */
     .plans-section { background: linear-gradient(180deg, #e8f0fd 0%, #dde8fc 100%); padding: 100px 0; }
-    .toggle-bar { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 52px; }
-    .tog-lbl { font-size: 13.5px; font-weight: 600; color: var(--muted); transition: color .2s; cursor: pointer; }
-    .tog-lbl.on { color: var(--text); }
-    .tog-pill {
-      width: 44px; height: 24px; background: #cbd5e1; border: 1px solid var(--bord2);
-      border-radius: 100px; position: relative; cursor: pointer; transition: background .2s, border-color .2s;
+    .toggle-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 16px; margin-bottom: 52px; }
+    .cycle-switch {
+      display: flex; background: #dce6fa; border: 1px solid var(--bord2);
+      border-radius: 100px; padding: 3px; gap: 2px;
     }
-    .tog-pill.on { background: var(--blue); border-color: var(--blue); }
-    .tog-pill::after {
-      content: ''; position: absolute; width: 16px; height: 16px;
-      background: #fff; border-radius: 50%; top: 3px; left: 3px;
-      transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.18);
+    .cyc-btn {
+      border: none; background: transparent; font-size: 12.5px; font-weight: 600;
+      color: var(--muted); padding: 8px 15px; border-radius: 100px; cursor: pointer;
+      transition: background .2s, color .2s; white-space: nowrap;
     }
-    .tog-pill.on::after { transform: translateX(20px); }
+    .cyc-btn.on { background: var(--blue); color: #fff; box-shadow: 0 1px 4px rgba(29,78,216,.35); }
     .save-pill {
       background: rgba(21,128,61,.09); border: 1px solid rgba(21,128,61,.2);
       color: var(--green); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px;
@@ -758,6 +755,7 @@
     }
     @media (max-width: 600px) {
       .feat6 { grid-template-columns: 1fr; }
+      .cyc-btn { font-size: 11.5px; padding: 7px 11px; }
     }
   </style>
 </head>
@@ -817,7 +815,7 @@
   </ul>
   <div class="nav-right">
     <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20Crescia%20Assist!" class="btn btn-ghost-nav" target="_blank">Falar com vendas</a>
-    <a href="https://app.acaapa.shop/cadastro" class="btn btn-primary btn-sm">Começar grátis →</a>
+    <a href="https://app.acaapa.shop/cadastro" class="btn btn-primary btn-sm">Assinar agora →</a>
   </div>
 </nav>
 
@@ -828,11 +826,11 @@
     <h1>Sua assistência<br>com <em>IA e WhatsApp</em><br>integrados</h1>
     <p class="hero-sub">OS, estoque, vendas, garantias e financeiro — tudo em uma plataforma. Sem planilha, sem caderno, sem bagunça.</p>
     <div class="hero-ctas">
-      <a href="https://app.acaapa.shop/cadastro" class="btn btn-primary btn-lg">Testar grátis por 7 dias</a>
+      <a href="https://app.acaapa.shop/cadastro" class="btn btn-primary btn-lg">Começar agora</a>
       <a href="#recursos" class="btn btn-outline btn-lg">Como funciona</a>
     </div>
     <div class="hero-trust">
-      <div class="trust-item"><div class="trust-val">7d</div><div class="trust-lbl">Trial sem cartão</div></div>
+      <div class="trust-item"><div class="trust-val">7d</div><div class="trust-lbl">Garantia ou<br>dinheiro de volta</div></div>
       <div class="trust-item"><div class="trust-val">12+</div><div class="trust-lbl">Módulos incluídos</div></div>
       <div class="trust-item"><div class="trust-val">100%</div><div class="trust-lbl">Na nuvem</div></div>
     </div>
@@ -895,7 +893,7 @@
     <div class="stat-item"><div class="stat-num">12<sup>+</sup></div><div class="stat-lbl">Módulos nativos<br>integrados</div></div>
     <div class="stat-item"><div class="stat-num">6</div><div class="stat-lbl">Status no Kanban<br>de OS</div></div>
     <div class="stat-item"><div class="stat-num">0</div><div class="stat-lbl">Extensões pagas<br>extras</div></div>
-    <div class="stat-item"><div class="stat-num">7<sup>d</sup></div><div class="stat-lbl">Trial grátis<br>sem cartão</div></div>
+    <div class="stat-item"><div class="stat-num">7<sup>d</sup></div><div class="stat-lbl">Garantia<br>dinheiro de volta</div></div>
   </div>
 </div>
 
@@ -1213,13 +1211,16 @@
   <div class="wrap">
     <span class="section-tag">Planos</span>
     <h2>Transparência total</h2>
-    <p class="sub" style="margin-bottom:44px">Sem taxa de ativação. Sem fidelidade. Cancele quando quiser. Suporte incluso em todos os planos.</p>
+    <p class="sub" style="margin-bottom:44px">Sem taxa de ativação. Sem fidelidade. No mensal você cancela quando quiser — e se não gostar em 7 dias, devolvemos o valor integral. Suporte incluso em todos os planos.</p>
 
     <div class="toggle-bar">
-      <span class="tog-lbl on" id="lbl-m" onclick="setModo(false)">Mensal</span>
-      <div class="tog-pill" id="tpill" onclick="setModo()"></div>
-      <span class="tog-lbl" id="lbl-a" onclick="setModo(true)">Anual</span>
-      <span class="save-pill">Economize até 20%</span>
+      <div class="cycle-switch">
+        <button type="button" class="cyc-btn on" data-k="m" onclick="setCiclo('m')">Mensal</button>
+        <button type="button" class="cyc-btn" data-k="t" onclick="setCiclo('t')">Trimestral</button>
+        <button type="button" class="cyc-btn" data-k="s" onclick="setCiclo('s')">Semestral</button>
+        <button type="button" class="cyc-btn" data-k="a" onclick="setCiclo('a')">Anual</button>
+      </div>
+      <span class="save-pill" id="savePill" style="display:none">Economize até 20%</span>
     </div>
 
     <div class="plans">
@@ -1247,7 +1248,7 @@
         <div class="plan-name">Profissional</div>
         <div class="plan-desc">Para quem quer escalar com IA e WhatsApp</div>
         <div class="plan-price">
-          <span class="p-cur">R$</span><span class="p-val" id="p-p">157,90</span><span class="p-per">/mês</span>
+          <span class="p-cur">R$</span><span class="p-val" id="p-p">147,90</span><span class="p-per">/mês</span>
         </div>
         <ul class="plan-feats">
           <li><span class="ck-yes">✓</span>Até 5 técnicos</li>
@@ -1259,7 +1260,7 @@
           <li><span class="ck-yes">✓</span>Importação de estoque por IA</li>
           <li><span class="ck-yes">✓</span>Perfil Vendedor separado</li>
         </ul>
-        <a href="https://app.acaapa.shop/cadastro?plano=profissional" class="plan-btn">Começar grátis 7 dias</a>
+        <a href="https://app.acaapa.shop/cadastro?plano=profissional" class="plan-btn">Assinar agora</a>
       </div>
 
       <div class="plan">
@@ -1283,17 +1284,23 @@
 </section>
 
 <script>
-  const P = { m:{b:'97,90',p:'157,90',e:'397,90'}, a:{b:'77,90',p:'127,90',e:'327,90'} };
-  let anual = false;
-  function setModo(v) {
-    if (v !== undefined) anual = v; else anual = !anual;
-    const k = anual ? 'a' : 'm';
-    document.getElementById('tpill').classList.toggle('on', anual);
-    document.getElementById('lbl-m').classList.toggle('on', !anual);
-    document.getElementById('lbl-a').classList.toggle('on', anual);
+  const P = {
+    m: { b:'97,90',  p:'147,90', e:'397,90' },
+    t: { b:'92,00',  p:'139,00', e:'387,00' },
+    s: { b:'87,00',  p:'129,00', e:'372,00' },
+    a: { b:'77,90',  p:'117,90', e:'347,90' }
+  };
+  const ECONOMIA = { m: null, t: 'até 6%', s: 'até 13%', a: 'até 20%' };
+  function setCiclo(k) {
+    document.querySelectorAll('.cyc-btn').forEach(function(el) {
+      el.classList.toggle('on', el.dataset.k === k);
+    });
     document.getElementById('p-b').textContent = P[k].b;
     document.getElementById('p-p').textContent = P[k].p;
     document.getElementById('p-e').textContent = P[k].e;
+    const pill = document.getElementById('savePill');
+    if (ECONOMIA[k]) { pill.textContent = 'Economize ' + ECONOMIA[k]; pill.style.display = ''; }
+    else { pill.style.display = 'none'; }
   }
 </script>
 
@@ -1306,9 +1313,9 @@
         Comece agora
       </span>
       <h2>Sua assistência merece um sistema<br>que cresce com ela</h2>
-      <p class="sub">7 dias grátis. Sem cartão de crédito. Suporte real desde o primeiro dia.</p>
+      <p class="sub">Cancele quando quiser no mensal. Se não gostar em 7 dias, devolvemos o valor integral. Suporte real desde o primeiro dia.</p>
       <div class="cta-btns">
-        <a href="https://app.acaapa.shop/cadastro" class="btn btn-white btn-lg">Criar conta grátis →</a>
+        <a href="https://app.acaapa.shop/cadastro" class="btn btn-white btn-lg">Criar minha conta →</a>
         <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20Crescia%20Assist!" class="btn btn-outline-white btn-lg" target="_blank">Solicitar demonstração</a>
       </div>
     </div>
