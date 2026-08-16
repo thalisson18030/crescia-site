@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cresciaassist.com.br/sitemap.xml

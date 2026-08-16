@@ -5,6 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crescia Assist — Gestão para assistências técnicas com IA</title>
   <meta name="description" content="OS, estoque, vendas, WhatsApp e IA no mesmo sistema. Feito para assistências técnicas.">
+  <link rel="canonical" href="https://cresciaassist.com.br/">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Favicon (mesma marca do app) -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Open Graph — é isto que monta o preview do link no WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Crescia Assist">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://cresciaassist.com.br/">
+  <meta property="og:title" content="Crescia Assist — Gestão para assistências técnicas com IA">
+  <meta property="og:description" content="OS, estoque, vendas, WhatsApp e IA no mesmo sistema. Feito para assistências técnicas.">
+  <meta property="og:image" content="https://cresciaassist.com.br/screen-dashboard.png">
+  <meta property="og:image:width" content="1365">
+  <meta property="og:image:height" content="767">
+  <meta property="og:image:alt" content="Painel do Crescia Assist com métricas da assistência técnica">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Crescia Assist — Gestão para assistências técnicas com IA">
+  <meta name="twitter:description" content="OS, estoque, vendas, WhatsApp e IA no mesmo sistema. Feito para assistências técnicas.">
+  <meta name="twitter:image" content="https://cresciaassist.com.br/screen-dashboard.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -897,6 +923,115 @@
   </div>
 </div>
 
+<!-- ══════════ PROVA SOCIAL · LOGOS (início) ══════════
+     Para editar: mexa SÓ no array LOGOS, no bloco de código logo abaixo.
+     A seção se REMOVE sozinha se o array estiver vazio — é proposital:
+     evita publicar uma vitrine vazia ou com nome inventado por acidente.
+     Para desligar: apague deste comentário até o "PROVA SOCIAL · LOGOS (fim)".
+-->
+<style>
+  .cs-logos { padding: 64px 0 56px; background: var(--bg2); border-block: 1px solid var(--bord); }
+  .cs-logos-hd { text-align: center; margin-bottom: 34px; }
+  .cs-logos-hd h2 {
+    font-size: clamp(1.05rem, 2.4vw, 1.3rem); font-weight: 700; color: var(--text2);
+    letter-spacing: -.01em;
+  }
+  .cs-logos-hd p { margin-top: 7px; font-size: .875rem; color: var(--muted); }
+
+  .cs-marquee {
+    overflow: hidden; position: relative;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  }
+  .cs-track {
+    display: flex; align-items: center; gap: 62px; width: max-content;
+    animation: cs-slide 38s linear infinite;
+  }
+  .cs-marquee:hover .cs-track { animation-play-state: paused; }
+  @keyframes cs-slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .cs-logo {
+    flex: 0 0 auto; height: 40px; max-width: 158px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cs-logo img {
+    max-height: 100%; max-width: 100%; object-fit: contain;
+    filter: grayscale(1); opacity: .55;
+    transition: filter .3s ease, opacity .3s ease;
+  }
+  .cs-marquee:hover .cs-logo img { opacity: .72; }
+  .cs-logo img:hover { filter: grayscale(0); opacity: 1; }
+
+  @media (max-width: 640px) {
+    .cs-logos { padding: 48px 0 42px; }
+    .cs-track { gap: 40px; animation-duration: 26s; }
+    .cs-logo { height: 32px; max-width: 122px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cs-track { animation: none; flex-wrap: wrap; justify-content: center; width: 100%; gap: 40px 56px; }
+    .cs-marquee { -webkit-mask-image: none; mask-image: none; }
+  }
+</style>
+
+<section class="cs-logos" id="clientes" hidden>
+  <div class="wrap">
+    <div class="cs-logos-hd">
+      <h2>Assistências que já trabalham com o Crescia Assist</h2>
+      <p>Empresas reais, operando todos os dias no sistema.</p>
+    </div>
+  </div>
+  <div class="cs-marquee"><div class="cs-track" id="csTrack"></div></div>
+</section>
+
+<script>
+(function () {
+  /* Só entram empresas que AUTORIZARAM o uso da marca. Sem autorização, não entra.
+     { nome: 'Nome real da empresa', logo: '/logos/arquivo.png' } */
+  var LOGOS = [
+    // ── vazio de propósito: preencher com clientes que já autorizaram ──
+  ];
+
+  var MINIMO = 4; /* abaixo disso a esteira escancara o tamanho da base — não exibe */
+
+  var sec = document.getElementById('clientes');
+  var track = document.getElementById('csTrack');
+  if (!sec || !track || LOGOS.length < MINIMO) return;
+
+  /* Valida ANTES de montar: só entra logo que realmente carregou.
+     (Remover slot quebrado depois deixava a esteira vazia ou com a duplicação
+     desemparelhada, o que dá salto na volta da animação.) */
+  function validar(lista, pronto) {
+    var vivos = new Array(lista.length), faltam = lista.length;
+    lista.forEach(function (c, i) {
+      var im = new Image();
+      im.onload = function () { vivos[i] = c; fim(); };
+      im.onerror = fim;
+      im.src = c.logo;
+    });
+    function fim() {
+      if (--faltam === 0) {
+        pronto(vivos.filter(Boolean)); /* filter mantém a ordem original */
+      }
+    }
+  }
+
+  function montar(lista) {
+    return lista.map(function (c) {
+      return '<div class="cs-logo"><img src="' + c.logo + '" alt="' + c.nome +
+             '" decoding="async"></div>';
+    }).join('');
+  }
+
+  validar(LOGOS, function (ok) {
+    if (ok.length < MINIMO) return; /* seção continua hidden — melhor nada que vitrine vazia */
+    /* Duplicado: o -50% do keyframe emenda a volta sem salto. */
+    track.innerHTML = montar(ok) + montar(ok);
+    sec.hidden = false;
+  });
+})();
+</script>
+<!-- ══════════ PROVA SOCIAL · LOGOS (fim) ══════════ -->
+
 <!-- RECURSOS -->
 <section class="gap100" id="recursos">
   <div class="wrap">
@@ -1206,6 +1341,160 @@
   </div>
 </section>
 
+<!-- ══════════ PROVA SOCIAL · VÍDEOS (início) ══════════
+     Para editar: mexa SÓ no array VIDEOS, no bloco de código abaixo.
+     Some sozinha se o array estiver vazio.
+     Para desligar: apague daqui até "PROVA SOCIAL · VÍDEOS (fim)".
+-->
+<style>
+  .cs-depo { padding: 100px 0; background: var(--bg); }
+  .cs-depo-hd { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+  .cs-depo-hd h2 {
+    font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 800;
+    letter-spacing: -.025em; line-height: 1.15; color: var(--text);
+  }
+  .cs-depo-hd p { margin-top: 14px; color: var(--muted); font-size: 1.02rem; }
+
+  .cs-depo-grid { display: grid; gap: 30px; justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 310px)); }
+  .cs-depo-grid.solo { grid-template-columns: minmax(250px, 380px); }
+
+  .cs-card {
+    background: var(--bg); border: 1px solid var(--bord2); border-radius: 16px;
+    overflow: hidden; box-shadow: var(--shadow-sm);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .cs-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+  /* Facade: nada do YouTube carrega antes do clique. */
+  .cs-play-wrap {
+    position: relative; width: 100%; background: #0a1420; cursor: pointer;
+    border: 0; padding: 0; display: block; overflow: hidden;
+  }
+  .cs-play-wrap.v { aspect-ratio: 9 / 16; }
+  .cs-play-wrap.h { aspect-ratio: 16 / 9; }
+  .cs-play-wrap img { width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .45s ease, filter .3s ease; }
+  .cs-play-wrap:hover img { transform: scale(1.04); filter: brightness(.82); }
+  .cs-play-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  .cs-play-btn {
+    position: absolute; inset: 0; margin: auto; width: 62px; height: 62px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.94); border-radius: 50%;
+    box-shadow: 0 6px 26px rgba(0,0,0,.32); pointer-events: none;
+    transition: transform .3s ease, background .3s ease;
+  }
+  .cs-play-wrap:hover .cs-play-btn { transform: scale(1.09); background: #fff; }
+  .cs-play-btn svg { width: 22px; height: 22px; margin-left: 4px; fill: var(--blue); }
+
+  .cs-meta { padding: 18px 20px 20px; }
+  .cs-fala {
+    font-size: .945rem; line-height: 1.5; color: var(--text2);
+    font-weight: 500; margin-bottom: 14px;
+  }
+  .cs-fala::before { content: '\201C'; }
+  .cs-fala::after  { content: '\201D'; }
+  .cs-quem { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap;
+    padding-top: 13px; border-top: 1px solid var(--bord); }
+  .cs-quem b { font-size: .875rem; color: var(--text); font-weight: 700; }
+  .cs-quem span { font-size: .8rem; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .cs-depo { padding: 68px 0; }
+    .cs-depo-grid { grid-template-columns: minmax(0, 320px); }
+  }
+</style>
+
+<section class="cs-depo" id="depoimentos" hidden>
+  <div class="wrap">
+    <div class="cs-depo-hd">
+      <span class="section-tag">Depoimentos</span>
+      <h2>Quem usa, conta melhor do que a gente</h2>
+      <p>Donos de assistência técnica falando do próprio dia a dia — sem roteiro.</p>
+    </div>
+    <div class="cs-depo-grid" id="csDepoGrid"></div>
+  </div>
+</section>
+
+<script>
+(function () {
+  /* id     = código do vídeo no YouTube (a parte depois de "?v=" ou "youtu.be/")
+     formato= 'v' (vertical, gravado no celular) ou 'h' (horizontal)
+     poster = opcional. Caminho local (ex: '/depo-joao.jpg'). Sem ele, usa a capa do YouTube.
+     Só entram vídeos que o cliente gravou e autorizou publicar. */
+  var VIDEOS = [
+    // {
+    //   id: 'COLE_O_ID_AQUI',
+    //   formato: 'v',
+    //   fala: 'Frase curta que resume o resultado. Uma linha e meia, no máximo.',
+    //   nome: 'Nome do dono',
+    //   empresa: 'Nome da assistência',
+    //   cidade: 'Cidade/UF'
+    // },
+  ];
+
+  var sec = document.getElementById('depoimentos');
+  var grid = document.getElementById('csDepoGrid');
+  if (!sec || !grid || !VIDEOS.length) return;
+
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  };
+
+  if (VIDEOS.length === 1) grid.classList.add('solo');
+
+  VIDEOS.forEach(function (v) {
+    var capa = v.poster || 'https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg';
+    var quem = '<b>' + esc(v.empresa) + '</b>' +
+               (v.nome ? '<span>· ' + esc(v.nome) + '</span>' : '') +
+               (v.cidade ? '<span>· ' + esc(v.cidade) + '</span>' : '');
+
+    var card = document.createElement('article');
+    card.className = 'cs-card';
+    card.innerHTML =
+      '<button class="cs-play-wrap ' + (v.formato === 'h' ? 'h' : 'v') + '" type="button" ' +
+        'aria-label="Assistir ao depoimento de ' + esc(v.empresa) + '">' +
+        '<img src="' + esc(capa) + '" alt="" loading="lazy" decoding="async">' +
+        '<span class="cs-play-btn"><svg viewBox="0 0 24 24" aria-hidden="true">' +
+          '<path d="M8 5v14l11-7z"/></svg></span>' +
+      '</button>' +
+      '<div class="cs-meta">' +
+        (v.fala ? '<p class="cs-fala">' + esc(v.fala) + '</p>' : '') +
+        '<div class="cs-quem">' + quem + '</div>' +
+      '</div>';
+
+    /* Troca a capa pelo player só no clique — nenhum request ao Google antes disso.
+       nocookie = domínio de privacidade reforçada do próprio YouTube. */
+    var wrap = card.querySelector('.cs-play-wrap');
+    wrap.addEventListener('click', function () {
+      /* Troca o <button> por um <div> de MESMA classe: o aspect-ratio vive na
+         classe, então o player herda a caixa certa. (iframe dentro de <button>
+         seria HTML inválido, por isso a troca do elemento inteiro.) */
+      var box = document.createElement('div');
+      box.className = wrap.className;
+
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) +
+              '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      f.title = 'Depoimento — ' + (v.empresa || 'cliente Crescia Assist');
+      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+
+      box.appendChild(f);
+      wrap.replaceWith(box);
+    }, { once: true });
+
+    grid.appendChild(card);
+  });
+
+  sec.hidden = false;
+})();
+</script>
+<!-- ══════════ PROVA SOCIAL · VÍDEOS (fim) ══════════ -->
+
 <!-- PLANOS -->
 <section class="plans-section" id="planos">
   <div class="wrap">
@@ -1335,6 +1624,27 @@
   </div>
   <p class="ft-copy">© 2026 Crescia IA. Todos os direitos reservados.</p>
 </footer>
+
+<script>
+  // Repassa a origem do clique (UTM/fbclid/gclid) pros links de cadastro, pra tela
+  // /trafego do Assist saber de onde veio o lead. A landing não guarda nada — só
+  // encaminha o que já veio na própria URL do anúncio.
+  (function () {
+    var CAMPOS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'gbraid', 'wbraid'];
+    var origem = new URLSearchParams(window.location.search);
+    var repasse = new URLSearchParams();
+    CAMPOS.forEach(function (c) {
+      var v = origem.get(c);
+      if (v) repasse.set(c, v);
+    });
+    if (![...repasse.keys()].length) return;
+    document.querySelectorAll('a[href^="https://app.acaapa.shop/cadastro"]').forEach(function (a) {
+      var url = new URL(a.href);
+      repasse.forEach(function (v, k) { url.searchParams.set(k, v); });
+      a.href = url.toString();
+    });
+  })();
+</script>
 
 </body>
 </html>
