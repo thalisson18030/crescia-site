@@ -8,10 +8,12 @@
   <link rel="canonical" href="https://cresciaassist.com.br/">
   <meta name="theme-color" content="#ffffff">
 
-  <!-- Favicon (mesma marca do app) -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <!-- Favicon (mesma marca do app). NÃO referenciar favicon.svg: aquele arquivo
+       em frontend/public é um raio roxo de template, sobra nunca usada — o app
+       também só aponta pros PNG. Navegador prefere SVG quando existe. -->
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="alternate icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <!-- Open Graph — é isto que monta o preview do link no WhatsApp -->
