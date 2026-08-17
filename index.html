@@ -1056,6 +1056,173 @@
 </script>
 <!-- ══════════ PROVA SOCIAL · LOGOS (fim) ══════════ -->
 
+<!-- ══════════ PROVA SOCIAL · VÍDEOS (início) ══════════
+     Para editar: mexa SÓ no array VIDEOS, no bloco de código abaixo.
+     Some sozinha se o array estiver vazio.
+     Para desligar: apague daqui até "PROVA SOCIAL · VÍDEOS (fim)".
+-->
+<style>
+  .cs-depo { padding: 100px 0; background: var(--bg); }
+  .cs-depo-hd { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+  .cs-depo-hd h2 {
+    font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 800;
+    letter-spacing: -.025em; line-height: 1.15; color: var(--text);
+  }
+  .cs-depo-hd p { margin-top: 14px; color: var(--muted); font-size: 1.02rem; }
+
+  .cs-depo-grid { display: grid; gap: 30px; justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 310px)); }
+  .cs-depo-grid.solo { grid-template-columns: minmax(250px, 380px); }
+
+  .cs-card {
+    background: var(--bg); border: 1px solid var(--bord2); border-radius: 16px;
+    overflow: hidden; box-shadow: var(--shadow-sm);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .cs-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+  /* Facade: nada do YouTube carrega antes do clique. */
+  .cs-play-wrap {
+    position: relative; width: 100%; background: #0a1420; cursor: pointer;
+    border: 0; padding: 0; display: block; overflow: hidden;
+  }
+  .cs-play-wrap.v { aspect-ratio: 9 / 16; }
+  .cs-play-wrap.h { aspect-ratio: 16 / 9; }
+  .cs-play-wrap img { width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .45s ease, filter .3s ease; }
+  .cs-play-wrap:hover img { transform: scale(1.04); filter: brightness(.82); }
+  .cs-play-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  .cs-play-btn {
+    position: absolute; inset: 0; margin: auto; width: 62px; height: 62px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.94); border-radius: 50%;
+    box-shadow: 0 6px 26px rgba(0,0,0,.32); pointer-events: none;
+    transition: transform .3s ease, background .3s ease;
+  }
+  .cs-play-wrap:hover .cs-play-btn { transform: scale(1.09); background: #fff; }
+  .cs-play-btn svg { width: 22px; height: 22px; margin-left: 4px; fill: var(--blue); }
+
+  .cs-meta { padding: 18px 20px 20px; }
+  .cs-fala {
+    font-size: .945rem; line-height: 1.5; color: var(--text2);
+    font-weight: 500; margin-bottom: 14px;
+  }
+  .cs-fala::before { content: '\201C'; }
+  .cs-fala::after  { content: '\201D'; }
+  /* Título do vídeo, quando não há frase-depoimento: sem aspas, porque aspas em
+     título de vídeo faz parecer citação do cliente — que não é. */
+  .cs-titulo {
+    font-size: .945rem; line-height: 1.45; color: var(--text);
+    font-weight: 600; margin-bottom: 0;
+  }
+  .cs-quem { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap;
+    padding-top: 13px; border-top: 1px solid var(--bord); }
+  .cs-quem b { font-size: .875rem; color: var(--text); font-weight: 700; }
+  .cs-quem span { font-size: .8rem; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .cs-depo { padding: 68px 0; }
+    .cs-depo-grid { grid-template-columns: minmax(0, 320px); }
+  }
+</style>
+
+<section class="cs-depo" id="depoimentos" hidden>
+  <div class="wrap">
+    <div class="cs-depo-hd">
+      <span class="section-tag">Depoimentos</span>
+      <h2>Quem usa, conta melhor do que a gente</h2>
+      <p>Donos de assistência técnica falando do próprio dia a dia — sem roteiro.</p>
+    </div>
+    <div class="cs-depo-grid" id="csDepoGrid"></div>
+  </div>
+</section>
+
+<script>
+(function () {
+  /* id     = código do vídeo no YouTube (a parte depois de "?v=" ou "youtu.be/")
+     formato= 'v' (vertical, gravado no celular) ou 'h' (horizontal)
+     poster = opcional. Caminho local (ex: '/depo-joao.jpg'). Sem ele, usa a capa do YouTube.
+     Só entram vídeos que o cliente gravou e autorizou publicar. */
+  /* Playlist "Clientes que Usam o Crescia Assist | Prova Social", lida em 17/08/2026.
+     Sem `fala`/`empresa`, o card usa o título do próprio vídeo — preencher esses
+     campos depois deixa o card mais forte, e o layout já aceita os dois casos. */
+  var VIDEOS = [
+    { id: 'LswCQKCvvz4', formato: 'h', titulo: 'Por Que Escolhi o Crescia Assist? | Relato de um Cliente' },
+    { id: 'S4uf_MpYkqY', formato: 'h', titulo: 'Experiência Real: Cliente Apresenta Como Usa o Crescia Assist' },
+    { id: '5OL-r-P_vME', formato: 'h', titulo: 'O Que Mais Gostei no Crescia Assist? | Experiência de um Cliente' },
+    { id: 'yWris5rbFm0', formato: 'h', titulo: 'Por Dentro de uma Assistência que Usa o Crescia Assist | Demonstração Real' },
+    { id: '5CQ6M3P7XcE', formato: 'h', titulo: 'Como o Crescia Assist Ajuda na Gestão da Assistência | Experiência de Cliente' },
+    { id: 'lWeCzny5yWE', formato: 'h', titulo: 'Crescia Assist na Prática | Cliente Mostra Como Usa o Sistema' },
+  ];
+
+  var sec = document.getElementById('depoimentos');
+  var grid = document.getElementById('csDepoGrid');
+  if (!sec || !grid || !VIDEOS.length) return;
+
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  };
+
+  if (VIDEOS.length === 1) grid.classList.add('solo');
+
+  VIDEOS.forEach(function (v) {
+    var capa = v.poster || 'https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg';
+    var quem = v.empresa
+      ? '<b>' + esc(v.empresa) + '</b>' +
+        (v.nome ? '<span>· ' + esc(v.nome) + '</span>' : '') +
+        (v.cidade ? '<span>· ' + esc(v.cidade) + '</span>' : '')
+      : '';
+
+    var rotulo = v.empresa || v.titulo || 'cliente Crescia Assist';
+
+    var card = document.createElement('article');
+    card.className = 'cs-card';
+    card.innerHTML =
+      '<button class="cs-play-wrap ' + (v.formato === 'h' ? 'h' : 'v') + '" type="button" ' +
+        'aria-label="Assistir: ' + esc(rotulo) + '">' +
+        '<img src="' + esc(capa) + '" alt="" loading="lazy" decoding="async">' +
+        '<span class="cs-play-btn"><svg viewBox="0 0 24 24" aria-hidden="true">' +
+          '<path d="M8 5v14l11-7z"/></svg></span>' +
+      '</button>' +
+      '<div class="cs-meta">' +
+        (v.fala ? '<p class="cs-fala">' + esc(v.fala) + '</p>'
+                : (v.titulo ? '<p class="cs-titulo">' + esc(v.titulo) + '</p>' : '')) +
+        /* sem empresa/nome/cidade a tarja fica só com a borda de cima, sobrando */
+        (quem ? '<div class="cs-quem">' + quem + '</div>' : '') +
+      '</div>';
+
+    /* Troca a capa pelo player só no clique — nenhum request ao Google antes disso.
+       nocookie = domínio de privacidade reforçada do próprio YouTube. */
+    var wrap = card.querySelector('.cs-play-wrap');
+    wrap.addEventListener('click', function () {
+      /* Troca o <button> por um <div> de MESMA classe: o aspect-ratio vive na
+         classe, então o player herda a caixa certa. (iframe dentro de <button>
+         seria HTML inválido, por isso a troca do elemento inteiro.) */
+      var box = document.createElement('div');
+      box.className = wrap.className;
+
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) +
+              '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      f.title = 'Depoimento — ' + (v.empresa || 'cliente Crescia Assist');
+      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+
+      box.appendChild(f);
+      wrap.replaceWith(box);
+    }, { once: true });
+
+    grid.appendChild(card);
+  });
+
+  sec.hidden = false;
+})();
+</script>
+<!-- ══════════ PROVA SOCIAL · VÍDEOS (fim) ══════════ -->
+
 <!-- RECURSOS -->
 <section class="gap100" id="recursos">
   <div class="wrap">
@@ -1365,172 +1532,7 @@
   </div>
 </section>
 
-<!-- ══════════ PROVA SOCIAL · VÍDEOS (início) ══════════
-     Para editar: mexa SÓ no array VIDEOS, no bloco de código abaixo.
-     Some sozinha se o array estiver vazio.
-     Para desligar: apague daqui até "PROVA SOCIAL · VÍDEOS (fim)".
--->
-<style>
-  .cs-depo { padding: 100px 0; background: var(--bg); }
-  .cs-depo-hd { text-align: center; max-width: 640px; margin: 0 auto 48px; }
-  .cs-depo-hd h2 {
-    font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 800;
-    letter-spacing: -.025em; line-height: 1.15; color: var(--text);
-  }
-  .cs-depo-hd p { margin-top: 14px; color: var(--muted); font-size: 1.02rem; }
 
-  .cs-depo-grid { display: grid; gap: 30px; justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 310px)); }
-  .cs-depo-grid.solo { grid-template-columns: minmax(250px, 380px); }
-
-  .cs-card {
-    background: var(--bg); border: 1px solid var(--bord2); border-radius: 16px;
-    overflow: hidden; box-shadow: var(--shadow-sm);
-    transition: transform .3s ease, box-shadow .3s ease;
-  }
-  .cs-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-
-  /* Facade: nada do YouTube carrega antes do clique. */
-  .cs-play-wrap {
-    position: relative; width: 100%; background: #0a1420; cursor: pointer;
-    border: 0; padding: 0; display: block; overflow: hidden;
-  }
-  .cs-play-wrap.v { aspect-ratio: 9 / 16; }
-  .cs-play-wrap.h { aspect-ratio: 16 / 9; }
-  .cs-play-wrap img { width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform .45s ease, filter .3s ease; }
-  .cs-play-wrap:hover img { transform: scale(1.04); filter: brightness(.82); }
-  .cs-play-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
-
-  .cs-play-btn {
-    position: absolute; inset: 0; margin: auto; width: 62px; height: 62px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,.94); border-radius: 50%;
-    box-shadow: 0 6px 26px rgba(0,0,0,.32); pointer-events: none;
-    transition: transform .3s ease, background .3s ease;
-  }
-  .cs-play-wrap:hover .cs-play-btn { transform: scale(1.09); background: #fff; }
-  .cs-play-btn svg { width: 22px; height: 22px; margin-left: 4px; fill: var(--blue); }
-
-  .cs-meta { padding: 18px 20px 20px; }
-  .cs-fala {
-    font-size: .945rem; line-height: 1.5; color: var(--text2);
-    font-weight: 500; margin-bottom: 14px;
-  }
-  .cs-fala::before { content: '\201C'; }
-  .cs-fala::after  { content: '\201D'; }
-  /* Título do vídeo, quando não há frase-depoimento: sem aspas, porque aspas em
-     título de vídeo faz parecer citação do cliente — que não é. */
-  .cs-titulo {
-    font-size: .945rem; line-height: 1.45; color: var(--text);
-    font-weight: 600; margin-bottom: 0;
-  }
-  .cs-quem { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap;
-    padding-top: 13px; border-top: 1px solid var(--bord); }
-  .cs-quem b { font-size: .875rem; color: var(--text); font-weight: 700; }
-  .cs-quem span { font-size: .8rem; color: var(--muted); }
-
-  @media (max-width: 640px) {
-    .cs-depo { padding: 68px 0; }
-    .cs-depo-grid { grid-template-columns: minmax(0, 320px); }
-  }
-</style>
-
-<section class="cs-depo" id="depoimentos" hidden>
-  <div class="wrap">
-    <div class="cs-depo-hd">
-      <span class="section-tag">Depoimentos</span>
-      <h2>Quem usa, conta melhor do que a gente</h2>
-      <p>Donos de assistência técnica falando do próprio dia a dia — sem roteiro.</p>
-    </div>
-    <div class="cs-depo-grid" id="csDepoGrid"></div>
-  </div>
-</section>
-
-<script>
-(function () {
-  /* id     = código do vídeo no YouTube (a parte depois de "?v=" ou "youtu.be/")
-     formato= 'v' (vertical, gravado no celular) ou 'h' (horizontal)
-     poster = opcional. Caminho local (ex: '/depo-joao.jpg'). Sem ele, usa a capa do YouTube.
-     Só entram vídeos que o cliente gravou e autorizou publicar. */
-  /* Playlist "Clientes que Usam o Crescia Assist | Prova Social", lida em 17/08/2026.
-     Sem `fala`/`empresa`, o card usa o título do próprio vídeo — preencher esses
-     campos depois deixa o card mais forte, e o layout já aceita os dois casos. */
-  var VIDEOS = [
-    { id: 'LswCQKCvvz4', formato: 'h', titulo: 'Por Que Escolhi o Crescia Assist? | Relato de um Cliente' },
-    { id: 'S4uf_MpYkqY', formato: 'h', titulo: 'Experiência Real: Cliente Apresenta Como Usa o Crescia Assist' },
-    { id: '5OL-r-P_vME', formato: 'h', titulo: 'O Que Mais Gostei no Crescia Assist? | Experiência de um Cliente' },
-    { id: 'yWris5rbFm0', formato: 'h', titulo: 'Por Dentro de uma Assistência que Usa o Crescia Assist | Demonstração Real' },
-    { id: '5CQ6M3P7XcE', formato: 'h', titulo: 'Como o Crescia Assist Ajuda na Gestão da Assistência | Experiência de Cliente' },
-    { id: 'lWeCzny5yWE', formato: 'h', titulo: 'Crescia Assist na Prática | Cliente Mostra Como Usa o Sistema' },
-  ];
-
-  var sec = document.getElementById('depoimentos');
-  var grid = document.getElementById('csDepoGrid');
-  if (!sec || !grid || !VIDEOS.length) return;
-
-  var esc = function (s) {
-    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
-    });
-  };
-
-  if (VIDEOS.length === 1) grid.classList.add('solo');
-
-  VIDEOS.forEach(function (v) {
-    var capa = v.poster || 'https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg';
-    var quem = v.empresa
-      ? '<b>' + esc(v.empresa) + '</b>' +
-        (v.nome ? '<span>· ' + esc(v.nome) + '</span>' : '') +
-        (v.cidade ? '<span>· ' + esc(v.cidade) + '</span>' : '')
-      : '';
-
-    var rotulo = v.empresa || v.titulo || 'cliente Crescia Assist';
-
-    var card = document.createElement('article');
-    card.className = 'cs-card';
-    card.innerHTML =
-      '<button class="cs-play-wrap ' + (v.formato === 'h' ? 'h' : 'v') + '" type="button" ' +
-        'aria-label="Assistir: ' + esc(rotulo) + '">' +
-        '<img src="' + esc(capa) + '" alt="" loading="lazy" decoding="async">' +
-        '<span class="cs-play-btn"><svg viewBox="0 0 24 24" aria-hidden="true">' +
-          '<path d="M8 5v14l11-7z"/></svg></span>' +
-      '</button>' +
-      '<div class="cs-meta">' +
-        (v.fala ? '<p class="cs-fala">' + esc(v.fala) + '</p>'
-                : (v.titulo ? '<p class="cs-titulo">' + esc(v.titulo) + '</p>' : '')) +
-        /* sem empresa/nome/cidade a tarja fica só com a borda de cima, sobrando */
-        (quem ? '<div class="cs-quem">' + quem + '</div>' : '') +
-      '</div>';
-
-    /* Troca a capa pelo player só no clique — nenhum request ao Google antes disso.
-       nocookie = domínio de privacidade reforçada do próprio YouTube. */
-    var wrap = card.querySelector('.cs-play-wrap');
-    wrap.addEventListener('click', function () {
-      /* Troca o <button> por um <div> de MESMA classe: o aspect-ratio vive na
-         classe, então o player herda a caixa certa. (iframe dentro de <button>
-         seria HTML inválido, por isso a troca do elemento inteiro.) */
-      var box = document.createElement('div');
-      box.className = wrap.className;
-
-      var f = document.createElement('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) +
-              '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-      f.title = 'Depoimento — ' + (v.empresa || 'cliente Crescia Assist');
-      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
-      f.allowFullscreen = true;
-
-      box.appendChild(f);
-      wrap.replaceWith(box);
-    }, { once: true });
-
-    grid.appendChild(card);
-  });
-
-  sec.hidden = false;
-})();
-</script>
-<!-- ══════════ PROVA SOCIAL · VÍDEOS (fim) ══════════ -->
 
 <!-- ══════════ TUTORIAIS · YOUTUBE (início) ══════════
      Para editar: mexa SÓ no array TUTORIAIS e na constante CANAL, no bloco
