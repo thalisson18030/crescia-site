@@ -1540,9 +1540,33 @@
      Para desligar: apague daqui até "TUTORIAIS · YOUTUBE (fim)".
 -->
 <style>
-  /* scroll-margin: o nav é sticky (70px) e cobriria o título ao pular pela âncora. */
-  .tut-sec { padding: 100px 0; border-top: 1px solid var(--bord); scroll-margin-top: 86px; }
-  .tut-hd { max-width: 620px; margin-bottom: 46px; }
+  /* Faixa própria: no branco corrido da página a seção passava batida. O fundo
+     tira ela do fluxo e faz os cards brancos saltarem — mesmo recurso da esteira
+     de logos, que é a outra seção que precisa ser vista sem ser procurada.
+     scroll-margin: o nav é sticky (70px) e cobriria o título ao pular pela âncora. */
+  .tut-sec {
+    padding: 96px 0; scroll-margin-top: 86px;
+    background:
+      radial-gradient(900px 300px at 50% 0%, var(--bglow), transparent 70%),
+      var(--bg2);
+    border-block: 1px solid var(--bord);
+  }
+  .tut-hd { max-width: 640px; margin: 0 auto 46px; text-align: center; }
+  .tut-hd .section-tag { justify-content: center; }
+  .tut-hd .sub { max-width: 100%; }
+
+  .tut-selo {
+    display: inline-flex; align-items: center; gap: 9px; margin-top: 20px;
+    padding: 7px 16px; border-radius: 999px;
+    background: var(--bg); border: 1px solid var(--bord2);
+    box-shadow: var(--shadow-xs);
+    font-size: 13.5px; font-weight: 600; color: var(--text2);
+  }
+  .tut-selo b { color: var(--blue); font-weight: 700; }
+  .tut-selo::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.16); flex: none;
+  }
 
   .tut-grid { display: grid; gap: 28px;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
@@ -1595,7 +1619,8 @@
   .tut-tit { font-size: 15.5px; font-weight: 700; color: var(--text); line-height: 1.35; }
   .tut-desc { font-size: 13.5px; color: var(--muted); line-height: 1.55; }
 
-  .tut-acoes { margin-top: 38px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .tut-acoes { margin-top: 38px; display: flex; flex-wrap: wrap; gap: 16px;
+    align-items: center; justify-content: center; }
   /* classe própria: .btn-ghost-nav é escondida no mobile pelo CSS do nav. */
   .tut-canal {
     font-size: 14.5px; font-weight: 600; color: var(--blue);
@@ -1615,6 +1640,7 @@
       <span class="section-tag">Tutoriais</span>
       <h2>Aprenda a usar em poucos minutos</h2>
       <p class="sub">Vídeos curtos, direto ao ponto, mostrando o sistema de verdade — não slide de apresentação.</p>
+      <span class="tut-selo" id="tutSelo" hidden></span>
     </div>
     <div class="tut-grid" id="tutGrid"></div>
     <div class="tut-acoes">
@@ -1719,6 +1745,32 @@
       grid.querySelectorAll('.tut-card[hidden]').forEach(function (c) { c.hidden = false; });
       btn.hidden = true;
     });
+  }
+
+  /* Selo com o tamanho real do material: "12 tutoriais · 30 min no total".
+     O tempo somado responde a pergunta que trava o clique — "vou ter que
+     estudar isso quanto tempo?" — e a resposta aqui joga a favor. */
+  var selo = document.getElementById('tutSelo');
+  if (selo) {
+    var seg = TUTORIAIS.reduce(function (soma, v) {
+      if (!v.duracao) return soma;
+      var p = String(v.duracao).split(':').map(Number);
+      if (p.some(isNaN)) return soma;
+      return soma + (p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p[0] * 60 + p[1]);
+    }, 0);
+
+    var texto = '<b>' + TUTORIAIS.length + '</b>&nbsp;' +
+                (TUTORIAIS.length === 1 ? 'tutorial' : 'tutoriais');
+    if (seg > 0) {
+      var min = Math.round(seg / 60);
+      texto += min >= 60
+        ? ' · ' + (seg / 3600).toFixed(1).replace('.', ',') + ' h no total'
+        : ' · ' + min + ' min no total';
+    }
+    /* Um <span> só: o selo é flex, e sem o embrulho o <b> vira item flex e
+       herda o gap, abrindo um buraco entre o número e a palavra. */
+    selo.innerHTML = '<span>' + texto + '</span>';
+    selo.hidden = false;
   }
 
   var canal = document.getElementById('tutCanal');
