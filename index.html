@@ -1633,19 +1633,26 @@
      duracao = texto livre, ex: '2:14'. Opcional.
      formato = 'h' (horizontal, padrão) ou 'v' (vertical, gravado no celular)
      poster  = opcional. Caminho local (ex: '/tut-os.jpg'). Sem ele, usa a capa do YouTube. */
+  /* Playlist "Tutoriais Crescia Assist" (PLQLJ5rSQKE0o), lida em 17/08/2026.
+     Ordem didática, não a da playlist: OS antes de relatório. Os 6 primeiros são
+     os que aparecem antes do "ver todos" — por isso o básico vem na frente. */
   var TUTORIAIS = [
-    // {
-    //   id: 'COLE_O_ID_AQUI',
-    //   titulo: 'Abrir sua primeira Ordem de Serviço',
-    //   desc: 'Do cadastro do cliente até a entrega do aparelho.',
-    //   modulo: 'Ordens de Serviço',
-    //   duracao: '2:14',
-    //   formato: 'h'
-    // },
+    { id: 'PRt-SHhgbaQ', duracao: '4:02', modulo: 'Ordens de Serviço', titulo: 'Como criar uma Ordem de Serviço', desc: 'Do cadastro da entrada até a entrega do aparelho.' },
+    { id: '2IxWOpHkofQ', duracao: '0:45', modulo: 'Clientes',          titulo: 'Como cadastrar clientes',          desc: 'O cadastro que alimenta o histórico e a garantia.' },
+    { id: 'UN0Zt3auMPY', duracao: '1:53', modulo: 'Estoque',           titulo: 'Como gerenciar o estoque de peças', desc: 'Entrada, margem de lucro e alerta de peça crítica.' },
+    { id: 'FfhC97wIDd0', duracao: '1:21', modulo: 'PDV',               titulo: 'Como vender no PDV',                desc: 'Venda de balcão do início ao recibo.' },
+    { id: 'nxQNd3VmHfY', duracao: '2:42', modulo: 'Financeiro',        titulo: 'Como usar o Financeiro',            desc: 'Receitas, despesas e fluxo de caixa.' },
+    { id: 'PDP2MDOmPXk', duracao: '1:51', modulo: 'WhatsApp',          titulo: 'Como configurar o WhatsApp automático', desc: 'Conexão por QR code e avisos de status.' },
+    { id: 'I2biRsoY9n0', duracao: '2:29', modulo: 'Estoque',           titulo: 'Como gerenciar celulares e acessórios', desc: 'O estoque de aparelhos e acessórios para revenda.' },
+    { id: 'qAND1DJVL-E', duracao: '4:03', modulo: 'Garantias',         titulo: 'Como consultar garantias',          desc: 'Pesquisa de garantia por aparelho e por cliente.' },
+    { id: 'KO1aVj-l1Vo', duracao: '2:12', modulo: 'Equipe',            titulo: 'Como cadastrar vendedores',         desc: 'Acesso da equipe e vínculo com as vendas.' },
+    { id: '3v7-KoBVtq0', duracao: '1:50', modulo: 'Equipe',            titulo: 'Métricas de técnicos e vendedores', desc: 'Quem produz o quê, e a base da comissão.' },
+    { id: 'nVAAiV7xGow', duracao: '2:32', modulo: 'Relatórios',        titulo: 'Relatórios: OS, estoque, financeiro e clientes', desc: 'Primeira parte dos relatórios do sistema.' },
+    { id: 'pZFICM4bHOk', duracao: '4:28', modulo: 'Relatórios',        titulo: 'Relatórios: vendas, comparativo anual e exclusões', desc: 'Segunda parte, com o comparativo entre anos.' },
   ];
 
   /* Link do canal (ou da playlist). Deixe '' para esconder o botão. */
-  var CANAL = '';
+  var CANAL = 'https://youtube.com/playlist?list=PLQLJ5rSQKE0o';
 
   /* Quantos aparecem antes do botão "ver todos". */
   var LIMITE = 6;
