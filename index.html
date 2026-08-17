@@ -946,28 +946,37 @@
             mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
   }
   .cs-track {
-    display: flex; align-items: center; gap: 62px; width: max-content;
+    display: flex; align-items: center; gap: 26px; width: max-content;
     animation: cs-slide 38s linear infinite;
   }
   .cs-marquee:hover .cs-track { animation-play-state: paused; }
   @keyframes cs-slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+  /* Chip branco em vez de grayscale: logo de white-label vem com fundo sólido
+     (uma é vermelha, outra branca). Sobre o azul-claro da faixa, o fundo branco
+     virava caixa flutuando e o grayscale transformava o vermelho em lama. */
+  /* Largura fixa: as marcas são avatares quadrados e faixas largas na mesma esteira.
+     Sem o trilho fixo, o espaçamento fica irregular e a fila parece quebrada. */
   .cs-logo {
-    flex: 0 0 auto; height: 40px; max-width: 158px;
-    display: flex; align-items: center; justify-content: center;
+    flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+    width: 158px; height: 74px; padding: 0 16px; box-sizing: border-box;
+    background: #fff; border: 1px solid var(--bord); border-radius: 14px;
+    box-shadow: var(--shadow-xs);
+    transition: transform .3s ease, box-shadow .3s ease;
   }
   .cs-logo img {
-    max-height: 100%; max-width: 100%; object-fit: contain;
-    filter: grayscale(1); opacity: .55;
-    transition: filter .3s ease, opacity .3s ease;
+    max-height: 50px; max-width: 100%; width: auto; object-fit: contain;
+    border-radius: 6px; /* a arte traz fundo sólido próprio; sem isso, quina viva dentro do chip */
+    opacity: .9; transition: opacity .3s ease;
   }
-  .cs-marquee:hover .cs-logo img { opacity: .72; }
-  .cs-logo img:hover { filter: grayscale(0); opacity: 1; }
+  .cs-logo:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .cs-logo:hover img { opacity: 1; }
 
   @media (max-width: 640px) {
     .cs-logos { padding: 48px 0 42px; }
-    .cs-track { gap: 40px; animation-duration: 26s; }
-    .cs-logo { height: 32px; max-width: 122px; }
+    .cs-track { gap: 22px; animation-duration: 26s; }
+    .cs-logo { width: 126px; height: 62px; padding: 0 13px; }
+    .cs-logo img { max-height: 40px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .cs-track { animation: none; flex-wrap: wrap; justify-content: center; width: 100%; gap: 40px 56px; }
@@ -978,7 +987,7 @@
 <section class="cs-logos" id="clientes" hidden>
   <div class="wrap">
     <div class="cs-logos-hd">
-      <h2>Assistências que já trabalham com o Crescia Assist</h2>
+      <h2>Mais de 100 empresas já se cadastraram</h2>
       <p>Empresas reais, operando todos os dias no sistema.</p>
     </div>
   </div>
@@ -989,8 +998,17 @@
 (function () {
   /* Só entram empresas que AUTORIZARAM o uso da marca. Sem autorização, não entra.
      { nome: 'Nome real da empresa', logo: '/logos/arquivo.png' } */
+  /* Pagantes ativos com logo, extraídos do banco em 17/08/2026 por
+     landing/gerar-logos.js --todos. Os arquivos passaram por trim (a margem morta
+     do upload deixava a marca ilegível na faixa) e foram normalizados em 96px de
+     altura. Para atualizar: rode o script de novo. */
   var LOGOS = [
-    // ── vazio de propósito: preencher com clientes que já autorizaram ──
+    { nome: 'Atacadão do Celular', logo: '/logos/atacadao-do-celular.png' },
+    { nome: 'SA Cell',             logo: '/logos/sa-cell.png' },
+    { nome: 'Wtech',               logo: '/logos/wtech.png' },
+    { nome: 'Suport Smart',        logo: '/logos/suport-smart.png' },
+    { nome: 'RLcell',              logo: '/logos/rlcell.png' },
+    { nome: 'TECH SMART',          logo: '/logos/tech-smart.png' },
   ];
 
   var MINIMO = 4; /* abaixo disso a esteira escancara o tamanho da base — não exibe */
@@ -1496,6 +1514,203 @@
 })();
 </script>
 <!-- ══════════ PROVA SOCIAL · VÍDEOS (fim) ══════════ -->
+
+<!-- ══════════ TUTORIAIS · YOUTUBE (início) ══════════
+     Para editar: mexa SÓ no array TUTORIAIS e na constante CANAL, no bloco
+     de código abaixo. A seção some sozinha se o array estiver vazio.
+     Para desligar: apague daqui até "TUTORIAIS · YOUTUBE (fim)".
+-->
+<style>
+  /* scroll-margin: o nav é sticky (70px) e cobriria o título ao pular pela âncora. */
+  .tut-sec { padding: 100px 0; border-top: 1px solid var(--bord); scroll-margin-top: 86px; }
+  .tut-hd { max-width: 620px; margin-bottom: 46px; }
+
+  .tut-grid { display: grid; gap: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+  .tut-card {
+    background: var(--bg); border: 1px solid var(--bord2); border-radius: 16px;
+    overflow: hidden; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .tut-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .tut-card[hidden] { display: none; }
+
+  /* Facade: nada do YouTube carrega antes do clique. */
+  .tut-thumb {
+    position: relative; width: 100%; background: #0a1420; cursor: pointer;
+    border: 0; padding: 0; display: block; overflow: hidden;
+  }
+  .tut-thumb.h { aspect-ratio: 16 / 9; }
+  .tut-thumb.v { aspect-ratio: 9 / 16; }
+  .tut-thumb img { width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .45s ease, filter .3s ease; }
+  .tut-thumb:hover img { transform: scale(1.04); filter: brightness(.82); }
+  .tut-thumb iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .tut-thumb:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  .tut-play {
+    position: absolute; inset: 0; margin: auto; width: 58px; height: 58px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.94); border-radius: 50%;
+    box-shadow: 0 6px 26px rgba(0,0,0,.32); pointer-events: none;
+    transition: transform .3s ease, background .3s ease;
+  }
+  .tut-thumb:hover .tut-play { transform: scale(1.09); background: #fff; }
+  .tut-play svg { width: 21px; height: 21px; margin-left: 4px; fill: var(--blue); }
+
+  .tut-dur {
+    position: absolute; right: 9px; bottom: 9px; pointer-events: none;
+    background: rgba(5,13,26,.86); color: #fff; font-size: 11.5px; font-weight: 600;
+    padding: 3px 7px; border-radius: 5px; letter-spacing: .02em;
+  }
+
+  .tut-meta { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+  .tut-mod {
+    align-self: flex-start; font-size: 10.5px; font-weight: 600;
+    letter-spacing: .09em; text-transform: uppercase; color: var(--blue);
+    background: var(--bglow); border: 1px solid var(--bord2);
+    padding: 3px 8px; border-radius: 999px;
+  }
+  .tut-tit { font-size: 15.5px; font-weight: 700; color: var(--text); line-height: 1.35; }
+  .tut-desc { font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+
+  .tut-acoes { margin-top: 38px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  /* classe própria: .btn-ghost-nav é escondida no mobile pelo CSS do nav. */
+  .tut-canal {
+    font-size: 14.5px; font-weight: 600; color: var(--blue);
+    text-decoration: none; padding: 4px 2px;
+  }
+  .tut-canal:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .tut-sec { padding: 68px 0; }
+    .tut-grid { grid-template-columns: 1fr; gap: 22px; }
+  }
+</style>
+
+<section class="tut-sec" id="tutoriais" hidden>
+  <div class="wrap">
+    <div class="tut-hd">
+      <span class="section-tag">Tutoriais</span>
+      <h2>Aprenda a usar em poucos minutos</h2>
+      <p class="sub">Vídeos curtos, direto ao ponto, mostrando o sistema de verdade — não slide de apresentação.</p>
+    </div>
+    <div class="tut-grid" id="tutGrid"></div>
+    <div class="tut-acoes">
+      <button type="button" class="btn btn-md btn-outline" id="tutVerTodos" hidden></button>
+      <a class="tut-canal" id="tutCanal" target="_blank" rel="noopener" hidden>Ver o canal no YouTube →</a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  /* id      = código do vídeo no YouTube (a parte depois de "?v=" ou "youtu.be/")
+     titulo  = o que a pessoa aprende. Comece com verbo: "Abrir uma OS em 40 segundos"
+     desc    = uma linha explicando. Opcional.
+     modulo  = etiqueta em cima do título (OS, PDV, Estoque, Financeiro...). Opcional.
+     duracao = texto livre, ex: '2:14'. Opcional.
+     formato = 'h' (horizontal, padrão) ou 'v' (vertical, gravado no celular)
+     poster  = opcional. Caminho local (ex: '/tut-os.jpg'). Sem ele, usa a capa do YouTube. */
+  var TUTORIAIS = [
+    // {
+    //   id: 'COLE_O_ID_AQUI',
+    //   titulo: 'Abrir sua primeira Ordem de Serviço',
+    //   desc: 'Do cadastro do cliente até a entrega do aparelho.',
+    //   modulo: 'Ordens de Serviço',
+    //   duracao: '2:14',
+    //   formato: 'h'
+    // },
+  ];
+
+  /* Link do canal (ou da playlist). Deixe '' para esconder o botão. */
+  var CANAL = '';
+
+  /* Quantos aparecem antes do botão "ver todos". */
+  var LIMITE = 6;
+
+  var sec  = document.getElementById('tutoriais');
+  var grid = document.getElementById('tutGrid');
+  if (!sec || !grid || !TUTORIAIS.length) return;
+
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  };
+
+  TUTORIAIS.forEach(function (v, i) {
+    var capa = v.poster || 'https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg';
+
+    var card = document.createElement('article');
+    card.className = 'tut-card';
+    if (i >= LIMITE) card.hidden = true;
+    card.innerHTML =
+      '<button class="tut-thumb ' + (v.formato === 'v' ? 'v' : 'h') + '" type="button" ' +
+        'aria-label="Assistir ao tutorial: ' + esc(v.titulo) + '">' +
+        '<img src="' + esc(capa) + '" alt="" loading="lazy" decoding="async">' +
+        '<span class="tut-play"><svg viewBox="0 0 24 24" aria-hidden="true">' +
+          '<path d="M8 5v14l11-7z"/></svg></span>' +
+        (v.duracao ? '<span class="tut-dur">' + esc(v.duracao) + '</span>' : '') +
+      '</button>' +
+      '<div class="tut-meta">' +
+        (v.modulo ? '<span class="tut-mod">' + esc(v.modulo) + '</span>' : '') +
+        '<h3 class="tut-tit">' + esc(v.titulo) + '</h3>' +
+        (v.desc ? '<p class="tut-desc">' + esc(v.desc) + '</p>' : '') +
+      '</div>';
+
+    /* Troca a capa pelo player só no clique — nenhum request ao Google antes disso.
+       nocookie = domínio de privacidade reforçada do próprio YouTube. */
+    var thumb = card.querySelector('.tut-thumb');
+    thumb.addEventListener('click', function () {
+      /* Troca o <button> por um <div> de MESMA classe: o aspect-ratio vive na
+         classe, então o player herda a caixa certa. (iframe dentro de <button>
+         seria HTML inválido, por isso a troca do elemento inteiro.) */
+      var box = document.createElement('div');
+      box.className = thumb.className;
+
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) +
+              '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      f.title = 'Tutorial — ' + (v.titulo || 'Crescia Assist');
+      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+
+      box.appendChild(f);
+      thumb.replaceWith(box);
+    }, { once: true });
+
+    grid.appendChild(card);
+  });
+
+  var btn = document.getElementById('tutVerTodos');
+  if (btn && TUTORIAIS.length > LIMITE) {
+    btn.textContent = 'Ver os ' + TUTORIAIS.length + ' tutoriais';
+    btn.hidden = false;
+    btn.addEventListener('click', function () {
+      grid.querySelectorAll('.tut-card[hidden]').forEach(function (c) { c.hidden = false; });
+      btn.hidden = true;
+    });
+  }
+
+  var canal = document.getElementById('tutCanal');
+  if (canal && CANAL) { canal.href = CANAL; canal.hidden = false; }
+
+  /* Só entra no menu quando existe vídeo — link que não leva a nada é pior que menu curto. */
+  var menu = document.querySelector('.nav-links');
+  var alvo = menu && menu.querySelector('a[href="#planos"]');
+  if (alvo) {
+    var li = document.createElement('li');
+    li.innerHTML = '<a href="#tutoriais">Tutoriais</a>';
+    menu.insertBefore(li, alvo.parentElement);
+  }
+
+  sec.hidden = false;
+})();
+</script>
+<!-- ══════════ TUTORIAIS · YOUTUBE (fim) ══════════ -->
 
 <!-- PLANOS -->
 <section class="plans-section" id="planos">
