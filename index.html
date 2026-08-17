@@ -1584,40 +1584,46 @@
      tira ela do fluxo e faz os cards brancos saltarem — mesmo recurso da esteira
      de logos, que é a outra seção que precisa ser vista sem ser procurada.
      scroll-margin: o nav é sticky (70px) e cobriria o título ao pular pela âncora. */
+  /* Azul de marca cheio. A faixa clara de antes quase nao se separava do branco
+     da pagina. Aqui os cards brancos saltam, e o azul distingue esta secao da
+     unica outra que grita — os depoimentos, que sao escuros. */
   .tut-sec {
-    padding: 96px 0; scroll-margin-top: 86px;
+    padding: 100px 0; scroll-margin-top: 86px; color: #fff;
     background:
-      radial-gradient(900px 300px at 50% 0%, var(--bglow), transparent 70%),
-      var(--bg2);
-    border-block: 1px solid var(--bord);
+      radial-gradient(760px 320px at 50% 0%, rgba(255,255,255,.16), transparent 70%),
+      linear-gradient(165deg, #1e40af 0%, #1d4ed8 48%, #1836a8 100%);
   }
-  .tut-hd { max-width: 640px; margin: 0 auto 46px; text-align: center; }
-  .tut-hd .section-tag { justify-content: center; }
-  .tut-hd .sub { max-width: 100%; }
+  .tut-hd { max-width: 660px; margin: 0 auto 46px; text-align: center; }
+  .tut-hd h2 { color: #fff; }
+  .tut-hd .sub { max-width: 100%; color: #cfdcff; }
+  .tut-hd .section-tag { justify-content: center; color: #bcd0ff; }
+  .tut-hd .section-tag::before {
+    background: linear-gradient(90deg, #bcd0ff, rgba(188,208,255,.25));
+  }
 
   .tut-selo {
     display: inline-flex; align-items: center; gap: 9px; margin-top: 20px;
-    padding: 7px 16px; border-radius: 999px;
-    background: var(--bg); border: 1px solid var(--bord2);
-    box-shadow: var(--shadow-xs);
-    font-size: 13.5px; font-weight: 600; color: var(--text2);
+    padding: 8px 17px; border-radius: 999px;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28);
+    backdrop-filter: blur(4px);
+    font-size: 13.5px; font-weight: 600; color: #eaf0ff;
   }
-  .tut-selo b { color: var(--blue); font-weight: 700; }
+  .tut-selo b { color: #fff; font-weight: 700; }
   .tut-selo::before {
     content: ''; width: 7px; height: 7px; border-radius: 50%;
-    background: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.16); flex: none;
+    background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.25); flex: none;
   }
 
   .tut-grid { display: grid; gap: 28px;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 
   .tut-card {
-    background: var(--bg); border: 1px solid var(--bord2); border-radius: 16px;
-    overflow: hidden; box-shadow: var(--shadow-sm);
+    background: var(--bg); border: 1px solid rgba(255,255,255,.22); border-radius: 16px;
+    overflow: hidden; box-shadow: 0 14px 34px -12px rgba(8,20,60,.55);
     display: flex; flex-direction: column;
     transition: transform .3s ease, box-shadow .3s ease;
   }
-  .tut-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .tut-card:hover { transform: translateY(-4px); box-shadow: 0 22px 46px -12px rgba(8,20,60,.7); }
   .tut-card[hidden] { display: none; }
 
   /* Facade: nada do YouTube carrega antes do clique. */
@@ -1661,12 +1667,23 @@
 
   .tut-acoes { margin-top: 38px; display: flex; flex-wrap: wrap; gap: 16px;
     align-items: center; justify-content: center; }
+
+  /* Sobre o azul cheio, o .btn-outline padrão (texto escuro, borda tênue) some. */
+  .tut-sec .btn-outline {
+    background: #fff; color: var(--blue); border-color: #fff;
+    box-shadow: 0 8px 22px -10px rgba(8,20,60,.6);
+  }
+  .tut-sec .btn-outline:hover {
+    background: #fff; color: var(--blue-h); border-color: #fff;
+    transform: translateY(-1px); box-shadow: 0 14px 30px -10px rgba(8,20,60,.7);
+  }
+
   /* classe própria: .btn-ghost-nav é escondida no mobile pelo CSS do nav. */
   .tut-canal {
-    font-size: 14.5px; font-weight: 600; color: var(--blue);
+    font-size: 14.5px; font-weight: 600; color: #dbe6ff;
     text-decoration: none; padding: 4px 2px;
   }
-  .tut-canal:hover { text-decoration: underline; }
+  .tut-canal:hover { color: #fff; text-decoration: underline; }
 
   @media (max-width: 640px) {
     .tut-sec { padding: 68px 0; }
