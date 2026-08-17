@@ -1419,6 +1419,12 @@
   }
   .cs-fala::before { content: '\201C'; }
   .cs-fala::after  { content: '\201D'; }
+  /* Título do vídeo, quando não há frase-depoimento: sem aspas, porque aspas em
+     título de vídeo faz parecer citação do cliente — que não é. */
+  .cs-titulo {
+    font-size: .945rem; line-height: 1.45; color: var(--text);
+    font-weight: 600; margin-bottom: 0;
+  }
   .cs-quem { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap;
     padding-top: 13px; border-top: 1px solid var(--bord); }
   .cs-quem b { font-size: .875rem; color: var(--text); font-weight: 700; }
@@ -1447,15 +1453,16 @@
      formato= 'v' (vertical, gravado no celular) ou 'h' (horizontal)
      poster = opcional. Caminho local (ex: '/depo-joao.jpg'). Sem ele, usa a capa do YouTube.
      Só entram vídeos que o cliente gravou e autorizou publicar. */
+  /* Playlist "Clientes que Usam o Crescia Assist | Prova Social", lida em 17/08/2026.
+     Sem `fala`/`empresa`, o card usa o título do próprio vídeo — preencher esses
+     campos depois deixa o card mais forte, e o layout já aceita os dois casos. */
   var VIDEOS = [
-    // {
-    //   id: 'COLE_O_ID_AQUI',
-    //   formato: 'v',
-    //   fala: 'Frase curta que resume o resultado. Uma linha e meia, no máximo.',
-    //   nome: 'Nome do dono',
-    //   empresa: 'Nome da assistência',
-    //   cidade: 'Cidade/UF'
-    // },
+    { id: 'LswCQKCvvz4', formato: 'h', titulo: 'Por Que Escolhi o Crescia Assist? | Relato de um Cliente' },
+    { id: 'S4uf_MpYkqY', formato: 'h', titulo: 'Experiência Real: Cliente Apresenta Como Usa o Crescia Assist' },
+    { id: '5OL-r-P_vME', formato: 'h', titulo: 'O Que Mais Gostei no Crescia Assist? | Experiência de um Cliente' },
+    { id: 'yWris5rbFm0', formato: 'h', titulo: 'Por Dentro de uma Assistência que Usa o Crescia Assist | Demonstração Real' },
+    { id: '5CQ6M3P7XcE', formato: 'h', titulo: 'Como o Crescia Assist Ajuda na Gestão da Assistência | Experiência de Cliente' },
+    { id: 'lWeCzny5yWE', formato: 'h', titulo: 'Crescia Assist na Prática | Cliente Mostra Como Usa o Sistema' },
   ];
 
   var sec = document.getElementById('depoimentos');
@@ -1472,22 +1479,28 @@
 
   VIDEOS.forEach(function (v) {
     var capa = v.poster || 'https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg';
-    var quem = '<b>' + esc(v.empresa) + '</b>' +
-               (v.nome ? '<span>· ' + esc(v.nome) + '</span>' : '') +
-               (v.cidade ? '<span>· ' + esc(v.cidade) + '</span>' : '');
+    var quem = v.empresa
+      ? '<b>' + esc(v.empresa) + '</b>' +
+        (v.nome ? '<span>· ' + esc(v.nome) + '</span>' : '') +
+        (v.cidade ? '<span>· ' + esc(v.cidade) + '</span>' : '')
+      : '';
+
+    var rotulo = v.empresa || v.titulo || 'cliente Crescia Assist';
 
     var card = document.createElement('article');
     card.className = 'cs-card';
     card.innerHTML =
       '<button class="cs-play-wrap ' + (v.formato === 'h' ? 'h' : 'v') + '" type="button" ' +
-        'aria-label="Assistir ao depoimento de ' + esc(v.empresa) + '">' +
+        'aria-label="Assistir: ' + esc(rotulo) + '">' +
         '<img src="' + esc(capa) + '" alt="" loading="lazy" decoding="async">' +
         '<span class="cs-play-btn"><svg viewBox="0 0 24 24" aria-hidden="true">' +
           '<path d="M8 5v14l11-7z"/></svg></span>' +
       '</button>' +
       '<div class="cs-meta">' +
-        (v.fala ? '<p class="cs-fala">' + esc(v.fala) + '</p>' : '') +
-        '<div class="cs-quem">' + quem + '</div>' +
+        (v.fala ? '<p class="cs-fala">' + esc(v.fala) + '</p>'
+                : (v.titulo ? '<p class="cs-titulo">' + esc(v.titulo) + '</p>' : '')) +
+        /* sem empresa/nome/cidade a tarja fica só com a borda de cima, sobrando */
+        (quem ? '<div class="cs-quem">' + quem + '</div>' : '') +
       '</div>';
 
     /* Troca a capa pelo player só no clique — nenhum request ao Google antes disso.
