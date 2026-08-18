@@ -870,7 +870,7 @@
   </ul>
   <div class="nav-right">
     <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20Crescia%20Assist!" class="btn btn-ghost-nav" target="_blank">Falar com vendas</a>
-    <a href="https://app.acaapa.shop/cadastro" class="btn btn-primary btn-sm">Assinar agora →</a>
+    <a href="https://app.cresciaassist.com.br/cadastro" class="btn btn-primary btn-sm">Assinar agora →</a>
   </div>
 </nav>
 
@@ -881,7 +881,7 @@
     <h1>Sua assistência<br>com <em>IA e WhatsApp</em><br>integrados</h1>
     <p class="hero-sub">OS, estoque, vendas, garantias e financeiro — tudo em uma plataforma. Sem planilha, sem caderno, sem bagunça.</p>
     <div class="hero-ctas">
-      <a href="https://app.acaapa.shop/cadastro" class="btn btn-primary btn-lg">Começar agora</a>
+      <a href="https://app.cresciaassist.com.br/cadastro" class="btn btn-primary btn-lg">Começar agora</a>
       <a href="#recursos" class="btn btn-outline btn-lg">Como funciona</a>
     </div>
     <div class="hero-trust">
@@ -1928,7 +1928,7 @@
           <li><span class="ck-yes">✓</span>Importação de estoque por IA</li>
           <li><span class="ck-yes">✓</span>Perfil Vendedor separado</li>
         </ul>
-        <a href="https://app.acaapa.shop/cadastro?plano=profissional" class="plan-btn">Assinar agora</a>
+        <a href="https://app.cresciaassist.com.br/cadastro?plano=profissional" class="plan-btn">Assinar agora</a>
       </div>
 
       <div class="plan">
@@ -1983,7 +1983,7 @@
       <h2>Sua assistência merece um sistema<br>que cresce com ela</h2>
       <p class="sub">Cancele quando quiser no mensal. Se não gostar em 7 dias, devolvemos o valor integral. Suporte real desde o primeiro dia.</p>
       <div class="cta-btns">
-        <a href="https://app.acaapa.shop/cadastro" class="btn btn-white btn-lg">Criar minha conta →</a>
+        <a href="https://app.cresciaassist.com.br/cadastro" class="btn btn-white btn-lg">Criar minha conta →</a>
         <a href="https://wa.me/5586988634957?text=Ol%C3%A1%2C%20quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20Crescia%20Assist!" class="btn btn-outline-white btn-lg" target="_blank">Solicitar demonstração</a>
       </div>
     </div>
@@ -2017,7 +2017,11 @@
       if (v) repasse.set(c, v);
     });
     if (![...repasse.keys()].length) return;
-    document.querySelectorAll('a[href^="https://app.acaapa.shop/cadastro"]').forEach(function (a) {
+    // Seletor por caminho, e nao por dominio: os botoes apontam pro dominio novo
+    // (app.cresciaassist.com.br) mas app.acaapa.shop continua no ar e valido — amarrar
+    // o seletor a um dominio faz o repasse de UTM morrer calado no dia que um link ficar
+    // no dominio antigo.
+    document.querySelectorAll('a[href*="/cadastro"]').forEach(function (a) {
       var url = new URL(a.href);
       repasse.forEach(function (v, k) { url.searchParams.set(k, v); });
       a.href = url.toString();
